@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "ChatGPT Thunderbird",
+  "short_name": "ChatGPT",
+  "description": "Reply to emails with ChatGPT",
+  "version": "1…0.0",
+  "developer": {
+    "name": "Niklas Tamm, Lennart Dobermann, Daniel Passauer",
+    "url": "https://github.com/clecap/web20-2023/tree/chatgpt-thunderbird"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "addonpoc@addons.thunderbird.net",
+      "strict_min_version": "102.0",
+      "strict_max_version": "102.*"
+    }
+  },
+  "icons": {
+    "64": "images/icon-64px.png",
+    "32": "images/icon-32px.png",
+    "16": "images/icon-16px.png"
+  },
+  "message_display_action": {
+    "default_popup": "mainPopup/popup.html"
+  },
+  "permissions": ["messagesRead", "compose", "accountsRead"]
+}
