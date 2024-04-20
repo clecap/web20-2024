@@ -1,8 +1,8 @@
 node_modules
 mainPopup/popupBundle.js
 *.xpi
-/src/chatgpt/api-key.const.ts
-/src/huggingface/api-key.const.ts
+src/chatgpt/api-key.const.ts
+src/huggingface/api-key.const.ts
 
 .idea
 .vscode
