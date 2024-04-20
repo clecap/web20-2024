@@ -1,5 +1,5 @@
-2023/node_modules
-2023/mainPopup/popupBundle.js
+node_modules
+mainPopup/popupBundle.js
 *.xpi
 
 .idea
