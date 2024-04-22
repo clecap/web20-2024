@@ -48,6 +48,9 @@ Install the generated xpi into thunderbird as an extension
 * [ ] Add a summary based on LLM API
     * [ ] Summarize key points
     * [ ] Note important details (events, calendar details, ...)
+ * [ ] Independant Experimentation: different LLMs besides GPT-3.5
+    * [ ] Implement API adapted to new LLMs
+    * [ ] Implement user selection (and upload?)
 
 ### Optional
 * [ ] Send AI generated calendar invites
@@ -63,14 +66,16 @@ Install the generated xpi into thunderbird as an extension
 
 ### BE: Team 2 (Summarization Tool)
 
-- [@hippokratius](https://www.github.com/hippokratius)
 - [@hawk305](https://www.github.com/hawk305)
 - [@Lukasz-Reszcz](https://www.github.com/Lukasz-Reszcz)
+
+### Parallel Experimentation (Multi LLM)
+
+- [@hippokratius](https://www.github.com/hippokratius)
 
 ### FE
 
 - [@HuseynAhmedov](https://www.github.com/HuseynAhmedov)
-
 
 ## License
 
