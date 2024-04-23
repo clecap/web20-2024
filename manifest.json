@@ -1,11 +1,11 @@
 {
   "manifest_version": 2,
-  "name": "ChatGPT Thunderbird",
-  "short_name": "ChatGPT",
-  "description": "Reply to emails with ChatGPT",
-  "version": "1…0.0",
+  "name": "LLM Answer",
+  "short_name": "LLM Answer",
+  "description": "Reply to emails using LLMs",
+  "version": "0.1",
   "developer": {
-    "name": "Niklas Tamm, Lennart Dobermann, Daniel Passauer",
+    "name": "Niklas Tamm, Lennart Dobermann, Daniel Passauer, web20-2024 Team",
     "url": "https://github.com/clecap/web20-2023/tree/chatgpt-thunderbird"
   },
   "browser_specific_settings": {
@@ -20,8 +20,16 @@
     "32": "images/icon-32px.png",
     "16": "images/icon-16px.png"
   },
+  "options_ui": {
+    "page": "options/options.html"
+  },
   "message_display_action": {
     "default_popup": "mainPopup/popup.html"
   },
-  "permissions": ["messagesRead", "compose", "accountsRead"]
+  "permissions": [
+    "messagesRead",
+    "compose",
+    "accountsRead",
+    "storage"
+  ]
 }

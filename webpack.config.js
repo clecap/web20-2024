@@ -1,7 +1,8 @@
 const path = require('path');
 
 module.exports = [{
-  entry: {
+    mode: 'development',
+    entry: {
     popup: './src/popup.ts'
   },
   output: {
