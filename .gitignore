@@ -5,6 +5,7 @@ src/chatgpt/api-key.const.ts
 src/huggingface/api-key.const.ts
 
 .idea
+.fleet
 .vscode
 .cache
 .DS_Store
