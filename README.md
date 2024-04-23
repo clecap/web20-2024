@@ -19,14 +19,15 @@ Thunderbird E-Mail Client Extension for Writing and Summarizing E-Mails using AI
 ### Prerequisites 
 
 1. Install [Node Version Manager](https://github.com/nvm-sh/nvm)
-2. Install Node.js by running nvm install node
-3. Run npm install in this directory
-4. Insert your Chat-GPT API Key in src/chatgpt/api-key.const.ts
+2. Install Node.js by running `nvm install node`
+3. Run `npm install` in this directory
+4. Insert your Chat-GPT API Key in `src/chatgpt/api-key.const.ts`
 
 ### Build Extension
 
-Run ./build in the root of the project
-Install the generated xpi into thunderbird as an extension
+1. Run `./build` in this directory
+2. Install the generated xpi into thunderbird
+
 ## Usage
 
 1. Display an email
