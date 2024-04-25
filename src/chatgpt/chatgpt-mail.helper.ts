@@ -17,6 +17,14 @@ export class ChatGptMailHelper implements IChatGptMailHelper {
     );
   }
 
+  async generateEmailSummary(email: string, typeOfDetail: string): Promise<string> {
+    const session = new ChatGptSession([]);
+    
+    return await session.sendMessage(
+      `Summarize the following Email content in a ${typeOfDetail.valueOf()} manner.`
+    );
+  }
+
   async generatePossibleReplyIntentions(email: string): Promise<string[]> {
     const session = new ChatGptSession([]);
 
