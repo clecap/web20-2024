@@ -24,4 +24,8 @@ Header:
 
 - Placeholder for future icon and the plugin's name.
 
+Popup.css
+
+- general css wise only noteworthy change is the new reset script. old one wasnt cleaning all of it. some comments to seperate objects and there respected css scripts.
+
 Added a bunch of comments regarding what needs to be done. Someone also needs to merge our new changes into dev so we can have a working branch for future alterations.
