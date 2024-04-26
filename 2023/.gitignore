@@ -1,0 +1,7 @@
+node_modules
+mainPopup/popupBundle.js
+
+.idea
+.vscode
+.cache
+.DS_Store

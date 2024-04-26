@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Details</title>
+  <link rel="stylesheet" type="text/css" media="screen" href="popup.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="box">
+    <div class="row header">
+      <div class="header-box">
+        <i class="header-logo fa-solid fa-envelope "></i>
+        <span class="header-text lato-bold">Your AI Email Assistant</span>
+      </div>
+    </div>
+    <div class="row generator">
+      <div class="generator-box">
+        <div class="generator-object"> <!--id="intentions" onclick event should be given to this element-->
+          <span class="generator-object-text lato-regular">Response intention</span>
+          <i class="generator-object-icon fa-solid fa-angles-down"></i>
+          <div class="generator-dropdown hidden" > 
+            <ul class="dropdown-box"> <!--id="intentionsDropdown" intentions options goes here-->
+              <li class="dropdown-option">Option 1</li> <!--dynamic option element. onclick must add hidden class to dropdown menu respectull to its id after option is selected-->
+              <li class="dropdown-option">Option 1</li>
+              <li class="dropdown-option">Option 1</li>
+              <li class="dropdown-option">Option 1</li>
+            </ul>
+          </div>
+        </div>
+        <div class="generator-object"> <!--id="tones" onclick event should be given to this element -->
+          <span class="generator-object-text lato-regular">Writing tone</span>
+          <i class="generator-object-icon fa-solid fa-angles-down"></i>
+          <div class="generator-dropdown hidden" > <!--generator-object onclick event should remove class called hidden to show dropdown -->
+            <ul class="dropdown-box"> <!--id="tonesDropdown" tones options goes here-->
+              <li class="dropdown-option">Option 1</li> <!--dynamic option element. onclick must add hidden class to dropdown menu respectull to its id after option is selected-->
+              <li class="dropdown-option">Option 1</li>
+              <li class="dropdown-option">Option 1</li>
+              <li class="dropdown-option">Option 1</li>
+            </ul>
+          </div>
+        </div>
+        <button class="generator-button" id="generate"> <!--chk if generate works with API key-->
+          <a class="lato-regular">Generate</a>
+        </button>
+      </div>
+      <!-- <div class="header-object">
+          <span class="drop-down-context">Response intention</span>
+          <select class="drop-down" name="intentions" id="intentions"></select>
+        </div>
+        <div class="header-object">
+          <span class="drop-down-context">Writing tone</span>
+          <select class="drop-down" name="tones" id="tones"></select>
+        </div>  old code delete after refactor-->
+    </div>
+    <div class="row content">
+      <div class="content-box">
+        <div class="content-control">
+
+          <button class="content-button lato-regular">
+            <i class="fa-solid fa-copy"></i>
+            <p class="lato-regular">Copy</p> <!--copy to clipboard onclick event should be added-->
+          </button>
+          <button class="content-button lato-regular">
+            <i class="fa-solid fa-square-arrow-up-right"></i>
+            <p class="lato-regular">View in new tab</p> 
+            <!--View in new tab onclick event should be added
+            this feature is still a idea but onclick to send text to new page would be nice start. if you have time plz work upon -->
+          </button>
+          <button class="content-button lato-regular" id="choose"> <!-- id="choose" is now here. chk if works after inserting API key-->
+            <i class="fa-solid fa-reply"></i>
+            <p class="lato-regular">Reply to</p>
+          </button>
+        </div>
+        <div class="content-textarea-container">
+          <textarea placeholder="Your generated response will be shown here..." class="content-textarea" name="preview" 
+            id="preview" disabled></textarea> <!--id="preview" is now here. chk if works after inserting API key. I added a place holder text, refactor backend prosses to delete place holder before adding the generated text-->
+        </div>
+      </div>
+    </div>
+    <div class="row footer">
+      <div class="footer-box">
+        <span class="lato-regular">Powered by <a class="footer-link" href="https://chat.openai.com/"
+            target="_blank">ChatGPT</a>
+        </span>
+        <span class="lato-regular">Version 2.0 Beta</span>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="popupBundle.js"></script>
+</body>
+
+</html>

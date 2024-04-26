@@ -1,0 +1,4 @@
+#!/bin/bash
+
+npx webpack
+zip chatgpt-thunderbird.xpi images/* mainPopup/* manifest.json
