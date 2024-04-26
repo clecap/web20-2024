@@ -1,6 +1,7 @@
 import { ChatGptMailHelper } from './chatgpt/chatgpt-mail.helper';
 import { IChatGptMailHelper } from './chatgpt/ichatgpt-mail.helper';
 import { ReplyTone } from './chatgpt/models/reply-tone';
+import { TypeOfDetail } from './chatgpt/models/type-of-detail';
 
 declare const messenger: any;
 
@@ -37,6 +38,15 @@ loadingOpt.selected = true;
 loadingOpt.disabled = true;
 intentions_drop_down.append(loadingOpt);
 intentions_drop_down.disabled = true;
+
+// fill typeOfDetail drop down
+let type_of_detail: HTMLSelectElement = document.getElementById('type_of_detail') as HTMLSelectElement;
+Object.entries(TypeOfDetail).map(([k, __], _) => {
+  let opt: HTMLOptionElement = document.createElement('option');
+  opt.value = k;
+  opt.innerHTML = k;
+  type_of_detail.append(opt);
+});
 
 const possibleIntentions = await helper.generatePossibleReplyIntentions(text);
 
@@ -82,6 +92,18 @@ choose.addEventListener('click', async (e: MouseEvent) => {
   };
   await messenger.compose.beginReply(message.id, 'replyToSender', compose_details);
 });
+
+//summary button functionality 
+let summary: HTMLButtonElement = document.getElementById('summary') as HTMLButtonElement;
+summary.addEventListener('click', async (e: MouseEvent) => {
+  let summary_text_field: HTMLTextAreaElement = document.getElementById('summary_text_field') as HTMLTextAreaElement;
+  let opt: HTMLOptionElement = intentions_drop_down.options[intentions_drop_down.selectedIndex];
+  let typeofDetail: string = opt.value;
+
+  summary.value = "Press summarize content button to see a summary of your email"
+  summary_text_field.value = await helper.generateEmailSummary(text, typeofDetail)
+})
+
 
 function getText(element: any): string {
   // search for part that has contenttype "text/*"

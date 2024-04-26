@@ -9,4 +9,9 @@ export interface IChatGptMailHelper {
   ): Promise<string>;
 
   generatePossibleReplyIntentions(email: string): Promise<string[]>;
+
+  generateEmailSummary(
+    email: string,
+    typeOfDetail: string
+  ): Promise<string>;
 }
