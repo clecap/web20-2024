@@ -68,7 +68,7 @@ let generate: HTMLButtonElement = document.getElementById('generate') as HTMLBut
 generate.addEventListener('click', async (e: MouseEvent) => {
   let preview: HTMLTextAreaElement = document.getElementById('preview') as HTMLTextAreaElement;
   let nameinput: HTMLInputElement = document.getElementById('input') as HTMLInputElement;
-  user = nameinput.value;
+  if(nameinput.value !== "") user = nameinput.value;
   let opt: HTMLOptionElement = intentions_drop_down.options[intentions_drop_down.selectedIndex];
   let intention: string = opt.value;
 
