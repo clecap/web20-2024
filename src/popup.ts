@@ -67,6 +67,8 @@ let user: string = (await messenger.accounts.get(accountId, false)).identities[0
 let generate: HTMLButtonElement = document.getElementById('generate') as HTMLButtonElement;
 generate.addEventListener('click', async (e: MouseEvent) => {
   let preview: HTMLTextAreaElement = document.getElementById('preview') as HTMLTextAreaElement;
+  let nameinput: HTMLInputElement = document.getElementById('input') as HTMLInputElement;
+  user = nameinput.value;
   let opt: HTMLOptionElement = intentions_drop_down.options[intentions_drop_down.selectedIndex];
   let intention: string = opt.value;
 
