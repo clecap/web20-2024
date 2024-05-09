@@ -27,89 +27,116 @@
             <i class="header-logo fa-solid fa-envelope"></i>
             <span class="header-text lato-bold">Your AI Email Assistant</span>
           </div>
-          <div class="header-object header-button" id="SummaryContro ">
-            <!--this is menu control object. onclick event should remove hidden from response generator menu control and show summary generator -->
-            <span class="lato-regular">Summary generator</span>
-            <i class="fa-solid fa-arrow-right header-icon"></i>
+          <div class="header-object header-button" id="SummaryControl">
+            <span class="lato-regular">Show Summary Tool</span>
+            <i class="fa-regular fa-eye header-icon"></i>
           </div>
           <div class="header-object header-button hidden" id="ResponseControl">
-            <!--this is menu control object. onclick event should remove hidden from Summary generator menu control and show response generator-->
-            <span class="lato-regular">Response generator</span>
-            <i class="fa-solid fa-arrow-left header-icon"></i>
+            <span class="lato-regular">Hide Summary Tool</span>
+            <i class="fa-solid fa-xmark header-icon"></i>
           </div>
         </div>
       </div>
       <div class="row generator">
         <div class="generator-box" id="ReplyGeneratorContainer">
-          <!--Response generator menu control should remove hidden and add hidden when Summary generator is clicked -->
-          <div class="generator-object">
-            <div class="generator-status-box">
-              <span class="lato-regular status-text">Response Intention:</span>
-              <!--status text for response intention-->
-            </div>
-            <div class="generator-dropdown-box" id="ResponseIntentionContainer">
-              <!--onclick event should open dropdown menu-->
-              <span class="dropdown-text lato-regular">not selected</span>
-              <i class="dropdown-icon fa-solid fa-angles-down hidden"></i>
-              <!--hidden class should be removed when Response intetions are loaded-->
-              <i
-                class="dropdown-icon fa-solid fa-hourglass-end icon-spinner"
-              ></i>
-              <!--hidden after loading is done-->
+          <div class="generator-row">
+            <div class="generator-object">
+              <div class="generator-status-box">
+                <span class="lato-regular status-text"
+                  >Response Intention:</span
+                >
+              </div>
               <div
-                class="dropdown-menu-box hidden"
-                id="ResponseIntentionDropDown"
+                class="generator-dropdown-box"
+                id="ResponseIntentionContainer"
               >
-                <!--generator-object onclick event should remove class called hidden to show dropdown -->
-                <ul class="menu-list" id="ResponseIntentionList">
-                  <!--Response intetion options goes here-->
-                  <li class="menu-option">Option 1</li>
-                  <!--dynamic option element. onclick must add hidden class to dropdown menu respectull to its id after option is selected-->
-                  <li class="menu-option">Option 2</li>
-                  <li class="menu-option">Option 3</li>
-                  <li class="menu-option">Option 5</li>
-                </ul>
+                <span
+                  class="dropdown-text lato-regular"
+                  id="ResponseIntentionStatusText"
+                  >not selected</span
+                >
+                <i
+                  class="dropdown-icon fa-solid fa-angles-down hidden"
+                  id="ResponseIntentionIcon"
+                ></i>
+                <!--hidden class should be removed when Response intetions are loaded-->
+                <i
+                  class="dropdown-icon fa-solid fa-hourglass-end icon-spinner"
+                  id="ResponseIntentionSpinner"
+                ></i>
+                <!--hidden after loading is done-->
+                <div
+                  class="dropdown-menu-box hidden"
+                  id="ResponseIntentionDropDown"
+                >
+                  <ul class="menu-list" id="ResponseIntentionList"></ul>
+                </div>
+              </div>
+            </div>
+            <div class="generator-object">
+              <div class="generator-status-box">
+                <span class="lato-regular status-text" id="WritingToneStatus"
+                  >Writing Tone:</span
+                >
+              </div>
+              <div class="generator-dropdown-box" id="WritingToneContainer">
+                <span
+                  class="dropdown-text lato-regular"
+                  id="WritingToneStatusText"
+                  >not selected</span
+                >
+                <i class="dropdown-icon fa-solid fa-angles-down"></i>
+                <div id="WritingToneDropDown" class="dropdown-menu-box hidden">
+                  <ul class="menu-list" id="WritingToneList"></ul>
+                </div>
+              </div>
+            </div>
+            <div class="generator-object">
+              <div class="generator-status-box">
+                <span class="lato-regular status-text" id="AddresseeToneStatus"
+                  >Addressee:</span
+                >
+              </div>
+              <div class="generator-dropdown-box" id="AddresseeToneContainer">
+                <span
+                  class="dropdown-text lato-regular"
+                  id="AddresseeToneStatusText"
+                  >not selected</span
+                >
+                <i class="dropdown-icon fa-solid fa-angles-down"></i>
+                <div
+                  id="AddresseeToneDropDown"
+                  class="dropdown-menu-box hidden"
+                >
+                  <ul class="menu-list" id="AddresseeToneList"></ul>
+                </div>
               </div>
             </div>
           </div>
-          <div class="generator-object">
-            <div class="generator-status-box">
-              <span class="lato-regular status-text" id="WritingToneStatus"
-                >Writing Tone:</span
-              >
-              <!--status text for writing tone-->
-            </div>
-            <div class="generator-dropdown-box" id="WritingToneContainer">
-              <!--onclick event should open dropdown menu-->
-              <span class="dropdown-text lato-regular">not selected</span>
-              <i class="dropdown-icon fa-solid fa-angles-down"></i>
-              <div class="dropdown-menu-box">
-                <!--generator-object onclick event should remove class called hidden to show dropdown -->
-                <ul class="menu-list" id="Writing">
-                  <!--id="tonesDropdown" tones options goes here-->
-                  <li class="menu-option">Option 1</li>
-                  <!--dynamic option element. onclick must add hidden class to dropdown menu respectull to its id after option is selected-->
-                  <li class="menu-option">Option 2</li>
-                  <li class="menu-option">Option 1</li>
-                  <li class="menu-option">Option 1</li>
-                </ul>
+          <div class="generator-row">
+            <div class="generator-object">
+              <div class="generator-status-box">
+                <span class="lato-regular status-text">Your Name:</span>
               </div>
+              <input
+                class="generator-dropdown-box lato-regular"
+                id="NameInput"
+              />
             </div>
-          </div>
-          <div class="generator-object">
-            <div class="generator-status-box">
-              <span class="lato-regular status-text">Set Values to</span>
-              <!--status text should be changed to "Ready to" after selecting options-->
+            <div class="generator-object">
+              <div class="generator-status-box">
+                <span class="lato-regular status-text">Set Values to</span>
+                <!--status text should be changed to "Ready to" after selecting options-->
+              </div>
+              <button class="generator-button" id="generate">
+                <!--Response generator button. onclick must be added-->
+                <a class="lato-regular">Generate</a>
+                <i class="fa-solid fa-gear" id="SummaryGeneratorIcon"></i>
+              </button>
             </div>
-            <button class="generator-button" id="generate">
-              <!--Response generator button. onclick must be added-->
-              <a class="lato-regular">Generate</a>
-              <i class="fa-solid fa-gear icon-spinner"></i>
-            </button>
           </div>
         </div>
         <div class="generator-box hidden" id="SummaryGeneratorContainer">
-          <!--Summary generator menu control should remove hidden and add hidden when response generator is clicked -->
           <div class="generator-object flex-grow-1">
             <div class="generator-status-box">
               <span class="lato-regular status-text" id="SummaryLenghtStatus"
@@ -122,7 +149,7 @@
               id="SummaryLenghtDropdown"
             >
               <!--onclick event should open dropdown menu-->
-              <span class="dropdown-text lato-regular">Summary Lenght</span>
+              <span class="dropdown-text lato-regular">Summary Length</span>
               <i class="dropdown-icon fa-solid fa-angles-down"></i>
               <div class="dropdown-menu-box">
                 <ul class="menu-list hidden" id="SummaryLenghtDropdownList">
@@ -144,27 +171,18 @@
             <button class="generator-button" id="SummaryGeneratorButton">
               <!--Summary generator button. onclick must be added-->
               <a class="lato-regular">Generate</a>
-              <i class="fa-solid fa-gear"></i>
+              <i class="fa-solid fa-gear" id="SummaryGeneratorIcon"></i>
               <!--icon-spinner class should be added onclick event.after its done fetching data remove it-->
             </button>
           </div>
         </div>
-        <!-- <div class="header-object">
-            <span class="drop-down-context">Response intention</span>
-            <select class="drop-down" name="intentions" id="intentions"></select>
-          </div>
-          <div class="header-object">
-            <span class="drop-down-context">Writing tone</span>
-            <select class="drop-down" name="tones" id="tones"></select>
-          </div>  old code delete after refactor-->
       </div>
       <div class="row content">
         <div class="content-box">
           <div class="content-control">
-            <button class="content-button lato-regular">
+            <button class="content-button lato-regular" id="CopyToClipboardBtn">
               <i class="fa-solid fa-copy"></i>
               <p class="lato-regular">Copy</p>
-              <!--copy to clipboard onclick event should be added-->
             </button>
             <button class="content-button lato-regular">
               <i class="fa-solid fa-square-arrow-up-right"></i>
@@ -173,9 +191,9 @@
               this feature is still a idea but onclick to send text to new page would be nice start. if you have time plz work upon -->
             </button>
             <button class="content-button lato-regular" id="choose">
-              <!-- id="choose" is now here. chk if works after inserting API key-->
+              <!-- id="choose" is now here. checkk if works after inserting API key-->
               <i class="fa-solid fa-reply"></i>
-              <p class="lato-regular">Reply to</p>
+              <p class="lato-regular">Use To Reply</p>
             </button>
           </div>
           <div class="content-textarea-container">
@@ -207,41 +225,7 @@
     </div>
     <script type="module" src="popupBundle.js"></script>
   </body>
-  <!--
-  <body>
-    <div class="box">
-      <div class="row header">
-        <div>
-          <span>Enter Name</span>
-          <input type="text" id="nameinput" placeholder="Name"></input>
-        </div>
-        <div>
-          <span>Response intention:</span>
-          <select name="intentions" id="intentions"></select>
-        </div>
-        <div>
-          <span>Tone:</span>
-          <select name="tones" id="tones"></select>
-          <span>Tone2:</span>
-          <select name="tones2" id="tones2"></select>
-        </div>
-      </div>
-      <div class="row content">
-        <textarea name="preview" id="preview" disabled></textarea>
-      </div>
-      <div class="row footer">
-        <button class="button" id="generate">
-          <div id="circle"></div>
-          <a>Generate</a>
-        </button>
-        <button class="button" id="choose">
-          <div id="circle"></div>
-          <a>Choose</a>
-        </button>
-      </div>
-    </div>
-
-    <div class="box">
+  <!-- <div class="box">
       <div class="row header">
         <div>
           <span>Summarize Content:</span>

@@ -1,33 +1,70 @@
 import { ChatGptMailHelper } from "./chatgpt/chatgpt-mail.helper";
 import { IChatGptMailHelper } from "./chatgpt/ichatgpt-mail.helper";
-import { ReplyTone, ReplyTone2 } from "./chatgpt/models/reply-tone";
+import { WritingTone, AddresseeTone } from "./chatgpt/models/reply-tone";
 import { TypeOfDetail } from "./chatgpt/models/type-of-detail";
 
 declare const messenger: any;
 
 const helper: IChatGptMailHelper = new ChatGptMailHelper();
 
-console.log("popup.ts loaded");
+let selectedWritingTone = "";
+let selectedAddresseTone = "";
+let selectedIntention = "";
 
-// fill tone drop down
-let tone_drop_down: HTMLSelectElement = document.getElementById(
-  "tones"
-) as HTMLSelectElement;
-Object.entries(ReplyTone).map(([k, __], _) => {
-  let opt: HTMLOptionElement = document.createElement("option");
-  opt.value = k;
-  opt.innerHTML = k;
-  tone_drop_down.append(opt);
+// populate writing tone dropdown
+let writingToneContainer: HTMLElement = document.getElementById(
+  "WritingToneContainer"
+);
+writingToneContainer.addEventListener("click", (e: Event) => {
+  let dropdownMenuBox: HTMLElement = document.getElementById(
+    "WritingToneDropDown"
+  );
+  dropdownMenuBox.classList.toggle("hidden");
+});
+let writingToneList: HTMLElement = document.getElementById("WritingToneList");
+Object.entries(WritingTone).map(([k, __], _) => {
+  let li: HTMLLIElement = document.createElement("li");
+  li.className = "menu-option";
+  li.textContent = k;
+  writingToneList.append(li);
+});
+writingToneList.addEventListener("click", (e: Event) => {
+  if (e.target instanceof HTMLLIElement) {
+    selectedWritingTone = e.target.textContent;
+    let writingToneStatusText: HTMLElement = document.getElementById(
+      "WritingToneStatusText"
+    );
+    writingToneStatusText.textContent = selectedWritingTone;
+  }
 });
 
-let tone2_drop_down: HTMLSelectElement = document.getElementById(
-  "tones2"
-) as HTMLSelectElement;
-Object.entries(ReplyTone2).map(([k, __], _) => {
-  let opt: HTMLOptionElement = document.createElement("option");
-  opt.value = k;
-  opt.innerHTML = k;
-  tone2_drop_down.append(opt);
+// populate addressee tone dropdown
+let addresseeToneContainer: HTMLElement = document.getElementById(
+  "AddresseeToneContainer"
+);
+
+addresseeToneContainer.addEventListener("click", (e: Event) => {
+  let dropdownMenuBox: HTMLElement = document.getElementById(
+    "AddresseeToneDropDown"
+  );
+  dropdownMenuBox.classList.toggle("hidden");
+});
+let addreseeToneList: HTMLElement =
+  document.getElementById("AddresseeToneList");
+Object.entries(AddresseeTone).map(([k, __], _) => {
+  let li: HTMLLIElement = document.createElement("li");
+  li.className = "menu-option";
+  li.textContent = k;
+  addreseeToneList.append(li);
+});
+addreseeToneList.addEventListener("click", (e: Event) => {
+  if (e.target instanceof HTMLLIElement) {
+    selectedAddresseTone = e.target.textContent;
+    let addresseeToneStatusText: HTMLElement = document.getElementById(
+      "AddresseeToneStatusText"
+    );
+    addresseeToneStatusText.textContent = selectedAddresseTone;
+  }
 });
 
 // read email
@@ -39,43 +76,66 @@ let subject: string = message.subject;
 let author: string = message.author;
 let text: string = getText(full);
 
-// fill intentions drop down
-let intentions_drop_down: HTMLSelectElement = document.getElementById(
-  "intentions"
-) as HTMLSelectElement;
-intentions_drop_down.textContent = "Loading...";
-let loadingOpt: HTMLOptionElement = document.createElement("option");
-loadingOpt.innerHTML = "Loading...";
-loadingOpt.selected = true;
-loadingOpt.disabled = true;
-intentions_drop_down.append(loadingOpt);
-intentions_drop_down.disabled = true;
+// let possibleIntentions = await helper
+//   .generatePossibleReplyIntentions(text)
+//   .then((res) => {
+//     if (res.length === 0) {
+//       console.log("No intentions found");
+//     }
 
-// fill typeOfDetail drop down
-let type_of_detail: HTMLSelectElement = document.getElementById(
-  "type_of_detail"
-) as HTMLSelectElement;
-Object.entries(TypeOfDetail).map(([k, __], _) => {
-  let opt: HTMLOptionElement = document.createElement("option");
-  opt.value = k;
-  opt.innerHTML = k;
-  type_of_detail.append(opt);
+//     let iconSpinner = document.getElementById("ResponseIntentionSpinner");
+//     iconSpinner.classList.toggle("hidden");
+//     let iconDefault = document.getElementById("ResponseIntentionIcon");
+//     iconDefault.classList.toggle("hidden");
+
+//     return res;
+//   });
+
+const possibleIntentions = "Confirm Attendance;Decline Attendance".split(";");
+
+let responseIntentionContainer: HTMLElement = document.getElementById(
+  "ResponseIntentionContainer"
+);
+responseIntentionContainer.addEventListener("click", (e: Event) => {
+  let dropdownMenuBox: HTMLElement = document.getElementById(
+    "ResponseIntentionDropDown"
+  );
+  dropdownMenuBox.classList.toggle("hidden");
+});
+let responseIntentionList: HTMLElement = document.getElementById(
+  "ResponseIntentionList"
+);
+for (const [index, intention] of possibleIntentions.entries()) {
+  let li: HTMLLIElement = document.createElement("li");
+  li.className = "menu-option";
+  li.textContent = intention;
+  li.value = index;
+  responseIntentionList.append(li);
+}
+responseIntentionList.addEventListener("click", (e: Event) => {
+  if (e.target instanceof HTMLLIElement) {
+    selectedIntention = e.target.textContent;
+    let responseIntentionStatusText: HTMLElement = document.getElementById(
+      "ResponseIntentionStatusText"
+    );
+    responseIntentionStatusText.textContent = selectedIntention;
+  }
 });
 
-const possibleIntentions = await helper.generatePossibleReplyIntentions(text);
-
-for (const intention of possibleIntentions) {
-  let opt: HTMLOptionElement = document.createElement("option");
-  opt.value = intention;
-  opt.innerHTML = intention;
-  intentions_drop_down.append(opt);
-}
-intentions_drop_down.disabled = false;
-loadingOpt.innerHTML = "Choose...";
+// fill typeOfDetail drop down
+// let type_of_detail: HTMLSelectElement = document.getElementById(
+//   "type_of_detail"
+// ) as HTMLSelectElement;
+// Object.entries(TypeOfDetail).map(([k, __], _) => {
+//   let opt: HTMLOptionElement = document.createElement("option");
+//   opt.value = k;
+//   opt.innerHTML = k;
+//   type_of_detail.append(opt);
+// });
 
 // this user
 let nameinput: HTMLInputElement = document.getElementById(
-  "nameinput"
+  "NameInput"
 ) as HTMLInputElement;
 let accountId = message.folder.accountId;
 let user: string = (await messenger.accounts.get(accountId, false))
@@ -91,22 +151,27 @@ generate.addEventListener("click", async (e: MouseEvent) => {
     "preview"
   ) as HTMLTextAreaElement;
   if (nameinput.value !== "") user = nameinput.value;
-  let opt: HTMLOptionElement =
-    intentions_drop_down.options[intentions_drop_down.selectedIndex];
-  let intention: string = opt.value;
-
-  let toneOpt = tone_drop_down.options[tone_drop_down.selectedIndex];
-  let tone: ReplyTone = ReplyTone[toneOpt.value as keyof typeof ReplyTone];
-
   preview.value = "Loading...";
 
   let reply: string = await helper.generateEmailReply(
     text,
-    intention,
+    selectedIntention,
     user,
-    tone
+    selectedWritingTone,
+    selectedAddresseTone
   );
   preview.value = reply;
+});
+
+// copy to clipboard button functionality
+let copy: HTMLButtonElement = document.getElementById(
+  "CopyToClipboardBtn"
+) as HTMLButtonElement;
+copy.addEventListener("click", async (e: MouseEvent) => {
+  let preview: HTMLTextAreaElement = document.getElementById(
+    "preview"
+  ) as HTMLTextAreaElement;
+  navigator.clipboard.writeText(preview.value);
 });
 
 // choose button functionality
@@ -131,6 +196,27 @@ choose.addEventListener("click", async (e: MouseEvent) => {
   );
 });
 
+/*
+  -------------------------------------
+  ! SUMMARY FUNCTIONALITY STARTS HERE !
+  -------------------------------------
+*/
+
+let openSummaryButton: HTMLButtonElement = document.getElementById(
+  "SummaryControl"
+) as HTMLButtonElement;
+openSummaryButton.addEventListener("click", async (e: MouseEvent) => {
+  let summaryContainer: HTMLElement = document.getElementById(
+    "SummaryGeneratorContainer"
+  );
+  summaryContainer.classList.toggle("hidden");
+
+  let replyGeneratorContainer: HTMLElement = document.getElementById(
+    "ReplyGeneratorContainer"
+  );
+  replyGeneratorContainer.classList.add("hidden");
+});
+
 //summary button functionality
 let summary: HTMLButtonElement = document.getElementById(
   "summary"
@@ -139,16 +225,16 @@ summary.addEventListener("click", async (e: MouseEvent) => {
   let summary_text_field: HTMLTextAreaElement = document.getElementById(
     "summary_text_field"
   ) as HTMLTextAreaElement;
-  let opt: HTMLOptionElement =
-    intentions_drop_down.options[intentions_drop_down.selectedIndex];
-  let typeofDetail: string = opt.value;
+  // let opt: HTMLOptionElement =
+  //   intentions_drop_down.options[intentions_drop_down.selectedIndex];
+  // let typeofDetail: string = opt.value;
 
   summary.value =
     "Press summarize content button to see a summary of your email";
-  summary_text_field.value = await helper.generateEmailSummary(
-    text,
-    typeofDetail
-  );
+  // summary_text_field.value = await helper.generateEmailSummary(
+  //   text,
+  //   typeofDetail
+  // );
 });
 
 function getText(element: any): string {

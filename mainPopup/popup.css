@@ -171,10 +171,11 @@ body {
 }
 .header-button {
   font-size: medium;
-  transition: font-size 0.3s ease;
+  transition: scale 0.3s ease;
 }
 .header-button:hover {
-  font-size: large;
+  /* font-size: large; */
+  scale: 1.1;
 }
 
 .header-text {
@@ -193,12 +194,20 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .generator-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-grow: 1;
+}
+
+.generator-row {
   display: flex;
   flex-direction: row;
   gap: 1rem;
   align-items: center;
-  flex-grow: 1;
 }
 
 .generator-object {
