@@ -1,6 +1,6 @@
 import { ChatGptMailHelper } from "./chatgpt/chatgpt-mail.helper";
 import { IChatGptMailHelper } from "./chatgpt/ichatgpt-mail.helper";
-import { ReplyTone } from "./chatgpt/models/reply-tone";
+import { ReplyTone, ReplyTone2 } from "./chatgpt/models/reply-tone";
 import { TypeOfDetail } from "./chatgpt/models/type-of-detail";
 
 declare const messenger: any;
@@ -18,6 +18,16 @@ Object.entries(ReplyTone).map(([k, __], _) => {
   opt.value = k;
   opt.innerHTML = k;
   tone_drop_down.append(opt);
+});
+
+let tone2_drop_down: HTMLSelectElement = document.getElementById(
+  "tones2"
+) as HTMLSelectElement;
+Object.entries(ReplyTone2).map(([k, __], _) => {
+  let opt: HTMLOptionElement = document.createElement("option");
+  opt.value = k;
+  opt.innerHTML = k;
+  tone2_drop_down.append(opt);
 });
 
 // read email
@@ -64,9 +74,13 @@ intentions_drop_down.disabled = false;
 loadingOpt.innerHTML = "Choose...";
 
 // this user
+let nameinput: HTMLInputElement = document.getElementById(
+  "nameinput"
+) as HTMLInputElement;
 let accountId = message.folder.accountId;
 let user: string = (await messenger.accounts.get(accountId, false))
   .identities[0].name;
+nameinput.value = user;
 
 // generate button functionality
 let generate: HTMLButtonElement = document.getElementById(
@@ -76,6 +90,7 @@ generate.addEventListener("click", async (e: MouseEvent) => {
   let preview: HTMLTextAreaElement = document.getElementById(
     "preview"
   ) as HTMLTextAreaElement;
+  if (nameinput.value !== "") user = nameinput.value;
   let opt: HTMLOptionElement =
     intentions_drop_down.options[intentions_drop_down.selectedIndex];
   let intention: string = opt.value;
