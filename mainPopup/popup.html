@@ -29,11 +29,10 @@
           </div>
           <div class="header-object header-button" id="SummaryControl">
             <span class="lato-regular">Show Summary Tool</span>
-            <i class="fa-regular fa-eye header-icon"></i>
-          </div>
-          <div class="header-object header-button hidden" id="ResponseControl">
-            <span class="lato-regular">Hide Summary Tool</span>
-            <i class="fa-solid fa-xmark header-icon"></i>
+            <i
+              class="fa-regular fa-eye header-icon"
+              id="SummaryControlIcon"
+            ></i>
           </div>
         </div>
       </div>
@@ -139,23 +138,27 @@
         <div class="generator-box hidden" id="SummaryGeneratorContainer">
           <div class="generator-object flex-grow-1">
             <div class="generator-status-box">
-              <span class="lato-regular status-text" id="SummaryLenghtStatus"
-                >not selected</span
+              <span class="lato-regular status-text" id="SummaryLengthStatus"
+                >Summary Length</span
               >
-              <!--status text for Summary lenght-->
             </div>
             <div
               class="generator-dropdown-box gap-12"
-              id="SummaryLenghtDropdown"
+              id="SummaryLengthDropdown"
             >
               <!--onclick event should open dropdown menu-->
-              <span class="dropdown-text lato-regular">Summary Length</span>
+              <span
+                class="dropdown-text lato-regular"
+                id="SummaryLengthStatusText"
+                >not selected</span
+              >
               <i class="dropdown-icon fa-solid fa-angles-down"></i>
-              <div class="dropdown-menu-box">
-                <ul class="menu-list hidden" id="SummaryLenghtDropdownList">
-                  <!--id="SummaryLenghtDropdown" onclick should remove hidden class-->
+              <div
+                class="dropdown-menu-box hidden"
+                id="SummaryLengthDropdownMenu"
+              >
+                <ul class="menu-list" id="SummaryLengthDropdownList">
                   <li class="menu-option">Long</li>
-                  <!--onclick event should add hidden class to dropdown menu respectull to its id after option is selected. selected option should change the status -->
                   <li class="menu-option">Short</li>
                 </ul>
               </div>

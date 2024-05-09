@@ -7,9 +7,15 @@ declare const messenger: any;
 
 const helper: IChatGptMailHelper = new ChatGptMailHelper();
 
-let selectedWritingTone = "";
-let selectedAddresseTone = "";
-let selectedIntention = "";
+/*
+  --------------------------------------------
+  ! E-MAIL REPLY FUNCTIONALITY STARTS HERE !
+  --------------------------------------------
+*/
+
+let selectedWritingTone: string = "";
+let selectedAddresseTone: string = "";
+let selectedIntention: string = "";
 
 // populate writing tone dropdown
 let writingToneContainer: HTMLElement = document.getElementById(
@@ -43,7 +49,7 @@ let addresseeToneContainer: HTMLElement = document.getElementById(
   "AddresseeToneContainer"
 );
 
-addresseeToneContainer.addEventListener("click", (e: Event) => {
+addresseeToneContainer.addEventListener("click", (_e: Event) => {
   let dropdownMenuBox: HTMLElement = document.getElementById(
     "AddresseeToneDropDown"
   );
@@ -76,27 +82,31 @@ let subject: string = message.subject;
 let author: string = message.author;
 let text: string = getText(full);
 
-// let possibleIntentions = await helper
-//   .generatePossibleReplyIntentions(text)
-//   .then((res) => {
-//     if (res.length === 0) {
-//       console.log("No intentions found");
-//     }
+let possibleIntentions: string[] = [];
 
-//     let iconSpinner = document.getElementById("ResponseIntentionSpinner");
-//     iconSpinner.classList.toggle("hidden");
-//     let iconDefault = document.getElementById("ResponseIntentionIcon");
-//     iconDefault.classList.toggle("hidden");
+try {
+  possibleIntentions = await helper
+    .generatePossibleReplyIntentions(text)
+    .then((res) => {
+      if (res.length === 0) {
+        console.log("No intentions found");
+      }
 
-//     return res;
-//   });
+      let iconSpinner = document.getElementById("ResponseIntentionSpinner");
+      iconSpinner.classList.toggle("hidden");
+      let iconDefault = document.getElementById("ResponseIntentionIcon");
+      iconDefault.classList.toggle("hidden");
 
-const possibleIntentions = "Confirm Attendance;Decline Attendance".split(";");
+      return res;
+    });
+} catch (error) {
+  console.log(error);
+}
 
 let responseIntentionContainer: HTMLElement = document.getElementById(
   "ResponseIntentionContainer"
 );
-responseIntentionContainer.addEventListener("click", (e: Event) => {
+responseIntentionContainer.addEventListener("click", (_e: Event) => {
   let dropdownMenuBox: HTMLElement = document.getElementById(
     "ResponseIntentionDropDown"
   );
@@ -122,52 +132,52 @@ responseIntentionList.addEventListener("click", (e: Event) => {
   }
 });
 
-// fill typeOfDetail drop down
-// let type_of_detail: HTMLSelectElement = document.getElementById(
-//   "type_of_detail"
-// ) as HTMLSelectElement;
-// Object.entries(TypeOfDetail).map(([k, __], _) => {
-//   let opt: HTMLOptionElement = document.createElement("option");
-//   opt.value = k;
-//   opt.innerHTML = k;
-//   type_of_detail.append(opt);
-// });
-
 // this user
-let nameinput: HTMLInputElement = document.getElementById(
+let nameInput: HTMLInputElement = document.getElementById(
   "NameInput"
 ) as HTMLInputElement;
 let accountId = message.folder.accountId;
 let user: string = (await messenger.accounts.get(accountId, false))
   .identities[0].name;
-nameinput.value = user;
+nameInput.value = user;
 
 // generate button functionality
 let generate: HTMLButtonElement = document.getElementById(
   "generate"
 ) as HTMLButtonElement;
-generate.addEventListener("click", async (e: MouseEvent) => {
+generate.addEventListener("click", async (_e: MouseEvent) => {
   let preview: HTMLTextAreaElement = document.getElementById(
     "preview"
   ) as HTMLTextAreaElement;
-  if (nameinput.value !== "") user = nameinput.value;
+  if (nameInput.value !== "") user = nameInput.value;
   preview.value = "Loading...";
 
-  let reply: string = await helper.generateEmailReply(
-    text,
-    selectedIntention,
-    user,
-    selectedWritingTone,
-    selectedAddresseTone
-  );
-  preview.value = reply;
+  try {
+    let reply: string = await helper.generateEmailReply(
+      text,
+      selectedIntention,
+      user,
+      selectedWritingTone,
+      selectedAddresseTone
+    );
+
+    if (reply === "" || reply === null) {
+      preview.value = "No reply generated. Please try again.";
+      return;
+    }
+
+    preview.value = reply;
+  } catch (error) {
+    console.log(error);
+    preview.value = "An error occurred. Please try again.";
+  }
 });
 
 // copy to clipboard button functionality
 let copy: HTMLButtonElement = document.getElementById(
   "CopyToClipboardBtn"
 ) as HTMLButtonElement;
-copy.addEventListener("click", async (e: MouseEvent) => {
+copy.addEventListener("click", async (_e: MouseEvent) => {
   let preview: HTMLTextAreaElement = document.getElementById(
     "preview"
   ) as HTMLTextAreaElement;
@@ -178,7 +188,7 @@ copy.addEventListener("click", async (e: MouseEvent) => {
 let choose: HTMLButtonElement = document.getElementById(
   "choose"
 ) as HTMLButtonElement;
-choose.addEventListener("click", async (e: MouseEvent) => {
+choose.addEventListener("click", async (_e: MouseEvent) => {
   let preview: HTMLTextAreaElement = document.getElementById(
     "preview"
   ) as HTMLTextAreaElement;
@@ -202,14 +212,31 @@ choose.addEventListener("click", async (e: MouseEvent) => {
   -------------------------------------
 */
 
+let summaryLength: string = ""; // will be: Short | Long
+
 let openSummaryButton: HTMLButtonElement = document.getElementById(
   "SummaryControl"
 ) as HTMLButtonElement;
-openSummaryButton.addEventListener("click", async (e: MouseEvent) => {
+openSummaryButton.addEventListener("click", async (_e: MouseEvent) => {
   let summaryContainer: HTMLElement = document.getElementById(
     "SummaryGeneratorContainer"
   );
   summaryContainer.classList.toggle("hidden");
+  let replyContainer: HTMLElement = document.getElementById(
+    "ReplyGeneratorContainer"
+  );
+  replyContainer.classList.toggle("hidden");
+
+  let summaryButtonIcon: HTMLElement =
+    document.getElementById("SummaryControlIcon");
+  summaryButtonIcon.classList.toggle("fa-xmark");
+  summaryButtonIcon.classList.toggle("fa-eye");
+  summaryButtonIcon.classList.toggle("fa-regular");
+  summaryButtonIcon.classList.toggle("fa-solid");
+  openSummaryButton.innerText =
+    openSummaryButton.innerText === "Show Summary Tool"
+      ? "Hide Summary Tool"
+      : "Show Summary Tool";
 
   let replyGeneratorContainer: HTMLElement = document.getElementById(
     "ReplyGeneratorContainer"
@@ -217,11 +244,33 @@ openSummaryButton.addEventListener("click", async (e: MouseEvent) => {
   replyGeneratorContainer.classList.add("hidden");
 });
 
+let summaryLengthContainer: HTMLElement = document.getElementById(
+  "SummaryLengthContainer"
+);
+summaryLengthContainer.addEventListener("click", (_e: Event) => {
+  let dropdownMenuBox: HTMLElement = document.getElementById(
+    "SummaryLengthDropDown"
+  );
+  dropdownMenuBox.classList.toggle("hidden");
+});
+// add event listener to each summary length option
+let summaryLengthList: HTMLElement =
+  document.getElementById("SummaryLengthList");
+Object.entries(TypeOfDetail).map(([k, __], _) => {
+  let li: HTMLLIElement = document.createElement("li");
+  li.className = "menu-option";
+  li.textContent = k;
+  summaryLengthList.append(li);
+});
+
 //summary button functionality
-let summary: HTMLButtonElement = document.getElementById(
-  "summary"
+let summaryGeneratorButton: HTMLButtonElement = document.getElementById(
+  "SummaryGeneratorButton"
 ) as HTMLButtonElement;
-summary.addEventListener("click", async (e: MouseEvent) => {
+summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
+  let summaryIcon = document.getElementById("SummaryGeneratorIcon");
+  summaryIcon.classList.toggle("icon-spinner");
+
   let summary_text_field: HTMLTextAreaElement = document.getElementById(
     "summary_text_field"
   ) as HTMLTextAreaElement;
@@ -229,13 +278,21 @@ summary.addEventListener("click", async (e: MouseEvent) => {
   //   intentions_drop_down.options[intentions_drop_down.selectedIndex];
   // let typeofDetail: string = opt.value;
 
-  summary.value =
+  summaryGeneratorButton.value =
     "Press summarize content button to see a summary of your email";
   // summary_text_field.value = await helper.generateEmailSummary(
   //   text,
   //   typeofDetail
   // );
+
+  summaryIcon.classList.toggle("icon-spinner");
 });
+
+/*
+  ----------------------
+  ! HELPER FUNCTIONS !
+  ----------------------
+*/
 
 function getText(element: any): string {
   // search for part that has contenttype "text/*"

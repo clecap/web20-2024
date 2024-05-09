@@ -298,6 +298,7 @@ body {
   text-align: left;
   cursor: pointer;
   transition: color 0.3s ease;
+  padding: 0.5rem;
 }
 .menu-option:hover {
   color: #0088cc;
