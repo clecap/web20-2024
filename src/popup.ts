@@ -84,24 +84,22 @@ let text: string = getText(full);
 
 let possibleIntentions: string[] = [];
 
-try {
-  possibleIntentions = await helper
-    .generatePossibleReplyIntentions(text)
-    .then((res) => {
-      if (res.length === 0) {
-        console.log("No intentions found");
-      }
+possibleIntentions = await helper
+  .generatePossibleReplyIntentions(text)
+  .then((res) => {
+    return res;
+  })
+  .catch((error) => {
+    console.log(error);
 
-      let iconSpinner = document.getElementById("ResponseIntentionSpinner");
-      iconSpinner.classList.toggle("hidden");
-      let iconDefault = document.getElementById("ResponseIntentionIcon");
-      iconDefault.classList.toggle("hidden");
-
-      return res;
-    });
-} catch (error) {
-  console.log(error);
-}
+    return [];
+  })
+  .finally(() => {
+    let iconSpinner = document.getElementById("ResponseIntentionSpinner");
+    iconSpinner.classList.toggle("hidden");
+    let iconDefault = document.getElementById("ResponseIntentionIcon");
+    iconDefault.classList.toggle("hidden");
+  });
 
 let responseIntentionContainer: HTMLElement = document.getElementById(
   "ResponseIntentionContainer"
@@ -218,30 +216,32 @@ let openSummaryButton: HTMLButtonElement = document.getElementById(
   "SummaryControl"
 ) as HTMLButtonElement;
 openSummaryButton.addEventListener("click", async (_e: MouseEvent) => {
-  let summaryContainer: HTMLElement = document.getElementById(
-    "SummaryGeneratorContainer"
-  );
+  let summaryContainer: HTMLElement =
+    document.getElementById("SummaryGenerator");
   summaryContainer.classList.toggle("hidden");
-  let replyContainer: HTMLElement = document.getElementById(
-    "ReplyGeneratorContainer"
-  );
+  let replyContainer: HTMLElement = document.getElementById("ReplyGenerator");
   replyContainer.classList.toggle("hidden");
+  let replyGeneratorOutputContainer: HTMLElement = document.getElementById(
+    "ReplyGeneratorOutput"
+  );
+  replyGeneratorOutputContainer.classList.toggle("hidden");
+  let summaryGeneratorOutputContainer: HTMLElement = document.getElementById(
+    "SummaryGeneratorOutput"
+  );
+  summaryGeneratorOutputContainer.classList.toggle("hidden");
 
   let summaryButtonIcon: HTMLElement =
     document.getElementById("SummaryControlIcon");
-  summaryButtonIcon.classList.toggle("fa-xmark");
   summaryButtonIcon.classList.toggle("fa-eye");
-  summaryButtonIcon.classList.toggle("fa-regular");
+  summaryButtonIcon.classList.toggle("fa-xmark");
   summaryButtonIcon.classList.toggle("fa-solid");
-  openSummaryButton.innerText =
-    openSummaryButton.innerText === "Show Summary Tool"
+  summaryButtonIcon.classList.toggle("fa-regular");
+
+  let openSummaryButtonText = document.getElementById("SummaryControlText");
+  openSummaryButtonText.innerText =
+    openSummaryButtonText.innerText === "Show Summary Tool"
       ? "Hide Summary Tool"
       : "Show Summary Tool";
-
-  let replyGeneratorContainer: HTMLElement = document.getElementById(
-    "ReplyGeneratorContainer"
-  );
-  replyGeneratorContainer.classList.add("hidden");
 });
 
 let summaryLengthContainer: HTMLElement = document.getElementById(
@@ -261,6 +261,16 @@ Object.entries(TypeOfDetail).map(([k, __], _) => {
   li.className = "menu-option";
   li.textContent = k;
   summaryLengthList.append(li);
+
+  li.addEventListener("click", (e: Event) => {
+    if (e.target instanceof HTMLLIElement) {
+      summaryLength = e.target.textContent;
+      let summaryLengthStatusText: HTMLElement = document.getElementById(
+        "SummaryLengthStatusText"
+      );
+      summaryLengthStatusText.textContent = summaryLength;
+    }
+  });
 });
 
 //summary button functionality
@@ -270,20 +280,17 @@ let summaryGeneratorButton: HTMLButtonElement = document.getElementById(
 summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
   let summaryIcon = document.getElementById("SummaryGeneratorIcon");
   summaryIcon.classList.toggle("icon-spinner");
+  let summaryTextView = document.getElementById("SummaryView");
 
-  let summary_text_field: HTMLTextAreaElement = document.getElementById(
-    "summary_text_field"
-  ) as HTMLTextAreaElement;
-  // let opt: HTMLOptionElement =
-  //   intentions_drop_down.options[intentions_drop_down.selectedIndex];
-  // let typeofDetail: string = opt.value;
-
-  summaryGeneratorButton.value =
-    "Press summarize content button to see a summary of your email";
-  // summary_text_field.value = await helper.generateEmailSummary(
-  //   text,
-  //   typeofDetail
-  // );
+  try {
+    summaryTextView.innerText = await helper.generateEmailSummary(
+      text,
+      summaryLength
+    );
+  } catch (error) {
+    console.log(error);
+    summaryTextView.innerText = "An error occurred. Please try again.";
+  }
 
   summaryIcon.classList.toggle("icon-spinner");
 });

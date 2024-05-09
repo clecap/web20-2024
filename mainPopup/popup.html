@@ -28,7 +28,9 @@
             <span class="header-text lato-bold">Your AI Email Assistant</span>
           </div>
           <div class="header-object header-button" id="SummaryControl">
-            <span class="lato-regular">Show Summary Tool</span>
+            <span class="lato-regular" id="SummaryControlText"
+              >Show Summary Tool</span
+            >
             <i
               class="fa-regular fa-eye header-icon"
               id="SummaryControlIcon"
@@ -36,7 +38,7 @@
           </div>
         </div>
       </div>
-      <div class="row generator">
+      <div class="row generator" id="ReplyGenerator">
         <div class="generator-box" id="ReplyGeneratorContainer">
           <div class="generator-row">
             <div class="generator-object">
@@ -135,52 +137,8 @@
             </div>
           </div>
         </div>
-        <div class="generator-box hidden" id="SummaryGeneratorContainer">
-          <div class="generator-object flex-grow-1">
-            <div class="generator-status-box">
-              <span class="lato-regular status-text" id="SummaryLengthStatus"
-                >Summary Length</span
-              >
-            </div>
-            <div
-              class="generator-dropdown-box gap-12"
-              id="SummaryLengthDropdown"
-            >
-              <!--onclick event should open dropdown menu-->
-              <span
-                class="dropdown-text lato-regular"
-                id="SummaryLengthStatusText"
-                >not selected</span
-              >
-              <i class="dropdown-icon fa-solid fa-angles-down"></i>
-              <div
-                class="dropdown-menu-box hidden"
-                id="SummaryLengthDropdownMenu"
-              >
-                <ul class="menu-list" id="SummaryLengthDropdownList">
-                  <li class="menu-option">Long</li>
-                  <li class="menu-option">Short</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="generator-object">
-            <div class="generator-status-box">
-              <span class="lato-regular status-text" id="SummaryGeneratorStatus"
-                >Set Values to</span
-              >
-              <!--status text should be changed to "Ready to" after selecting options-->
-            </div>
-            <button class="generator-button" id="SummaryGeneratorButton">
-              <!--Summary generator button. onclick must be added-->
-              <a class="lato-regular">Generate</a>
-              <i class="fa-solid fa-gear" id="SummaryGeneratorIcon"></i>
-              <!--icon-spinner class should be added onclick event.after its done fetching data remove it-->
-            </button>
-          </div>
-        </div>
       </div>
-      <div class="row content">
+      <div class="row content" id="ReplyGeneratorOutput">
         <div class="content-box">
           <div class="content-control">
             <button class="content-button lato-regular" id="CopyToClipboardBtn">
@@ -211,6 +169,73 @@
           </div>
         </div>
       </div>
+      <div class="row generator hidden" id="SummaryGenerator">
+        <div class="generator-box" id="SummaryGeneratorContainer">
+          <div class="generator-object flex-grow-1">
+            <div class="generator-status-box">
+              <span class="lato-regular status-text" id="SummaryLengthStatus"
+                >Summary Length</span
+              >
+            </div>
+            <div
+              class="generator-dropdown-box gap-12"
+              id="SummaryLengthContainer"
+            >
+              <!--onclick event should open dropdown menu-->
+              <span
+                class="dropdown-text lato-regular"
+                id="SummaryLengthStatusText"
+                >not selected</span
+              >
+              <i class="dropdown-icon fa-solid fa-angles-down"></i>
+              <div class="dropdown-menu-box hidden" id="SummaryLengthDropDown">
+                <ul class="menu-list" id="SummaryLengthList"></ul>
+              </div>
+            </div>
+          </div>
+          <div class="generator-object">
+            <div class="generator-status-box">
+              <span class="lato-regular status-text" id="SummaryGeneratorStatus"
+                >Set Values to</span
+              >
+              <!--status text should be changed to "Ready to" after selecting options-->
+            </div>
+            <button class="generator-button" id="SummaryGeneratorButton">
+              <!--Summary generator button. onclick must be added-->
+              <a class="lato-regular">Generate</a>
+              <i class="fa-solid fa-gear" id="SummaryGeneratorIcon"></i>
+              <!--icon-spinner class should be added onclick event.after its done fetching data remove it-->
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row content hidden" id="SummaryGeneratorOutput">
+        <div class="content-box">
+          <div class="content-control">
+            <button class="content-button lato-regular" id="CopyToClipboardBtn">
+              <i class="fa-solid fa-copy"></i>
+              <p class="lato-regular">Copy</p>
+            </button>
+            <button class="content-button lato-regular">
+              <i class="fa-solid fa-square-arrow-up-right"></i>
+              <p class="lato-regular">View in new tab</p>
+              <!--View in new tab onclick event should be added
+              this feature is still a idea but onclick to send text to new page would be nice start. if you have time plz work upon -->
+            </button>
+          </div>
+          <div class="content-textarea-container">
+            <textarea
+              placeholder="Your summary will be shown here..."
+              class="content-textarea"
+              name="summary-view"
+              id="SummaryView"
+              disabled
+            ></textarea>
+            <!--id="preview" is now here. chk if works after inserting API key. I added a place holder text, refactor backend prosses to delete place holder before adding the generated text-->
+          </div>
+        </div>
+      </div>
+
       <div class="row footer">
         <div class="footer-box">
           <span class="lato-regular"
