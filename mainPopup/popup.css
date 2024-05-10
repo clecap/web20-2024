@@ -146,6 +146,7 @@ body {
   align-items: normal;
   text-align: center;
   height: 100%;
+  position: relative;
 }
 
 /* Header css */ /* Header css */ /* Header css */ /* Header css */ /* Header css */ /* Header css */
@@ -198,22 +199,22 @@ body {
   border: 1px solid white;
   border-radius: 6px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-grow: 1;
 }
 
 .generator-box {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  align-items: flex-start;
   flex-grow: 1;
+  align-items: stretch;
 }
 
 .generator-row {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  flex-grow: 1;
   align-items: center;
 }
 
@@ -221,8 +222,13 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  align-items: start;
+  align-items: stretch;
   justify-content: start;
+}
+
+.generator-status-box
+{
+  text-align: start;
 }
 
 .status-text {
@@ -233,25 +239,25 @@ body {
 .generator-dropdown-box {
   display: flex;
   flex-direction: row;
-  gap: 0.5rem;
   align-items: center;
   padding: 0.6rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
   border-radius: 6px;
   border: 1px solid #979797;
   cursor: pointer;
   transition: border-color 0.3s ease;
   position: relative;
   font-size: medium;
+  text-align: start;
+  justify-content: space-between;
+}
+
+.util-gap
+{
+  gap: 2.4rem;
 }
 
 .generator-dropdown-box:hover {
   border-color: var(--color-primary);
-}
-
-.dropdown-text {
-  flex-grow: 1;
 }
 
 .dropdown-icon {
@@ -263,7 +269,7 @@ body {
   top: calc(100% + 0.5rem);
   left: 0;
   position: absolute;
-  z-index: 999;
+  z-index: 100;
   background-color: white;
   padding: 0.5rem;
   border-radius: 0px 0px 6px 6px;
@@ -273,27 +279,6 @@ body {
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
-
-.generator-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  border: 1px solid var(--color-primary);
-  background-color: var(--color-primary);
-  color: white;
-  cursor: pointer;
-  font-size: medium;
-  transition: 0.3s ease;
-}
-
-.generator-button:hover {
-  background-color: #005580;
-  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
-}
-
 .menu-list {
   display: flex;
   flex-direction: column;
@@ -392,6 +377,85 @@ body {
   text-decoration: none;
 }
 
+/* Settings css */ /* Settings css */ /* Settings css */ /* Settings css */ /* Settings css */ /* Settings css */
+
+.setting {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.9) 
+}
+
+.setting-box {
+  min-width: 350px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 6px;
+}
+
+.setting-header-box
+{
+  align-items: center;
+  justify-content: space-between;
+}
+
+.setting-header-text
+{
+  font-size: larger;
+  font-weight: bold;
+}
+
+.setting-object {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.setting-title {
+  text-align: start;
+  color: #979797;
+  font-size: small;
+}
+
+.setting-input
+{
+  border: 1px solid #979797;
+  border-radius: 6px;
+  padding: 0.5rem;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.setting-input:focus
+{
+  border-color: var(--color-primary);
+}
+
+.setting-input:hover
+{
+  border-color: var(--color-primary);
+}
+
+.setting-close
+{
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.setting-close:hover
+{
+  color: red
+}
+
 /* Font family css */ /* Font family css */ /* Font family css */ /* Font family css */ /* Font family css */ /* Font family css */
 
 .lato-regular {
@@ -414,6 +478,43 @@ body {
 
 /* Misc css */ /* Misc css */ /* Misc css */ /* Misc css */ /* Misc css */ /* Misc css */
 
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+  flex-grow: 1;
+}
+
+.primary-button {
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  font-size: medium;
+}
+
+.secondary-button {
+  background-color:  #979797;
+  border: 1px solid #979797;
+  color: white;
+  font-size: medium;
+}
+
+.primary-button:hover {
+  background-color: #005580;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+}
+
+.secondary-button:hover {
+  background-color: #6e6e6e;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+}
+
+
 .hidden {
   display: none !important;
 }
@@ -424,6 +525,53 @@ body {
 
 .flex-grow-1 {
   flex-grow: 1;
+}
+
+.flex-grow-2 {
+  flex-grow: 2;
+}
+
+.text-color-w
+{
+  color: white;
+}
+
+.flex-row{
+  flex-direction: row;
+}
+
+.flex-col{
+  flex-direction: column;
+}
+
+.font-size-large
+{
+  font-size: large;
+}
+
+.text-color-black
+{
+  color: black;
+}
+
+.font-size-large
+{
+  font-size: large;
+}
+
+.flex-gap-1 
+{
+  gap: 1rem;
+}
+
+.pad-top-1
+{
+  padding-top: 1rem;
+}
+
+.justify-end
+{
+  justify-content: end;
 }
 
 .icon-spinner {

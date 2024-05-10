@@ -21,7 +21,7 @@
 
   <body>
     <div class="box">
-      <div class="row header">
+      <div class="header">
         <div class="header-box">
           <div class="header-object">
             <i class="header-logo fa-solid fa-envelope"></i>
@@ -29,19 +29,19 @@
           </div>
           <div class="header-object header-button" id="SummaryControl">
             <span class="lato-regular" id="SummaryControlText"
-              >Show Summary Tool</span
+              >Summary Tool</span
             >
             <i
-              class="fa-regular fa-eye header-icon"
+              class="fa-solid fa-arrow-right header-icon"
               id="SummaryControlIcon"
             ></i>
           </div>
         </div>
       </div>
-      <div class="row generator" id="ReplyGenerator">
+      <div class="generator" id="ReplyGenerator">
         <div class="generator-box" id="ReplyGeneratorContainer">
           <div class="generator-row">
-            <div class="generator-object">
+            <div class="generator-object flex-grow-1">
               <div class="generator-status-box">
                 <span class="lato-regular status-text"
                   >Response Intention:</span
@@ -70,11 +70,12 @@
                   class="dropdown-menu-box hidden"
                   id="ResponseIntentionDropDown"
                 >
-                  <ul class="menu-list" id="ResponseIntentionList"></ul>
+                  <ul class="menu-list" id="ResponseIntentionList">
+                  </ul>
                 </div>
               </div>
             </div>
-            <div class="generator-object">
+            <div class="generator-object flex-grow-1">
               <div class="generator-status-box">
                 <span class="lato-regular status-text" id="WritingToneStatus"
                   >Writing Tone:</span
@@ -92,13 +93,15 @@
                 </div>
               </div>
             </div>
-            <div class="generator-object">
+          </div>
+          <div class="generator-row">
+            <div class="generator-object flex-grow-2">
               <div class="generator-status-box">
                 <span class="lato-regular status-text" id="AddresseeToneStatus"
                   >Addressee:</span
                 >
               </div>
-              <div class="generator-dropdown-box" id="AddresseeToneContainer">
+              <div class="generator-dropdown-box util-gap" id="AddresseeToneContainer">
                 <span
                   class="dropdown-text lato-regular"
                   id="AddresseeToneStatusText"
@@ -113,9 +116,18 @@
                 </div>
               </div>
             </div>
+            <div class="generator-object flex-grow-1">
+              <div class="generator-status-box">
+                <span class="lato-regular status-text text-color-w">Place Holder</span>
+              </div>
+              <button class="button secondary-button">
+                <a class="lato-regular">Advanced Settings</a>
+                <i class="fa-solid fa-gear" id="SummaryGeneratorIcon"></i>
+              </button>
+            </div>
           </div>
           <div class="generator-row">
-            <div class="generator-object">
+            <!-- <div class="generator-object">
               <div class="generator-status-box">
                 <span class="lato-regular status-text">Your Name:</span>
               </div>
@@ -123,22 +135,20 @@
                 class="generator-dropdown-box lato-regular"
                 id="NameInput"
               />
-            </div>
-            <div class="generator-object">
+            </div> -->
+            <div class="generator-object flex-grow-1">
               <div class="generator-status-box">
                 <span class="lato-regular status-text">Set Values to</span>
-                <!--status text should be changed to "Ready to" after selecting options-->
               </div>
-              <button class="generator-button" id="generate">
-                <!--Response generator button. onclick must be added-->
+              <button class="button primary-button" id="generate">
                 <a class="lato-regular">Generate</a>
-                <i class="fa-solid fa-gear" id="SummaryGeneratorIcon"></i>
+                <i class="fa-solid fa-spinner icon-spinner"></i>
               </button>
             </div>
           </div>
         </div>
       </div>
-      <div class="row content" id="ReplyGeneratorOutput">
+      <div class="content" id="ReplyGeneratorOutput">
         <div class="content-box">
           <div class="content-control">
             <button class="content-button lato-regular" id="CopyToClipboardBtn">
@@ -154,7 +164,7 @@
             <button class="content-button lato-regular" id="choose">
               <!-- id="choose" is now here. checkk if works after inserting API key-->
               <i class="fa-solid fa-reply"></i>
-              <p class="lato-regular">Use To Reply</p>
+              <p class="lato-regular">Reply To</p>
             </button>
           </div>
           <div class="content-textarea-container">
@@ -169,47 +179,54 @@
           </div>
         </div>
       </div>
-      <div class="row generator hidden" id="SummaryGenerator">
+      <div class="generator hidden" id="SummaryGenerator">
         <div class="generator-box" id="SummaryGeneratorContainer">
-          <div class="generator-object flex-grow-1">
-            <div class="generator-status-box">
-              <span class="lato-regular status-text" id="SummaryLengthStatus"
-                >Summary Length</span
-              >
-            </div>
-            <div
-              class="generator-dropdown-box gap-12"
-              id="SummaryLengthContainer"
-            >
-              <!--onclick event should open dropdown menu-->
-              <span
-                class="dropdown-text lato-regular"
-                id="SummaryLengthStatusText"
-                >not selected</span
-              >
-              <i class="dropdown-icon fa-solid fa-angles-down"></i>
-              <div class="dropdown-menu-box hidden" id="SummaryLengthDropDown">
-                <ul class="menu-list" id="SummaryLengthList"></ul>
+          <div class="generator-row">
+            <div class="generator-object flex-grow-2">
+              <div class="generator-status-box">
+                <span class="lato-regular status-text" id="SummaryLengthStatus"
+                  >Summary Lenght</span
+                >
+              </div>
+              <div class="generator-dropdown-box util-gap" id="SummaryLengthContainer">
+                <span
+                  class="dropdown-text lato-regular"
+                  id="SummaryLengthStatusText"
+                  >not selected</span
+                >
+                <i class="dropdown-icon fa-solid fa-angles-down"></i>
+                <div
+                  id="SummaryLengthDropDown"
+                  class="dropdown-menu-box hidden"
+                >
+                  <ul class="menu-list" id="SummaryLengthList"></ul>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="generator-object">
-            <div class="generator-status-box">
-              <span class="lato-regular status-text" id="SummaryGeneratorStatus"
-                >Set Values to</span
-              >
-              <!--status text should be changed to "Ready to" after selecting options-->
+            <div class="generator-object flex-grow-1">
+              <div class="generator-status-box">
+                <span class="lato-regular status-text text-color-w">Place Holder</span>
+              </div>
+              <button class="button secondary-button">
+                <a class="lato-regular">Advanced Settings</a>
+                <i class="fa-solid fa-gear"></i>
+              </button>
             </div>
-            <button class="generator-button" id="SummaryGeneratorButton">
-              <!--Summary generator button. onclick must be added-->
-              <a class="lato-regular">Generate</a>
-              <i class="fa-solid fa-gear" id="SummaryGeneratorIcon"></i>
-              <!--icon-spinner class should be added onclick event.after its done fetching data remove it-->
-            </button>
+          </div>
+          <div class="generator-row">
+            <div class="generator-object flex-grow-1">
+              <div class="generator-status-box">
+                <span class="lato-regular status-text" id="SummaryGeneratorButton">Set Values to</span>
+              </div>
+              <button class="button primary-button" id="SummaryGeneratorButton">
+                <a class="lato-regular">Generate</a>
+                <i class="fa-solid fa-spinner icon-spinner"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="row content hidden" id="SummaryGeneratorOutput">
+      <div class="content hidden" id="SummaryGeneratorOutput">
         <div class="content-box">
           <div class="content-control">
             <button class="content-button lato-regular" id="CopyToClipboardBtn">
@@ -235,8 +252,7 @@
           </div>
         </div>
       </div>
-
-      <div class="row footer">
+      <div class="footer">
         <div class="footer-box">
           <span class="lato-regular"
             >Powered by
@@ -247,7 +263,34 @@
               >ChatGPT</a
             >
           </span>
+          <span class="lato-regular text-color-black">
+            <a href="https://github.com/clecap/web20-2024" class="font-size-large footer-link"><i class="fa-brands fa-github"></i></a>
+          </span>
           <span class="lato-regular">Version 2.0 Beta</span>
+        </div>
+      </div>
+      <div class="setting hidden"> <!--onclick event should hide or reaveal the settings box-->
+        <div class="setting-box">
+          <div class="setting-object setting-header-box">
+            <span class="lato-regular setting-header-text">Advanced Settings</span>
+            <i class="fa-solid fa-xmark setting-close"></i> <!--onclick event should close the settings box-->
+          </div>
+          <div class="setting-object flex-col">
+            <span class="lato-regular setting-title">ChatGPT API Key</span> <!--this setting is ChatGPT API Key-->
+            <input type="text" class="setting-input" />
+          </div>
+          <div class="setting-object flex-col">
+            <span class="lato-regular setting-title">Your Name</span> <!--this setting is Your name-->
+            <input type="text" class="setting-input" />
+          </div>
+          <div class="setting-object flex-row flex-gap-1 pad-top-1">
+            <div class="button primary-button flex-grow-2">
+              <span class="lato-regular">Apply</span> <!--onclick event should apply the settings-->
+            </div>
+            <div class="button secondary-button flex-grow-1">
+              <span class="lato-regular">Cancel</span> <!--onclick event should cancel the settings-->
+            </div>
+          </div>
         </div>
       </div>
     </div>

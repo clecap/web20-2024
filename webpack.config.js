@@ -4,6 +4,7 @@ module.exports = [{
   entry: {
     popup: './src/popup.ts'
   },
+  mode: 'development',
   output: {
     path: path.resolve(__dirname, 'mainPopup'),
     filename: '[name]Bundle.js',
