@@ -167,7 +167,7 @@ generate.addEventListener("click", async (_e: MouseEvent) => {
     preview.value = reply;
   } catch (error) {
     console.log(error);
-    preview.value = "An error occurred. Please try again.";
+    preview.value = error.message;
   }
 });
 
@@ -290,7 +290,7 @@ summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
     );
   } catch (error) {
     console.log(error);
-    summaryTextView.innerText = "An error occurred. Please try again.";
+    summaryTextView.innerText = error.message;
   }
 
   summaryIcon.classList.toggle("icon-spinner");
