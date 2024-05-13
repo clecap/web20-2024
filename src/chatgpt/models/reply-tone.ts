@@ -1,9 +1,9 @@
-export enum ReplyTone {
-  Formal = 'formal',
-  Informal = 'informal',
+export enum WritingTone {
+  Formal = "formal",
+  Informal = "informal",
 }
 
-export enum ReplyTone2 {
-  Personal = 'personal',
-  Professional = 'professional',
+export enum AddresseeTone {
+  Personal = "personal",
+  Professional = "professional",
 }

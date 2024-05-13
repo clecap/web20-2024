@@ -3,10 +3,10 @@
   "name": "ChatGPT Thunderbird",
   "short_name": "ChatGPT",
   "description": "Reply to emails with ChatGPT",
-  "version": "1…0.0",
+  "version": "1.0.0",
   "developer": {
-    "name": "Niklas Tamm, Lennart Dobermann, Daniel Passauer",
-    "url": "https://github.com/clecap/web20-2023/tree/chatgpt-thunderbird"
+    "name": "Niklas Tamm, Lennart Dobermann, Daniel Passauer, Noah Leu, Stephan Glauner, Hauke Pruss, Peter-Alexander Kolev, Pauline Meuer Lukasz Reszczynski, Huseyn Ahmadov",
+    "url": "https://github.com/clecap/web20-2024"
   },
   "browser_specific_settings": {
     "gecko": {
