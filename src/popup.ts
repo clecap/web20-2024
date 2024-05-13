@@ -297,6 +297,36 @@ summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
 });
 
 /*
+  --------------------------------------------
+  ! USER SETTINGS FUNCTIONALITY STARTS HERE !
+  --------------------------------------------
+*/
+
+let userSettingsButton: HTMLElement =
+  document.getElementById("UserSettingsButton");
+userSettingsButton.addEventListener("click", async (_e: MouseEvent) => {
+  let userSettingsContainer: HTMLElement = document.getElementById(
+    "UserSettingsContainer"
+  );
+  userSettingsContainer.classList.toggle("hidden");
+});
+
+let closeSettingsEvent = (e: Event) => {
+  let userSettingsContainer: HTMLElement = document.getElementById(
+    "UserSettingsContainer"
+  );
+  userSettingsContainer.classList.toggle("hidden");
+};
+
+let closeSettingsButton: HTMLElement = document.getElementById(
+  "CloseSettingsButton"
+);
+let closeSettingsIcon: HTMLElement =
+  document.getElementById("CloseSettingsIcon");
+closeSettingsButton.addEventListener("click", closeSettingsEvent);
+closeSettingsIcon.addEventListener("click", closeSettingsEvent);
+
+/*
   ----------------------
   ! HELPER FUNCTIONS !
   ----------------------

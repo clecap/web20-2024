@@ -124,7 +124,7 @@
                   >Place Holder</span
                 >
               </div>
-              <button class="button secondary-button" id="SettingsButton">
+              <button class="button secondary-button" id="UserSettingsButton">
                 <a class="lato-regular">Advanced Settings</a>
                 <i class="fa-solid fa-gear" id="SettingsIcon"></i>
               </button>
@@ -285,24 +285,23 @@
           <span class="lato-regular">Version 2.0 Beta</span>
         </div>
       </div>
-      <div class="setting hidden">
-        <!--onclick event should hide or reaveal the settings box-->
+      <div class="setting hidden" id="UserSettingsContainer">
         <div class="setting-box">
           <div class="setting-object setting-header-box">
             <span class="lato-regular setting-header-text"
               >Advanced Settings</span
             >
-            <i class="fa-solid fa-xmark setting-close"></i>
-            <!--onclick event should close the settings box-->
+            <i
+              class="fa-solid fa-xmark setting-close"
+              id="CloseSettingsButton"
+            ></i>
           </div>
           <div class="setting-object flex-col">
             <span class="lato-regular setting-title">ChatGPT API Key</span>
-            <!--this setting is ChatGPT API Key-->
-            <input type="text" class="setting-input" />
+            <input type="text" class="setting-input" id="APIKeyInput" />
           </div>
           <div class="setting-object flex-col">
             <span class="lato-regular setting-title">Your Name</span>
-            <!--this setting is Your name-->
             <input type="text" class="setting-input" id="NameInput" />
           </div>
           <div class="setting-object flex-row flex-gap-1 pad-top-1">
@@ -310,9 +309,11 @@
               <span class="lato-regular">Apply</span>
               <!--onclick event should apply the settings-->
             </div>
-            <div class="button secondary-button flex-grow-1">
+            <div
+              class="button secondary-button flex-grow-1"
+              id="CloseSettingsIcon"
+            >
               <span class="lato-regular">Cancel</span>
-              <!--onclick event should cancel the settings-->
             </div>
           </div>
         </div>
