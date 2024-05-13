@@ -212,9 +212,10 @@ choose.addEventListener("click", async (_e: MouseEvent) => {
 
 let summaryLength: string = ""; // will be: Short | Long
 
-let openSummaryButton: HTMLButtonElement = document.getElementById(
-  "SummaryControl"
-) as HTMLButtonElement;
+let openSummaryButton: HTMLElement = document.getElementById("SummaryControl");
+// let openSummaryButton: HTMLButtonElement = document.getElementById(
+//   "SummaryControl"
+// ) as HTMLButtonElement;
 openSummaryButton.addEventListener("click", async (_e: MouseEvent) => {
   let summaryContainer: HTMLElement =
     document.getElementById("SummaryGenerator");
@@ -232,16 +233,16 @@ openSummaryButton.addEventListener("click", async (_e: MouseEvent) => {
 
   let summaryButtonIcon: HTMLElement =
     document.getElementById("SummaryControlIcon");
-  summaryButtonIcon.classList.toggle("fa-eye");
-  summaryButtonIcon.classList.toggle("fa-xmark");
-  summaryButtonIcon.classList.toggle("fa-solid");
-  summaryButtonIcon.classList.toggle("fa-regular");
+  summaryButtonIcon.classList.toggle("fa-arrow-right");
+  summaryButtonIcon.classList.toggle("fa-arrow-left");
+  // summaryButtonIcon.classList.toggle("fa-solid");
+  // summaryButtonIcon.classList.toggle("fa-regular");
 
   let openSummaryButtonText = document.getElementById("SummaryControlText");
   openSummaryButtonText.innerText =
-    openSummaryButtonText.innerText === "Show Summary Tool"
+    openSummaryButtonText.innerText === "Summary Tool"
       ? "Hide Summary Tool"
-      : "Show Summary Tool";
+      : "Summary Tool";
 });
 
 let summaryLengthContainer: HTMLElement = document.getElementById(
