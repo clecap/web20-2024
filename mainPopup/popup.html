@@ -38,10 +38,23 @@
           </div>
         </div>
       </div>
-      <div class="generator" id="ReplyGenerator">
+      <div class="generator-page">
+        <div class="generator-page-box">
+          <div class="page">
+            <span class="lato-regular">Generator</span>
+          </div>
+          <div class="page page-selected">
+            <span class="lato-regular">Tooltips</span>
+          </div>
+          <div class="page">
+            <span class="lato-regular">Templates</span>
+          </div>
+        </div>
+      </div>
+      <div class="generator hidden" id="ReplyGenerator">
         <div class="generator-box" id="ReplyGeneratorContainer">
           <div class="generator-row">
-            <div class="generator-object flex-grow-1">
+            <div class="generator-object flex-grow-1 min-size-200">
               <div class="generator-status-box">
                 <span class="lato-regular status-text"
                   >Response Intention:</span
@@ -52,7 +65,7 @@
                 id="ResponseIntentionContainer"
               >
                 <span
-                  class="dropdown-text lato-regular"
+                  class="dropdown-text lato-regular text-wrap"
                   id="ResponseIntentionStatusText"
                   >not selected</span
                 >
@@ -74,7 +87,7 @@
                 </div>
               </div>
             </div>
-            <div class="generator-object flex-grow-1">
+            <div class="generator-object flex-grow-1 min-size-200">
               <div class="generator-status-box">
                 <span class="lato-regular status-text" id="WritingToneStatus"
                   >Writing Tone:</span
@@ -82,7 +95,7 @@
               </div>
               <div class="generator-dropdown-box" id="WritingToneContainer">
                 <span
-                  class="dropdown-text lato-regular"
+                  class="dropdown-text lato-regular text-wrap"
                   id="WritingToneStatusText"
                   >not selected</span
                 >
@@ -94,7 +107,7 @@
             </div>
           </div>
           <div class="generator-row">
-            <div class="generator-object flex-grow-2">
+            <div class="generator-object flex-grow-2 min-size-200">
               <div class="generator-status-box">
                 <span class="lato-regular status-text" id="AddresseeToneStatus"
                   >Addressee:</span
@@ -105,7 +118,7 @@
                 id="AddresseeToneContainer"
               >
                 <span
-                  class="dropdown-text lato-regular"
+                  class="dropdown-text lato-regular text-wrap"
                   id="AddresseeToneStatusText"
                   >not selected</span
                 >
@@ -118,28 +131,19 @@
                 </div>
               </div>
             </div>
-            <div class="generator-object flex-grow-1">
+            <div class="generator-object flex-grow-1 min-size-200">
               <div class="generator-status-box">
                 <span class="lato-regular status-text text-color-w"
                   >Place Holder</span
                 >
               </div>
               <button class="button secondary-button" id="UserSettingsButton">
-                <a class="lato-regular">Advanced Settings</a>
+                <a class="lato-regular">General Settings</a>
                 <i class="fa-solid fa-gear" id="SettingsIcon"></i>
               </button>
             </div>
           </div>
           <div class="generator-row">
-            <!-- <div class="generator-object">
-              <div class="generator-status-box">
-                <span class="lato-regular status-text">Your Name:</span>
-              </div>
-              <input
-                class="generator-dropdown-box lato-regular"
-                id="NameInput"
-              />
-            </div> -->
             <div class="generator-object flex-grow-1">
               <div class="generator-status-box">
                 <span class="lato-regular status-text">Set Values to</span>
@@ -152,18 +156,69 @@
           </div>
         </div>
       </div>
+      <div class="tooltip">
+        <div class="tooltip-box">
+          <div class="tooltip-object">
+            <header class="lato-regular"><i class="fa-solid fa-circle header-circle"></i> Response Intention </header>
+            <p class="lato-regular">
+              The response intention is the purpose of the email. It helps the
+              AI understand the context of the email and generate a relevant
+              response.
+            </p>
+          </div>
+          <div class="tooltip-object">
+            <header class="lato-regular"><i class="fa-solid fa-circle header-circle"></i> Response Intention </header>
+            <p class="lato-regular">
+              The response intention is the purpose of the email. It helps the
+              AI understand the context of the email and generate a relevant
+              response.
+            </p>
+          </div>
+          <div class="tooltip-object">
+            <header class="lato-regular"><i class="fa-solid fa-circle header-circle"></i> Response Intention </header>
+            <p class="lato-regular">
+              The response intention is the purpose of the email. It helps the
+              AI understand the context of the email and generate a relevant
+              response.
+            </p>
+          </div>
+          <div class="tooltip-object">
+            <header class="lato-regular"><i class="fa-solid fa-circle header-circle"></i> Response Intention </header>
+            <p class="lato-regular">
+              The response intention is the purpose of the email. It helps the
+              AI understand the context of the email and generate a relevant
+              response.
+            </p>
+          </div>
+          <div class="tooltip-object">
+            <header class="lato-regular"><i class="fa-solid fa-circle header-circle"></i> Response Intention </header>
+            <p class="lato-regular">
+              The response intention is the purpose of the email. It helps the
+              AI understand the context of the email and generate a relevant
+              response.
+            </p>
+          </div>
+          <div class="tooltip-object">
+            <header class="lato-regular"><i class="fa-solid fa-circle header-circle"></i> Response Intention </header>
+            <p class="lato-regular">
+              The response intention is the purpose of the email. It helps the
+              AI understand the context of the email and generate a relevant
+              response.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="template">
+        <div class="template-box">
+
+        </div>
+      </div>
       <div class="content" id="ReplyGeneratorOutput">
         <div class="content-box">
           <div class="content-control">
             <button class="content-button lato-regular" id="CopyToClipboardBtn">
               <i class="fa-solid fa-copy"></i>
               <p class="lato-regular">Copy</p>
-            </button>
-            <button class="content-button lato-regular">
-              <i class="fa-solid fa-square-arrow-up-right"></i>
-              <p class="lato-regular">View in new tab</p>
-              <!--View in new tab onclick event should be added
-              this feature is still a idea but onclick to send text to new page would be nice start. if you have time plz work upon -->
             </button>
             <button class="content-button lato-regular" id="choose">
               <!-- id="choose" is now here. checkk if works after inserting API key-->
@@ -186,7 +241,7 @@
       <div class="generator hidden" id="SummaryGenerator">
         <div class="generator-box" id="SummaryGeneratorContainer">
           <div class="generator-row">
-            <div class="generator-object flex-grow-2">
+            <div class="generator-object flex-grow-1 min-size-200">
               <div class="generator-status-box">
                 <span class="lato-regular status-text" id="SummaryLengthStatus"
                   >Summary Length</span
@@ -197,7 +252,7 @@
                 id="SummaryLengthContainer"
               >
                 <span
-                  class="dropdown-text lato-regular"
+                  class="dropdown-text lato-regular text-wrap"
                   id="SummaryLengthStatusText"
                   >not selected</span
                 >
@@ -210,7 +265,7 @@
                 </div>
               </div>
             </div>
-            <div class="generator-object flex-grow-1">
+            <div class="generator-object flex-grow-1 min-size-200">
               <div class="generator-status-box">
                 <span class="lato-regular status-text text-color-w"
                   >Place Holder</span
@@ -247,7 +302,7 @@
             </button>
             <button class="content-button lato-regular">
               <i class="fa-solid fa-square-arrow-up-right"></i>
-              <p class="lato-regular">View in new tab</p>
+              <p class="lato-regular">Pop out summary tool</p>
               <!--View in new tab onclick event should be added
               this feature is still a idea but onclick to send text to new page would be nice start. if you have time plz work upon -->
             </button>
@@ -286,37 +341,51 @@
         </div>
       </div>
       <div class="setting hidden" id="UserSettingsContainer">
-        <div class="setting-box">
-          <div class="setting-object setting-header-box">
-            <span class="lato-regular setting-header-text"
-              >Advanced Settings</span
-            >
-            <i
-              class="fa-solid fa-xmark setting-close"
-              id="CloseSettingsButton"
-            ></i>
-          </div>
-          <div class="setting-object flex-col">
-            <span class="lato-regular setting-title">ChatGPT API Key</span>
-            <input type="text" class="setting-input" id="APIKeyInput" />
-          </div>
-          <div class="setting-object flex-col">
-            <span class="lato-regular setting-title">Your Name</span>
-            <input type="text" class="setting-input" id="NameInput" />
-          </div>
-          <div class="setting-object flex-row flex-gap-1 pad-top-1">
-            <div class="button primary-button flex-grow-2">
-              <span class="lato-regular">Apply</span>
-              <!--onclick event should apply the settings-->
+        <div class="setting-box-wrapper">
+          <div class="setting-box">
+            <div class="setting-tag positive-tag">
+              <span class="lato-regular">Saved</span>
+              <i class="fa-solid fa-check"></i>
             </div>
-            <div
-              class="button secondary-button flex-grow-1"
-              id="CloseSettingsIcon"
-            >
-              <span class="lato-regular">Cancel</span>
+            <div class="setting-tag error-tag hidden">
+              <span class="lato-regular">Error</span>
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="setting-object setting-header-box">
+              <span class="lato-regular setting-header-text"
+                >General Settings</span
+              >
+              <i
+                class="fa-solid fa-xmark setting-close"
+                id="CloseSettingsButton"
+              ></i>
+            </div>
+            <div class="setting-object">
+              <span class="lato-regular error-text"> ChatGPT API key must be inserted for the Generator</span>
+            </div>
+            <div class="setting-object flex-col">
+              <span class="lato-regular setting-title">ChatGPT API Key</span>
+              <input type="text" class="setting-input" id="APIKeyInput" />
+            </div>
+            <div class="setting-object flex-col">
+              <span class="lato-regular setting-title">Your Name</span>
+              <input type="text" class="setting-input" id="NameInput" />
+            </div>
+            <div class="setting-object flex-row flex-gap-1 pad-top-1">
+              <div class="button primary-button flex-grow-1">
+                <span class="lato-regular">Apply</span>
+                <!--onclick event should apply the settings-->
+              </div>
+              <div
+                class="button secondary-button "
+                id="CloseSettingsIcon"
+              >
+                <span class="lato-regular">Cancel</span>
+              </div>
             </div>
           </div>
         </div>
+        
       </div>
     </div>
     <script type="module" src="popupBundle.js"></script>

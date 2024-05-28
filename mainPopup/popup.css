@@ -147,6 +147,7 @@ body {
   text-align: center;
   height: 100%;
   position: relative;
+  max-width: 500px;
 }
 
 /* Header css */ /* Header css */ /* Header css */ /* Header css */ /* Header css */ /* Header css */
@@ -192,22 +193,55 @@ body {
 
 /* Generator css */ /* Generator css */ /* Generator css */ /* Generator css */ /* Generator css */ /* Generator css */
 
+.generator-page 
+{
+  margin: 1rem 1rem 0rem 1rem;
+}
+
+.generator-page-box
+{
+  display: flex;
+}
+
+.generator-page-box .page:first-child {
+  border-radius : 6px 0px 0px 0px 
+}
+
+
+.generator-page-box .page:last-child {
+  border-radius : 0px 6px 0px 0px
+}
+
+.page
+{
+  background-color:#979797;
+  padding: 0.7rem;
+  cursor: pointer;
+  color: white;
+  transition: 0.3s ease;
+}
+
+.page-selected 
+{
+  color: var(--color-primary);
+  background-color: white;
+}
 .generator {
-  margin: 1rem;
+  margin: 0rem 1rem 1rem 1rem;
   padding: 1rem;
   background-color: white;
   border: 1px solid white;
-  border-radius: 6px;
+  border-radius : 0px 6px 6px 6px;
   display: flex;
   flex-grow: 1;
+  max-height: 280px;
+  justify-content: center;
 }
 
 .generator-box {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  flex-grow: 1;
-  align-items: stretch;
 }
 
 .generator-row {
@@ -216,6 +250,7 @@ body {
   gap: 1rem;
   flex-grow: 1;
   align-items: center;
+  justify-content: center;
 }
 
 .generator-object {
@@ -456,6 +491,90 @@ body {
   color: red
 }
 
+.setting-tag
+{
+  top: 4rem;
+  left: 5rem;
+  padding: 0.5rem 1rem !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem ;
+  position: absolute;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  font-size: large;
+}
+
+.error-tag
+{
+  background-color: #E23636
+}
+
+.positive-tag
+{
+  background-color: #82DD55
+}
+
+.error-text
+{
+  width: 19rem;
+  text-align: start;
+  font-size: medium;
+  color: #E23636;
+}
+
+/*Tooltip css */ /*Tooltip css */ /*Tooltip css */ /*Tooltip css */ /*Tooltip css */ /*Tooltip css */
+
+.tooltip {
+  margin: 0rem 1rem 1rem 1rem;
+  padding: 1rem;
+  background-color: white;
+  border: 1px solid white;
+  border-radius : 0px 6px 6px 6px;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  max-height: 280px;
+  overflow-y: scroll;
+}
+
+.tooltip-box{
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tooltip-object {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: stretch;
+  justify-content: start;
+}
+
+.tooltip-object header
+{
+  font-weight: bold;
+  font-size: large;
+}
+
+.header-circle
+{
+  font-size:medium;
+  color: var(--color-primary);
+  padding-right: 0.5rem;
+}
+
+
+
+
+
+
+
+
 /* Font family css */ /* Font family css */ /* Font family css */ /* Font family css */ /* Font family css */ /* Font family css */
 
 .lato-regular {
@@ -488,7 +607,6 @@ body {
   color: white;
   cursor: pointer;
   transition: 0.3s ease;
-  flex-grow: 1;
 }
 
 .primary-button {
@@ -574,6 +692,19 @@ body {
   justify-content: end;
 }
 
+.min-size-200
+{
+  min-width: 200px;
+}
+
+.text-wrap
+{
+  width: 130px;
+  overflow:hidden; 
+  white-space:nowrap; 
+  text-overflow: ellipsis;
+}
+
 .icon-spinner {
   animation: spin-animation 1.5s infinite;
   display: inline-block;
@@ -587,3 +718,4 @@ body {
     transform: rotate(359deg);
   }
 }
+
