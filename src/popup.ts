@@ -16,6 +16,12 @@ const helper: IChatGptMailHelper = new ChatGptMailHelper();
 */
 // check extension storage for stored API key
 let apiKey: string = "";
+let summaryGeneratorButton: HTMLButtonElement = document.getElementById(
+  "SummaryGeneratorButton"
+) as HTMLButtonElement;
+let emailGeneratorButton: HTMLButtonElement = document.getElementById(
+  "generate"
+) as HTMLButtonElement;
 
 const getApiKeyFromStorage: () => Promise<string> = async () => {
   return new Promise((resolve, reject) => {
@@ -57,20 +63,14 @@ applySettingsButton.addEventListener("click", async (_e: MouseEvent) => {
   localStorage.setItem("apiKey", apiKey);
 
   if (apiKey !== "") {
-    let allButtons: NodeListOf<Element> = document.querySelectorAll("button");
-    let allButtonsArray: Element[] = Array.from(allButtons);
-
-    allButtonsArray.forEach((button) => {
-      button.removeAttribute("disabled");
-    });
+    summaryGeneratorButton.removeAttribute("disabled");
+    emailGeneratorButton.removeAttribute("disabled");
   } else {
-    let allButtons: NodeListOf<Element> = document.querySelectorAll("button");
-    let allButtonsArray: Element[] = Array.from(allButtons);
-
-    allButtonsArray.forEach((button) => {
-      button.setAttribute("disabled", "true");
-    });
+    summaryGeneratorButton.setAttribute("disabled", "true");
+    emailGeneratorButton.setAttribute("disabled", "true");
   }
+  summaryGeneratorButton.classList.toggle("button-disabled");
+  emailGeneratorButton.classList.toggle("button-disabled");
 });
 
 /*
@@ -79,13 +79,11 @@ applySettingsButton.addEventListener("click", async (_e: MouseEvent) => {
   ----------------------------------------------
 */
 
-let allButtons: NodeListOf<Element> = document.querySelectorAll("button");
-let allButtonsArray: Element[] = Array.from(allButtons);
-
 if (apiKey === "") {
-  allButtonsArray.forEach((button) => {
-    button.setAttribute("disabled", "true");
-  });
+  summaryGeneratorButton.setAttribute("disabled", "true");
+  emailGeneratorButton.setAttribute("disabled", "true");
+  summaryGeneratorButton.classList.toggle("button-disabled");
+  emailGeneratorButton.classList.toggle("button-disabled");
 }
 
 /*
@@ -221,10 +219,7 @@ let user: string = (await messenger.accounts.get(accountId, false))
 nameInput.value = user;
 
 // generate button functionality
-let generate: HTMLButtonElement = document.getElementById(
-  "generate"
-) as HTMLButtonElement;
-generate.addEventListener("click", async (_e: MouseEvent) => {
+emailGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
   let preview: HTMLTextAreaElement = document.getElementById(
     "preview"
   ) as HTMLTextAreaElement;
@@ -357,9 +352,6 @@ Object.entries(TypeOfDetail).map(([k, __], _) => {
 });
 
 //summary button functionality
-let summaryGeneratorButton: HTMLButtonElement = document.getElementById(
-  "SummaryGeneratorButton"
-) as HTMLButtonElement;
 summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
   let summaryIcon = document.getElementById("SummaryGeneratorIcon");
   summaryIcon.classList.toggle("icon-spinner");

@@ -226,8 +226,7 @@ body {
   justify-content: start;
 }
 
-.generator-status-box
-{
+.generator-status-box {
   text-align: start;
 }
 
@@ -251,8 +250,7 @@ body {
   justify-content: space-between;
 }
 
-.util-gap
-{
+.util-gap {
   gap: 2.4rem;
 }
 
@@ -388,7 +386,7 @@ body {
   align-items: center;
   flex-grow: 1;
   z-index: 999;
-  background: rgba(0, 0, 0, 0.9) 
+  background: rgba(0, 0, 0, 0.9);
 }
 
 .setting-box {
@@ -402,14 +400,12 @@ body {
   border-radius: 6px;
 }
 
-.setting-header-box
-{
+.setting-header-box {
   align-items: center;
   justify-content: space-between;
 }
 
-.setting-header-text
-{
+.setting-header-text {
   font-size: larger;
   font-weight: bold;
 }
@@ -425,8 +421,7 @@ body {
   font-size: small;
 }
 
-.setting-input
-{
+.setting-input {
   border: 1px solid #979797;
   border-radius: 6px;
   padding: 0.5rem;
@@ -434,26 +429,22 @@ body {
   transition: border-color 0.3s ease;
 }
 
-.setting-input:focus
-{
+.setting-input:focus {
   border-color: var(--color-primary);
 }
 
-.setting-input:hover
-{
+.setting-input:hover {
   border-color: var(--color-primary);
 }
 
-.setting-close
-{
+.setting-close {
   cursor: pointer;
   font-size: 1.5rem;
   transition: color 0.3s ease;
 }
 
-.setting-close:hover
-{
-  color: red
+.setting-close:hover {
+  color: red;
 }
 
 /* Font family css */ /* Font family css */ /* Font family css */ /* Font family css */ /* Font family css */ /* Font family css */
@@ -498,7 +489,7 @@ body {
 }
 
 .secondary-button {
-  background-color:  #979797;
+  background-color: #979797;
   border: 1px solid #979797;
   color: white;
   font-size: medium;
@@ -514,6 +505,12 @@ body {
   box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
 }
 
+.button-disabled {
+  background-color: #979797 !important;
+  border: 1px solid #979797 !important;
+  color: white !important;
+  cursor: not-allowed !important;
+}
 
 .hidden {
   display: none !important;
@@ -531,46 +528,39 @@ body {
   flex-grow: 2;
 }
 
-.text-color-w
-{
+.text-color-w {
   color: white;
 }
 
-.flex-row{
+.flex-row {
   flex-direction: row;
 }
 
-.flex-col{
+.flex-col {
   flex-direction: column;
 }
 
-.font-size-large
-{
+.font-size-large {
   font-size: large;
 }
 
-.text-color-black
-{
+.text-color-black {
   color: black;
 }
 
-.font-size-large
-{
+.font-size-large {
   font-size: large;
 }
 
-.flex-gap-1 
-{
+.flex-gap-1 {
   gap: 1rem;
 }
 
-.pad-top-1
-{
+.pad-top-1 {
   padding-top: 1rem;
 }
 
-.justify-end
-{
+.justify-end {
   justify-content: end;
 }
 
