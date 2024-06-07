@@ -4,8 +4,87 @@ import { WritingTone, AddresseeTone } from "./chatgpt/models/reply-tone";
 import { TypeOfDetail } from "./chatgpt/models/type-of-detail";
 
 declare const messenger: any;
+// with correct type:
+declare const localStorage: Storage;
 
 const helper: IChatGptMailHelper = new ChatGptMailHelper();
+
+/*
+  -------------------------------
+  ! API KEY FUNCTIONALITY STARTS !
+  -------------------------------
+*/
+// check extension storage for stored API key
+let apiKey: string = "";
+let summaryGeneratorButton: HTMLButtonElement = document.getElementById(
+  "SummaryGeneratorButton"
+) as HTMLButtonElement;
+let emailGeneratorButton: HTMLButtonElement = document.getElementById(
+  "generate"
+) as HTMLButtonElement;
+
+const getApiKeyFromStorage: () => Promise<string> = async () => {
+  return new Promise((resolve, reject) => {
+    let result = localStorage.getItem("apiKey");
+    console.log(result);
+
+    if (result) {
+      resolve(result);
+    } else {
+      reject("No API key found in storage.");
+    }
+  });
+};
+
+await getApiKeyFromStorage()
+  .then((res) => {
+    if (typeof res === "string") {
+      apiKey = res;
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+let apiKeyInput: HTMLInputElement = document.getElementById(
+  "APIKeyInput"
+) as HTMLInputElement;
+apiKeyInput.value = apiKey;
+
+let applySettingsButton: HTMLButtonElement = document.getElementById(
+  "ApplySettingsButton"
+) as HTMLButtonElement;
+applySettingsButton.addEventListener("click", async (_e: MouseEvent) => {
+  let apiKeyInput: HTMLInputElement = document.getElementById(
+    "APIKeyInput"
+  ) as HTMLInputElement;
+  apiKey = apiKeyInput.value;
+
+  localStorage.setItem("apiKey", apiKey);
+
+  if (apiKey !== "") {
+    summaryGeneratorButton.removeAttribute("disabled");
+    emailGeneratorButton.removeAttribute("disabled");
+  } else {
+    summaryGeneratorButton.setAttribute("disabled", "true");
+    emailGeneratorButton.setAttribute("disabled", "true");
+  }
+  summaryGeneratorButton.classList.toggle("button-disabled");
+  emailGeneratorButton.classList.toggle("button-disabled");
+});
+
+/*
+  ----------------------------------------------
+  ! DISABLE ALL BUTTONS IF NO STORED API KEY !
+  ----------------------------------------------
+*/
+
+if (apiKey === "") {
+  summaryGeneratorButton.setAttribute("disabled", "true");
+  emailGeneratorButton.setAttribute("disabled", "true");
+  summaryGeneratorButton.classList.toggle("button-disabled");
+  emailGeneratorButton.classList.toggle("button-disabled");
+}
 
 /*
   --------------------------------------------
@@ -85,7 +164,7 @@ let text: string = getText(full);
 let possibleIntentions: string[] = [];
 
 possibleIntentions = await helper
-  .generatePossibleReplyIntentions(text)
+  .generatePossibleReplyIntentions(text, apiKey)
   .then((res) => {
     return res;
   })
@@ -140,10 +219,7 @@ let user: string = (await messenger.accounts.get(accountId, false))
 nameInput.value = user;
 
 // generate button functionality
-let generate: HTMLButtonElement = document.getElementById(
-  "generate"
-) as HTMLButtonElement;
-generate.addEventListener("click", async (_e: MouseEvent) => {
+emailGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
   let preview: HTMLTextAreaElement = document.getElementById(
     "preview"
   ) as HTMLTextAreaElement;
@@ -156,7 +232,8 @@ generate.addEventListener("click", async (_e: MouseEvent) => {
       selectedIntention,
       user,
       selectedWritingTone,
-      selectedAddresseTone
+      selectedAddresseTone,
+      apiKey
     );
 
     if (reply === "" || reply === null) {
@@ -167,7 +244,7 @@ generate.addEventListener("click", async (_e: MouseEvent) => {
     preview.value = reply;
   } catch (error) {
     console.log(error);
-    preview.value = "An error occurred. Please try again.";
+    preview.value = error.message;
   }
 });
 
@@ -275,9 +352,6 @@ Object.entries(TypeOfDetail).map(([k, __], _) => {
 });
 
 //summary button functionality
-let summaryGeneratorButton: HTMLButtonElement = document.getElementById(
-  "SummaryGeneratorButton"
-) as HTMLButtonElement;
 summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
   let summaryIcon = document.getElementById("SummaryGeneratorIcon");
   summaryIcon.classList.toggle("icon-spinner");
@@ -286,11 +360,12 @@ summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
   try {
     summaryTextView.innerText = await helper.generateEmailSummary(
       text,
-      summaryLength
+      summaryLength,
+      apiKey
     );
   } catch (error) {
     console.log(error);
-    summaryTextView.innerText = "An error occurred. Please try again.";
+    summaryTextView.innerText = error.message;
   }
 
   summaryIcon.classList.toggle("icon-spinner");
@@ -304,7 +379,16 @@ summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
 
 let userSettingsButton: HTMLElement =
   document.getElementById("UserSettingsButton");
+let userSettingsButton2: HTMLElement = document.getElementById(
+  "UserSettingsButton2"
+);
 userSettingsButton.addEventListener("click", async (_e: MouseEvent) => {
+  let userSettingsContainer: HTMLElement = document.getElementById(
+    "UserSettingsContainer"
+  );
+  userSettingsContainer.classList.toggle("hidden");
+});
+userSettingsButton2.addEventListener("click", async (_e: MouseEvent) => {
   let userSettingsContainer: HTMLElement = document.getElementById(
     "UserSettingsContainer"
   );
@@ -325,6 +409,7 @@ let closeSettingsIcon: HTMLElement =
   document.getElementById("CloseSettingsIcon");
 closeSettingsButton.addEventListener("click", closeSettingsEvent);
 closeSettingsIcon.addEventListener("click", closeSettingsEvent);
+applySettingsButton.addEventListener("click", closeSettingsEvent);
 
 /*
   ----------------------

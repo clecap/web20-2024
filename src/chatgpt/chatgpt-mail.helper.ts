@@ -7,9 +7,10 @@ export class ChatGptMailHelper implements IChatGptMailHelper {
     intention: string,
     name: string,
     writingTone: string,
-    addresseeTone: string
+    addresseeTone: string,
+    apiKey: string
   ): Promise<string> {
-    const session = new ChatGptSession([]);
+    const session = new ChatGptSession([], apiKey);
 
     return await session.sendMessage(
       `Based on the following Email correspondance, please generate a response email with the intention "${intention.valueOf()}" using a ${writingTone} tone and addressing a ${addresseeTone} recipient.
@@ -19,17 +20,21 @@ export class ChatGptMailHelper implements IChatGptMailHelper {
 
   async generateEmailSummary(
     email: string,
-    typeOfDetail: string
+    typeOfDetail: string,
+    apiKey: string
   ): Promise<string> {
-    const session = new ChatGptSession([]);
+    const session = new ChatGptSession([], apiKey);
 
     return await session.sendMessage(
       `Summarize the following Email content in a ${typeOfDetail.valueOf()} manner.`
     );
   }
 
-  async generatePossibleReplyIntentions(email: string): Promise<string[]> {
-    const session = new ChatGptSession([]);
+  async generatePossibleReplyIntentions(
+    email: string,
+    apiKey: string
+  ): Promise<string[]> {
+    const session = new ChatGptSession([], apiKey);
 
     const reply = await session.sendMessage(
       `Based on the following Email correspondance, please generate a list of a maximum of five possible intentions for replying to the email.

@@ -4,10 +4,18 @@ export interface IChatGptMailHelper {
     intention: string,
     name: string,
     writingTone: string,
-    addresseeTone: string
+    addresseeTone: string,
+    apiKey: string
   ): Promise<string>;
 
-  generatePossibleReplyIntentions(email: string): Promise<string[]>;
+  generatePossibleReplyIntentions(
+    email: string,
+    apiKey: string
+  ): Promise<string[]>;
 
-  generateEmailSummary(email: string, typeOfDetail: string): Promise<string>;
+  generateEmailSummary(
+    email: string,
+    typeOfDetail: string,
+    apiKey: string
+  ): Promise<string>;
 }
