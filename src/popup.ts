@@ -4,8 +4,89 @@ import { WritingTone, AddresseeTone } from "./chatgpt/models/reply-tone";
 import { TypeOfDetail } from "./chatgpt/models/type-of-detail";
 
 declare const messenger: any;
+// with correct type:
+declare const localStorage: Storage;
 
 const helper: IChatGptMailHelper = new ChatGptMailHelper();
+
+/*
+  -------------------------------
+  ! API KEY FUNCTIONALITY STARTS !
+  -------------------------------
+*/
+// check extension storage for stored API key
+let apiKey: string = "";
+
+const getApiKeyFromStorage: () => Promise<string> = async () => {
+  return new Promise((resolve, reject) => {
+    let result = localStorage.getItem("apiKey");
+    console.log(result);
+
+    if (result) {
+      resolve(result);
+    } else {
+      reject("No API key found in storage.");
+    }
+  });
+};
+
+await getApiKeyFromStorage()
+  .then((res) => {
+    if (typeof res === "string") {
+      apiKey = res;
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+let apiKeyInput: HTMLInputElement = document.getElementById(
+  "APIKeyInput"
+) as HTMLInputElement;
+apiKeyInput.value = apiKey;
+
+let applySettingsButton: HTMLButtonElement = document.getElementById(
+  "ApplySettingsButton"
+) as HTMLButtonElement;
+applySettingsButton.addEventListener("click", async (_e: MouseEvent) => {
+  let apiKeyInput: HTMLInputElement = document.getElementById(
+    "APIKeyInput"
+  ) as HTMLInputElement;
+  apiKey = apiKeyInput.value;
+
+  localStorage.setItem("apiKey", apiKey);
+
+  if (apiKey !== "") {
+    let allButtons: NodeListOf<Element> = document.querySelectorAll("button");
+    let allButtonsArray: Element[] = Array.from(allButtons);
+
+    allButtonsArray.forEach((button) => {
+      button.removeAttribute("disabled");
+    });
+  } else {
+    let allButtons: NodeListOf<Element> = document.querySelectorAll("button");
+    let allButtonsArray: Element[] = Array.from(allButtons);
+
+    allButtonsArray.forEach((button) => {
+      button.setAttribute("disabled", "true");
+    });
+  }
+});
+
+/*
+  ----------------------------------------------
+  ! DISABLE ALL BUTTONS IF NO STORED API KEY !
+  ----------------------------------------------
+*/
+
+let allButtons: NodeListOf<Element> = document.querySelectorAll("button");
+let allButtonsArray: Element[] = Array.from(allButtons);
+
+if (apiKey === "") {
+  allButtonsArray.forEach((button) => {
+    button.setAttribute("disabled", "true");
+  });
+}
 
 /*
   --------------------------------------------
@@ -85,7 +166,7 @@ let text: string = getText(full);
 let possibleIntentions: string[] = [];
 
 possibleIntentions = await helper
-  .generatePossibleReplyIntentions(text)
+  .generatePossibleReplyIntentions(text, apiKey)
   .then((res) => {
     return res;
   })
@@ -156,7 +237,8 @@ generate.addEventListener("click", async (_e: MouseEvent) => {
       selectedIntention,
       user,
       selectedWritingTone,
-      selectedAddresseTone
+      selectedAddresseTone,
+      apiKey
     );
 
     if (reply === "" || reply === null) {
@@ -286,7 +368,8 @@ summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
   try {
     summaryTextView.innerText = await helper.generateEmailSummary(
       text,
-      summaryLength
+      summaryLength,
+      apiKey
     );
   } catch (error) {
     console.log(error);
@@ -304,7 +387,16 @@ summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
 
 let userSettingsButton: HTMLElement =
   document.getElementById("UserSettingsButton");
+let userSettingsButton2: HTMLElement = document.getElementById(
+  "UserSettingsButton2"
+);
 userSettingsButton.addEventListener("click", async (_e: MouseEvent) => {
+  let userSettingsContainer: HTMLElement = document.getElementById(
+    "UserSettingsContainer"
+  );
+  userSettingsContainer.classList.toggle("hidden");
+});
+userSettingsButton2.addEventListener("click", async (_e: MouseEvent) => {
   let userSettingsContainer: HTMLElement = document.getElementById(
     "UserSettingsContainer"
   );
@@ -325,6 +417,7 @@ let closeSettingsIcon: HTMLElement =
   document.getElementById("CloseSettingsIcon");
 closeSettingsButton.addEventListener("click", closeSettingsEvent);
 closeSettingsIcon.addEventListener("click", closeSettingsEvent);
+applySettingsButton.addEventListener("click", closeSettingsEvent);
 
 /*
   ----------------------
