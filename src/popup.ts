@@ -451,8 +451,6 @@ function extractContent(s: string): string {
   ! TAB SWITCH CLICK EVENTS !
   ----------------------
 */
-type SectionId = 'generator' | 'tooltip' | 'template';
-
 document.getElementById('tab-generator').addEventListener('click', function () {
   showSection('generator');
 });
@@ -463,7 +461,7 @@ document.getElementById('tab-templates').addEventListener('click', function () {
   showSection('template');
 });
 
-function showSection(sectionId:SectionId) {
+function showSection(sectionId: string):void {
   // Hide all sections
   document.getElementById('generator').classList.add('hidden');
   document.getElementById('tooltip').classList.add('hidden');
