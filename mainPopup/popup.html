@@ -40,18 +40,18 @@
       </div>
       <div class="generator-page">
         <div class="generator-page-box">
-          <div class="page">
+          <div class="page page-selected" id="tab-generator">
             <span class="lato-regular">Generator</span>
           </div>
-          <div class="page page-selected">
+          <div class="page" id="tab-tooltips">
             <span class="lato-regular">Tooltips</span>
           </div>
-          <div class="page">
+          <div class="page" id="tab-templates">
             <span class="lato-regular">Templates</span>
           </div>
         </div>
       </div>
-      <div class="generator hidden" id="ReplyGenerator">
+      <div class="generator" id="generator">
         <div class="generator-box" id="ReplyGeneratorContainer">
           <div class="generator-row">
             <div class="generator-object flex-grow-1 min-size-200">
@@ -156,7 +156,7 @@
           </div>
         </div>
       </div>
-      <div class="tooltip">
+      <div class="tooltip hidden" id="tooltip">
         <div class="tooltip-box">
           <div class="tooltip-object">
             <header class="lato-regular">
@@ -226,7 +226,7 @@
           </div>
         </div>
       </div>
-      <div class="template">
+      <div class="template" id="template">
         <div class="template-box"></div>
       </div>
       <div class="content" id="ReplyGeneratorOutput">
@@ -405,6 +405,40 @@
         </div>
       </div>
     </div>
+    <script>
+      document.getElementById('tab-generator').addEventListener('click', function () {
+  showSection('generator');
+});
+document.getElementById('tab-tooltips').addEventListener('click', function () {
+  showSection('tooltip');
+});
+document.getElementById('tab-templates').addEventListener('click', function () {
+  showSection('template');
+});
+
+function showSection(sectionId) {
+  // Hide all sections
+  document.getElementById('generator').classList.add('hidden');
+  document.getElementById('tooltip').classList.add('hidden');
+  document.getElementById('template').classList.add('hidden');
+
+  // Remove selected class from all tabs
+  document.getElementById('tab-generator').classList.remove('page-selected');
+  document.getElementById('tab-tooltips').classList.remove('page-selected');
+  document.getElementById('tab-templates').classList.remove('page-selected');
+
+ 
+  document.getElementById(sectionId).classList.remove('hidden');
+
+  if (sectionId === 'generator') {
+    document.getElementById('tab-generator').classList.add('page-selected');
+  } else if (sectionId === 'tooltip') {
+    document.getElementById('tab-tooltips').classList.add('page-selected');
+  } else if (sectionId === 'template') {
+    document.getElementById('tab-templates').classList.add('page-selected');
+  }
+}
+    </script>
     <script type="module" src="popupBundle.js"></script>
   </body>
 </html>

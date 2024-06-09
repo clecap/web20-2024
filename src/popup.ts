@@ -445,3 +445,43 @@ function extractContent(s: string): string {
   span.innerHTML = s;
   return span.innerText || span.textContent;
 }
+
+/*
+  ----------------------
+  ! TAB SWITCH CLICK EVENTS !
+  ----------------------
+*/
+type SectionId = 'generator' | 'tooltip' | 'template';
+
+document.getElementById('tab-generator').addEventListener('click', function () {
+  showSection('generator');
+});
+document.getElementById('tab-tooltips').addEventListener('click', function () {
+  showSection('tooltip');
+});
+document.getElementById('tab-templates').addEventListener('click', function () {
+  showSection('template');
+});
+
+function showSection(sectionId:SectionId) {
+  // Hide all sections
+  document.getElementById('generator').classList.add('hidden');
+  document.getElementById('tooltip').classList.add('hidden');
+  document.getElementById('template').classList.add('hidden');
+
+  // Remove selected class from all tabs
+  document.getElementById('tab-generator').classList.remove('page-selected');
+  document.getElementById('tab-tooltips').classList.remove('page-selected');
+  document.getElementById('tab-templates').classList.remove('page-selected');
+
+ 
+  document.getElementById(sectionId).classList.remove('hidden');
+
+  if (sectionId === 'generator') {
+    document.getElementById('tab-generator').classList.add('page-selected');
+  } else if (sectionId === 'tooltip') {
+    document.getElementById('tab-tooltips').classList.add('page-selected');
+  } else if (sectionId === 'template') {
+    document.getElementById('tab-templates').classList.add('page-selected');
+  }
+}
