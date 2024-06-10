@@ -38,16 +38,16 @@
           </div>
         </div>
       </div>
-      <div class="generator-page">
+      <div class="generator-page" id="GeneratorPage">
         <div class="generator-page-box">
           <div class="page page-selected" id="tab-generator">
             <span class="lato-regular">Generator</span>
           </div>
           <div class="page" id="tab-tooltips">
-            <span class="lato-regular">Tooltips</span>
+            <span class="lato-regular">Tutorial</span>
           </div>
           <div class="page" id="tab-templates">
-            <span class="lato-regular">Templates</span>
+            <span class="lato-regular">AI Templates</span>
           </div>
         </div>
       </div>
@@ -150,7 +150,7 @@
               </div>
               <button class="button primary-button" id="generate">
                 <a class="lato-regular">Generate</a>
-                <i class="fa-solid fa-spinner icon-spinner"></i>
+                <i class="fa-solid" id="ReplyGeneratorIcon"></i>
               </button>
             </div>
           </div>
@@ -300,10 +300,7 @@
               </div>
               <button class="button primary-button" id="SummaryGeneratorButton">
                 <a class="lato-regular">Generate</a>
-                <i
-                  class="fa-solid fa-spinner icon-spinner"
-                  id="SummaryGeneratorIcon"
-                ></i>
+                <i class="fa-solid" id="SummaryGeneratorIcon"></i>
               </button>
             </div>
           </div>
@@ -359,7 +356,10 @@
       <div class="setting hidden" id="UserSettingsContainer">
         <div class="setting-box-wrapper">
           <div class="setting-box">
-            <div class="setting-tag positive-tag">
+            <div
+              class="setting-tag positive-tag hidden"
+              id="SuccessfullySavedTag"
+            >
               <span class="lato-regular">Saved</span>
               <i class="fa-solid fa-check"></i>
             </div>
@@ -376,7 +376,7 @@
                 id="CloseSettingsButton"
               ></i>
             </div>
-            <div class="setting-object">
+            <div class="setting-object hidden" id="NoTokenErrorText">
               <span class="lato-regular error-text">
                 ChatGPT API key must be inserted for the Generator</span
               >

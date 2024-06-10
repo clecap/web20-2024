@@ -26,8 +26,6 @@ let emailGeneratorButton: HTMLButtonElement = document.getElementById(
 const getApiKeyFromStorage: () => Promise<string> = async () => {
   return new Promise((resolve, reject) => {
     let result = localStorage.getItem("apiKey");
-    console.log(result);
-
     if (result) {
       resolve(result);
     } else {
@@ -43,7 +41,7 @@ await getApiKeyFromStorage()
     }
   })
   .catch((error) => {
-    console.log(error);
+    console.error(error);
   });
 
 let apiKeyInput: HTMLInputElement = document.getElementById(
@@ -51,6 +49,9 @@ let apiKeyInput: HTMLInputElement = document.getElementById(
 ) as HTMLInputElement;
 apiKeyInput.value = apiKey;
 
+let successfullySavedTag: HTMLElement = document.getElementById(
+  "SuccessfullySavedTag"
+);
 let applySettingsButton: HTMLButtonElement = document.getElementById(
   "ApplySettingsButton"
 ) as HTMLButtonElement;
@@ -59,18 +60,28 @@ applySettingsButton.addEventListener("click", async (_e: MouseEvent) => {
     "APIKeyInput"
   ) as HTMLInputElement;
   apiKey = apiKeyInput.value;
+  username = (document.getElementById("NameInput") as HTMLInputElement).value;
 
   localStorage.setItem("apiKey", apiKey);
+  localStorage.setItem("username", username);
+
+  let noTokenErrorText: HTMLElement =
+    document.getElementById("NoTokenErrorText");
 
   if (apiKey !== "") {
     summaryGeneratorButton.removeAttribute("disabled");
     emailGeneratorButton.removeAttribute("disabled");
+    summaryGeneratorButton.classList.remove("button-disabled");
+    emailGeneratorButton.classList.remove("button-disabled");
+    noTokenErrorText.classList.add("hidden");
   } else {
     summaryGeneratorButton.setAttribute("disabled", "true");
     emailGeneratorButton.setAttribute("disabled", "true");
+    summaryGeneratorButton.classList.add("button-disabled");
+    emailGeneratorButton.classList.add("button-disabled");
+    noTokenErrorText.classList.remove("hidden");
   }
-  summaryGeneratorButton.classList.toggle("button-disabled");
-  emailGeneratorButton.classList.toggle("button-disabled");
+  successfullySavedTag.classList.remove("hidden");
 });
 
 /*
@@ -84,6 +95,9 @@ if (apiKey === "") {
   emailGeneratorButton.setAttribute("disabled", "true");
   summaryGeneratorButton.classList.toggle("button-disabled");
   emailGeneratorButton.classList.toggle("button-disabled");
+  let noTokenErrorText: HTMLElement =
+    document.getElementById("NoTokenErrorText");
+  noTokenErrorText.classList.toggle("hidden");
 }
 
 /*
@@ -169,7 +183,7 @@ possibleIntentions = await helper
     return res;
   })
   .catch((error) => {
-    console.log(error);
+    console.error(error);
 
     return [];
   })
@@ -214,23 +228,51 @@ let nameInput: HTMLInputElement = document.getElementById(
   "NameInput"
 ) as HTMLInputElement;
 let accountId = message.folder.accountId;
-let user: string = (await messenger.accounts.get(accountId, false))
-  .identities[0].name;
-nameInput.value = user;
+nameInput.value = "";
+let username: string = "";
+
+const getUserFromStorage: () => Promise<string> = async () => {
+  return new Promise((resolve, reject) => {
+    let result = localStorage.getItem("username");
+    if (result) {
+      resolve(result);
+    } else {
+      reject("No username found in storage.");
+    }
+  });
+};
+
+await getUserFromStorage()
+  .then((res) => {
+    if (typeof res === "string") {
+      username = res;
+      nameInput.value = username;
+    }
+  })
+  .catch(async (error) => {
+    console.error(error);
+    let user: string = (await messenger.accounts.get(accountId, false))
+      .identities[0].name;
+
+    nameInput.value = user;
+    localStorage.setItem("username", user);
+  });
 
 // generate button functionality
 emailGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
+  let emailGeneratorIcon = document.getElementById("ReplyGeneratorIcon");
   let preview: HTMLTextAreaElement = document.getElementById(
     "preview"
   ) as HTMLTextAreaElement;
-  if (nameInput.value !== "") user = nameInput.value;
   preview.value = "Loading...";
+  emailGeneratorIcon.classList.toggle("fa-spinner");
+  emailGeneratorIcon.classList.toggle("icon-spinner");
 
   try {
     let reply: string = await helper.generateEmailReply(
       text,
       selectedIntention,
-      user,
+      username,
       selectedWritingTone,
       selectedAddresseTone,
       apiKey
@@ -243,9 +285,12 @@ emailGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
 
     preview.value = reply;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     preview.value = error.message;
   }
+
+  emailGeneratorIcon.classList.toggle("fa-spinner");
+  emailGeneratorIcon.classList.toggle("icon-spinner");
 });
 
 // copy to clipboard button functionality
@@ -294,32 +339,48 @@ let openSummaryButton: HTMLElement = document.getElementById("SummaryControl");
 //   "SummaryControl"
 // ) as HTMLButtonElement;
 openSummaryButton.addEventListener("click", async (_e: MouseEvent) => {
+  const isOpening: boolean = openSummaryButton.innerText === "Summary Tool";
+
   let summaryContainer: HTMLElement =
     document.getElementById("SummaryGenerator");
-  summaryContainer.classList.toggle("hidden");
-  let replyContainer: HTMLElement = document.getElementById("ReplyGenerator");
-  replyContainer.classList.toggle("hidden");
+  let generatorContainer = document.getElementById("GeneratorPage");
+  let summaryButtonIcon: HTMLElement =
+    document.getElementById("SummaryControlIcon");
   let replyGeneratorOutputContainer: HTMLElement = document.getElementById(
     "ReplyGeneratorOutput"
   );
-  replyGeneratorOutputContainer.classList.toggle("hidden");
   let summaryGeneratorOutputContainer: HTMLElement = document.getElementById(
     "SummaryGeneratorOutput"
   );
+  let generatorContainerDiv: HTMLElement = document.getElementById("generator");
+
+  if (isOpening) {
+    replyGeneratorOutputContainer.classList.add("hidden");
+  } else {
+    replyGeneratorOutputContainer.classList.remove("hidden");
+  }
   summaryGeneratorOutputContainer.classList.toggle("hidden");
 
-  let summaryButtonIcon: HTMLElement =
-    document.getElementById("SummaryControlIcon");
+  summaryContainer.classList.toggle("hidden");
   summaryButtonIcon.classList.toggle("fa-arrow-right");
   summaryButtonIcon.classList.toggle("fa-arrow-left");
-  // summaryButtonIcon.classList.toggle("fa-solid");
-  // summaryButtonIcon.classList.toggle("fa-regular");
+
+  generatorContainer.classList.toggle("hidden");
+  document.getElementById("tooltip").classList.add("hidden");
+  document.getElementById("template").classList.add("hidden");
+  generatorContainerDiv.classList.add("hidden");
+
+  if (!isOpening) {
+    document.getElementById("tab-tooltips").classList.remove("page-selected");
+    document.getElementById("tab-templates").classList.remove("page-selected");
+    document.getElementById("tab-generator").classList.add("page-selected");
+    generatorContainerDiv.classList.remove("hidden");
+  }
 
   let openSummaryButtonText = document.getElementById("SummaryControlText");
-  openSummaryButtonText.innerText =
-    openSummaryButtonText.innerText === "Summary Tool"
-      ? "Hide Summary Tool"
-      : "Summary Tool";
+  openSummaryButtonText.innerText = isOpening
+    ? "Hide Summary Tool"
+    : "Summary Tool";
 });
 
 let summaryLengthContainer: HTMLElement = document.getElementById(
@@ -354,6 +415,7 @@ Object.entries(TypeOfDetail).map(([k, __], _) => {
 //summary button functionality
 summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
   let summaryIcon = document.getElementById("SummaryGeneratorIcon");
+  summaryIcon.classList.toggle("fa-spinner");
   summaryIcon.classList.toggle("icon-spinner");
   let summaryTextView = document.getElementById("SummaryView");
 
@@ -364,11 +426,11 @@ summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
       apiKey
     );
   } catch (error) {
-    console.log(error);
+    console.error(error);
     summaryTextView.innerText = error.message;
   }
 
-  summaryIcon.classList.toggle("icon-spinner");
+  summaryIcon.classList.toggle("fa-spinner");
 });
 
 /*
@@ -400,6 +462,7 @@ let closeSettingsEvent = (e: Event) => {
     "UserSettingsContainer"
   );
   userSettingsContainer.classList.toggle("hidden");
+  successfullySavedTag.classList.add("hidden");
 };
 
 let closeSettingsButton: HTMLElement = document.getElementById(
@@ -409,7 +472,7 @@ let closeSettingsIcon: HTMLElement =
   document.getElementById("CloseSettingsIcon");
 closeSettingsButton.addEventListener("click", closeSettingsEvent);
 closeSettingsIcon.addEventListener("click", closeSettingsEvent);
-applySettingsButton.addEventListener("click", closeSettingsEvent);
+// applySettingsButton.addEventListener("click", closeSettingsEvent);
 
 /*
   ----------------------
@@ -451,35 +514,39 @@ function extractContent(s: string): string {
   ! TAB SWITCH CLICK EVENTS !
   ----------------------
 */
-document.getElementById('tab-generator').addEventListener('click', function () {
-  showSection('generator');
+document.getElementById("tab-generator").addEventListener("click", function () {
+  showSection("generator");
 });
-document.getElementById('tab-tooltips').addEventListener('click', function () {
-  showSection('tooltip');
+document.getElementById("tab-tooltips").addEventListener("click", function () {
+  showSection("tooltip");
 });
-document.getElementById('tab-templates').addEventListener('click', function () {
-  showSection('template');
+document.getElementById("tab-templates").addEventListener("click", function () {
+  showSection("template");
 });
 
-function showSection(sectionId: string):void {
+function showSection(sectionId: string): void {
   // Hide all sections
-  document.getElementById('generator').classList.add('hidden');
-  document.getElementById('tooltip').classList.add('hidden');
-  document.getElementById('template').classList.add('hidden');
+  document.getElementById("generator").classList.add("hidden");
+  document.getElementById("tooltip").classList.add("hidden");
+  document.getElementById("template").classList.add("hidden");
 
   // Remove selected class from all tabs
-  document.getElementById('tab-generator').classList.remove('page-selected');
-  document.getElementById('tab-tooltips').classList.remove('page-selected');
-  document.getElementById('tab-templates').classList.remove('page-selected');
+  document.getElementById("tab-generator").classList.remove("page-selected");
+  document.getElementById("tab-tooltips").classList.remove("page-selected");
+  document.getElementById("tab-templates").classList.remove("page-selected");
 
- 
-  document.getElementById(sectionId).classList.remove('hidden');
+  document.getElementById(sectionId).classList.remove("hidden");
 
-  if (sectionId === 'generator') {
-    document.getElementById('tab-generator').classList.add('page-selected');
-  } else if (sectionId === 'tooltip') {
-    document.getElementById('tab-tooltips').classList.add('page-selected');
-  } else if (sectionId === 'template') {
-    document.getElementById('tab-templates').classList.add('page-selected');
+  let replyGeneratorOutput = document.getElementById("ReplyGeneratorOutput");
+
+  if (sectionId === "generator") {
+    document.getElementById("tab-generator").classList.add("page-selected");
+    replyGeneratorOutput.classList.remove("hidden");
+  } else if (sectionId === "tooltip") {
+    document.getElementById("tab-tooltips").classList.add("page-selected");
+    replyGeneratorOutput.classList.add("hidden");
+  } else if (sectionId === "template") {
+    document.getElementById("tab-templates").classList.add("page-selected");
+    replyGeneratorOutput.classList.add("hidden");
   }
 }
