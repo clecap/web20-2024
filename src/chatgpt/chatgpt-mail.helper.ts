@@ -43,4 +43,16 @@ export class ChatGptMailHelper implements IChatGptMailHelper {
 
     return reply.split(";");
   }
+
+  async testApiKey( 
+    apiKey: string,
+    test: string,
+  ): Promise<string> {
+    const session = new ChatGptSession([], apiKey);
+
+    return await session.sendMessage(
+     test
+    );
+
+  }
 }
