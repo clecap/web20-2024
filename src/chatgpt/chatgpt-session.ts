@@ -3,12 +3,12 @@ import {
   Configuration,
   CreateChatCompletionRequest,
   OpenAIApi,
-} from 'openai';
-import { API_KEY } from './api-key.const';
+} from "openai";
+// import { API_KEY } from './api-key.const';
 
 export class ChatGptSession {
   private configuration = new Configuration({
-    apiKey: API_KEY,
+    apiKey: "",
   });
   private openai: OpenAIApi;
 
@@ -16,14 +16,19 @@ export class ChatGptSession {
 
   constructor(
     initialMessages: ChatCompletionRequestMessage[],
-    private model: string = 'gpt-3.5-turbo'
+    apiKey: string,
+    private model: string = "gpt-3.5-turbo"
   ) {
+    this.configuration.apiKey = apiKey;
     this.openai = new OpenAIApi(this.configuration);
 
     this.messageHistory = initialMessages;
   }
 
-  public async sendMessage(message: string, temperature: number = 0.2): Promise<string> {
+  public async sendMessage(
+    message: string,
+    temperature: number = 0.2
+  ): Promise<string> {
     this.messageHistory.push(this.createUserRequestMessage(message));
 
     const request: CreateChatCompletionRequest = {
@@ -40,19 +45,21 @@ export class ChatGptSession {
 
         this.messageHistory.push(response);
 
-        console.log('Response from OpenAI:', response);
+        console.log("Response from OpenAI:", response);
 
         return response.content;
       }
     } catch (error: unknown) {
-      console.error('An error occured while calling the OpenAI API.', error);
+      console.error("An error occured while calling the OpenAI API.", error);
       throw error;
     }
   }
 
-  private createUserRequestMessage(message: string): ChatCompletionRequestMessage {
+  private createUserRequestMessage(
+    message: string
+  ): ChatCompletionRequestMessage {
     return {
-      role: 'user',
+      role: "user",
       content: message,
     };
   }
