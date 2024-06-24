@@ -270,6 +270,39 @@ Object.entries(TypeOfDetail).map(([k, __], _) => {
         "SummaryLengthStatusText"
       );
       summaryLengthStatusText.textContent = summaryLength;
+	  
+	  // Write summary length in a test text area
+	  // document.getElementById("PromptTest"). textContent = "SL: " + summaryLength;
+	  
+	 const promptTextarea = document.getElementById("PromptTest");
+	  
+	 let prompts = [
+		"Ist folgende E-Mail ein Spam?",
+		"Wenn ja, dann schreibe 'SPAM' und mache keine weiteren Anweisungen.",
+		"Was ist die Hauptaussage der E-Mail?",	// Fuer eine kurze Zusammenfassung (2)
+		"Welche wichtige Informationen wurden in der E-Mail geteilt?", // Fuer eine laengere Zusammenfassung (3)
+		"Fasse die E-Mail zusammen in der Sprache, in der sie geschrieben wurde."
+	];
+	
+	let my_prompt = "";
+	
+	for(let i=0; i<prompts.length; i++){
+		if(summaryLength == "Short" && i==3){
+			continue;
+		}
+		if(summaryLength == "Long" && i==2){
+			continue;
+		}
+	
+		my_prompt += prompts[i] + " ";
+	}
+	
+	promptTextarea.textContent = "Prompt: " + my_prompt;
+	// promptTextarea.textContent += "\nSummary length: " + summaryLength;
+	  
+	 //reset generated prompt
+	// my_prompt = "";
+	  
     }
   });
 });
