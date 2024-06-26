@@ -434,6 +434,111 @@ summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
 });
 
 /*
+  -------------------------------------
+  ! TEMPLATE FUNCTIONALITY STARTS HERE !
+  -------------------------------------
+*/
+let templates = new Array();
+//localStorage.templates = JSON.stringify(templates);
+
+const loadTemplates: () => Promise<string> = async () => {
+  return new Promise((resolve, reject) => {
+    let result = localStorage.getItem("templates");
+    if (result) {
+      resolve(result);
+    } else {
+      reject("No templates found in storage.");
+    }
+  });
+};
+
+await loadTemplates()
+  .then((result) => {
+    if (typeof result === "string") {
+      templates = JSON.parse(result);
+      templates.forEach((template, i) => {
+        addNew(template.q, template.a, i)
+      });
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+loadTemplates();  
+
+let templateAddButton: HTMLElement =
+  document.getElementById("addTemplateButton");
+  templateAddButton.addEventListener("click", async (_e: MouseEvent) => {
+  //templates.push({q:"", a:""});
+  addNew("", "", templates.length-1);
+});
+
+
+// save button
+
+function addNew (q: string, a: string, index: number) {
+  let templateObject = document.createElement("div"); 
+  templateObject.className = "template-object";
+  templateObject.id = index.toString();
+  let inputField = document.createElement("div");
+  inputField.className = "template-input-group";
+  //question field
+  let questionEl = document.createElement("div");
+  questionEl.className = "flex-grow flex flex-col";
+  questionEl.id = "question" + index;
+  let questionInput = document.createElement("input");
+  questionInput.className = "template-input";
+  questionInput.placeholder = "Template Question";
+  questionInput.type = "text";
+  questionInput.value = q;
+  questionEl.appendChild(questionInput);
+  //answer field
+  let answerEl = document.createElement("div");
+  answerEl.className = "flex-grow flex flex-col";
+  answerEl.id = "answer" + index;
+  let answerInput = document.createElement("input");
+  answerInput.className = "template-input";
+  answerInput.placeholder = "Answer to the Question";
+  answerInput.type = "text";
+  answerInput.value = a;
+  answerEl.appendChild(answerInput);
+  inputField.appendChild(questionEl);
+  inputField.appendChild(answerEl);
+  templateObject.appendChild(inputField);
+  //buttons
+  let templateButtons = document.createElement("div");
+  templateButtons.className = "template-button-group";
+  //save button
+  let templateEditSaveButton = document.createElement("i");
+  templateEditSaveButton.className = "fa-solid fa-floppy-disk template-button";
+  templateEditSaveButton.addEventListener('click', () => {
+    if (templateEditSaveButton.className === "fa-solid fa-floppy-disk template-button"){
+      let question = document.getElementById("question" + index);
+      let answer = document.getElementById("asnwer" + index);
+      templates[index].q = question.querySelector("input").value;
+      templates[index].a = answer.querySelector("input").value;
+    };
+    localStorage.setItem("templates", JSON.stringify(templates));
+  });
+  let templateDeleteButton = document.createElement("i");
+  templateDeleteButton.className = "fa-solid fa-trash template-button";
+  templateDeleteButton.addEventListener('click', () => {
+    if (index > -1) { // only splice array when item is found
+      templates.splice(index, 1); // 2nd parameter means remove one item only
+    }
+    localStorage.setItem("templates", JSON.stringify(templates));
+  });
+  
+  templateButtons.appendChild(templateEditSaveButton);
+  templateButtons.appendChild(templateDeleteButton);
+  templateObject.appendChild(templateButtons);
+  let parent = document.getElementById("templateContainer")
+  parent.appendChild(templateObject);
+};
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
   --------------------------------------------
   ! USER SETTINGS FUNCTIONALITY STARTS HERE !
   --------------------------------------------
