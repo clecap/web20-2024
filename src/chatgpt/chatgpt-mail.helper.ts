@@ -14,7 +14,7 @@ export class ChatGptMailHelper implements IChatGptMailHelper {
 
     return await session.sendMessage(
       `Based on the following Email correspondance, please generate a response email with the intention "${intention.valueOf()}" using a ${writingTone} tone and addressing a ${addresseeTone} recipient.
-      Respond just with the content of the email. The senders name is ${name}. Reply in the language used in the given emails.\n\n${email}`
+      Respond just with the content of the email. The senders name is ${name}. Reply in the language used in the given emails.\n\n${email}. Add "This E-Mail was written with the help of ChatGPT." at the end of the email.`
     );
   }
 
