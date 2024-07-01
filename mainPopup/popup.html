@@ -234,6 +234,9 @@
                   id="SummaryGeneratorIcon"
                 ></i>
               </button>
+			  <button id="ShowPrompt">
+				Show prompt
+			  </button>
             </div>
           </div>
         </div>
@@ -328,8 +331,31 @@
           </div>
         </div>
       </div>
+	  
+	  <div class="setting hidden" id="PromptWindow">
+		  <div class="setting-box">
+			<div class="setting-object setting-header-box">
+            <span class="lato-regular setting-header-text"
+              >Show prompt</span
+            >
+				<i
+              class="fa-solid fa-xmark setting-close"
+              id="CloseShowPromptButton"
+            ></i>
+			</div>
+			<div class="setting-object">
+				<textarea
+					  placeholder="Here will be shown test prompt. This text area is only for test purpose!"
+					  class="content-textarea"
+					  name="prompt-test"
+					  id="ShowPromptText"
+					></textarea>
+			</div>
+		</div>
+	  </div>
+	  
     </div>
     <script type="module" src="popupBundle.js"></script>
-	<script src="prompt-script.js"></script
+	<script src="prompt-script.js"></script>
   </body>
 </html>

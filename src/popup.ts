@@ -275,6 +275,7 @@ Object.entries(TypeOfDetail).map(([k, __], _) => {
 	  // document.getElementById("PromptTest"). textContent = "SL: " + summaryLength;
 	  
 	 const promptTextarea = document.getElementById("PromptTest");
+	 let showPromptText = document.getElementById("ShowPromptText");
 	  
 	 let prompts = [
 		"Ist folgende E-Mail ein Spam?",
@@ -298,6 +299,9 @@ Object.entries(TypeOfDetail).map(([k, __], _) => {
 	}
 	
 	promptTextarea.textContent = "Prompt: " + my_prompt;
+	showPromptText.textContent = my_prompt;
+	
+	
 	// promptTextarea.textContent += "\nSummary length: " + summaryLength;
 	  
 	 //reset generated prompt
@@ -328,6 +332,32 @@ summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
 
   summaryIcon.classList.toggle("icon-spinner");
 });
+
+//show summary window
+let showPromptWindow: HTMLButtonElement = document.getElementById(
+	"ShowPrompt"
+) as HTMLButtonElement;
+showPromptWindow.addEventListener('click', async (_e: MouseEvent) => {
+let showPromptCointainer = document.getElementById(
+	"PromptWindow"
+)
+showPromptCointainer.classList.toggle("hidden");
+});
+
+//Close Show prompt button
+let closeShowPromptButton: HTMLElement = document.getElementById(
+	"CloseShowPromptButton"
+);
+
+let closeShowPromptEvent = (e: Event) => {       
+	let showPromptCointainer = document.getElementById(
+		"PromptWindow"
+	)
+	showPromptCointainer.classList.toggle("hidden");
+};
+
+closeShowPromptButton.addEventListener("click", closeShowPromptEvent);
+
 
 /*
   --------------------------------------------
