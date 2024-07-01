@@ -2,7 +2,7 @@
   "name": "chatgpt_thunderbird",
   "version": "1.0.0",
   "description": "Thunderbird Addon for replying to emails with ChatGPT",
-  "author": "Niklas Tamm, Lennart Dobermann, Daniel Passauer",
+  "author": "Niklas Tamm, Lennart Dobermann, Daniel Passauer, Noah Leu, Hauke Pruss, Peter-Alexander Kolev, Pauline Meuer Lukasz Reszczynski, Huseyn Ahmadov",
   "scripts": {
     "build": "webpack --mode=production",
     "watch": "webpack --mode=development --watch"

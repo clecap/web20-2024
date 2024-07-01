@@ -1,4 +1,3 @@
-
 # Thunderbird AI Extension
 
 ## Introduction
@@ -15,7 +14,6 @@ The ChatGPT Thunderbird Extension uses OpenAI's GPT-3.5 API to assist with email
 - [@Lukasz-Reszcz](https://www.github.com/Lukasz-Reszcz)
 - [@HuseynAhmedov](https://www.github.com/HuseynAhmedov)
 
-
 ## Installation
 
 ## Prerequisites
@@ -23,6 +21,7 @@ The ChatGPT Thunderbird Extension uses OpenAI's GPT-3.5 API to assist with email
 Note for Windows User: Before you start, it's recommended to install the Windows Subsystem for Linux (WSL) on your Windows computer and clone the repository directly in the WSL environment. This will make it easier to follow all the steps. Follow these instructions:
 
 1. **Install WSL**
+
    - [WSL Installation Guide](https://docs.microsoft.com/en-us/windows/wsl/install)
    - Open PowerShell as Administrator and run:
      ```sh
@@ -31,6 +30,7 @@ Note for Windows User: Before you start, it's recommended to install the Windows
    - Restart your computer.
 
 2. **Set Up WSL**
+
    - Open WSL (e.g., Ubuntu) and complete the setup.
 
 3. **Clone the Repository**
@@ -43,9 +43,11 @@ Note for Windows User: Before you start, it's recommended to install the Windows
 From here the Installation Process is the same for all Operationg Systems:
 
 1. **Install Node Version Manager (nvm)**
+
    - [Installation Guide](https://github.com/nvm-sh/nvm#installing-and-updating)
 
 2. **Install Node.js**
+
    - Install the latest version with:
      ```sh
      nvm install node
@@ -57,14 +59,12 @@ From here the Installation Process is the same for all Operationg Systems:
      npm install
      ```
 
-4. **Insert ChatGPT API Key**
-   - Insert your ChatGPT API Key into `src/chatgpt/api-key.const.ts`.
-
 ## Build the Extension
 
 To build the extension, follow these steps:
 
 1. Run the build script in the project directory:
+
    ```sh
    ./build
    ```
@@ -81,32 +81,40 @@ To use the ChatGPT Thunderbird Extension:
 
 1. Open an email in Thunderbird.
 2. Click the 'ChatGPT Thunderbird' button located alongside the 'Reply', 'Forward', etc. buttons.
-3. Select the desired reply intention and tone provided by ChatGPT.
-4. Click the 'Generate' button to create a reply.
-5. Review the generated reply. Once satisfied, click the 'Choose' button.
-6. Edit the message as needed and then send it.
+3. On your first use, you will need to provide your OpenAI API key. To do this click on 'General Settings', enter the key and click 'Save'.
+4. Select the desired reply intention and tone provided by ChatGPT.
+5. Click the 'Generate' button to create a reply.
+6. Review the generated reply. Once satisfied, click the 'Choose' button.
+7. Edit the message as needed and then send it.
 
 ## Current Features
+
 - Email writing, Summary support using OpenAI's GPT-3.5 API.
+- Personalization options for generated messages.
+- Summary of the email content using the LLM API.
+- Template based generation context for LLM (e.g. provide chatgpt with information on your work place in a question-answer format).
 
 ## Roadmap
 
 ### Planned
-* [ ] Improve the current E-Mail writing support
-    * [ ] Human like writing
-    * [ ] More message personalization options
-* [ ] Add a summary based on LLM API
-    * [ ] Summarize key points
-    * [ ] Note important details (events, calendar details, ...)
- * [ ] Independant Experimentation: different LLMs besides GPT-3.5
-    * [ ] Implement API adapted to new LLMs
-    * [ ] Implement user selection (and upload?)
+
+- [x] Improve the current E-Mail writing support
+  - [ ] Human like writing
+  - [x] More message personalization options
+- [x] Add a summary based on LLM API
+  - [x] Summarize key points
+  - [x] Note important details (events, calendar details, ...)
 
 ### Optional
-* [ ] Send AI generated calendar invites
-* [ ] Check own calendar availability before sending invites
+
+- [ ] Send AI generated calendar invites
+- [ ] Check own calendar availability before sending invites
 
 ## Roles
+
+### Project Management
+
+- [@NoahLeu](https://www.github.com/NoahLeu)
 
 ### BE: Team 1 (Writing Assistant)
 
@@ -118,10 +126,6 @@ To use the ChatGPT Thunderbird Extension:
 
 - [@hawk305](https://www.github.com/hawk305)
 - [@Lukasz-Reszcz](https://www.github.com/Lukasz-Reszcz)
-
-### Parallel Experimentation (Multi LLM)
-
-- [@hippokratius](https://www.github.com/hippokratius)
 
 ### FE
 
