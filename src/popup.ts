@@ -53,9 +53,7 @@ let successfullySavedTag: HTMLElement = document.getElementById(
   "SuccessfullySavedTag"
 );
 
-let negativeSavedTag: HTMLElement = document.getElementById(
-  "NegativeSavedTag"
-);
+let negativeSavedTag: HTMLElement = document.getElementById("NegativeSavedTag");
 
 let applySettingsButton: HTMLButtonElement = document.getElementById(
   "ApplySettingsButton"
@@ -86,20 +84,20 @@ applySettingsButton.addEventListener("click", async (_e: MouseEvent) => {
     emailGeneratorButton.classList.add("button-disabled");
     noTokenErrorText.classList.remove("hidden");
   }
-  
+
   error = await helper
-  .testApiKey('test', apiKey)
-  .then((res) => {
-    return res;
-  })
-  .catch((error) => {
-    console.error(error);
-    negativeSavedTag.classList.remove("hidden");
-    return'';
-  })
-  .finally(() => {
-    successfullySavedTag.classList.remove("hidden");
-  });
+    .testApiKey("test", apiKey)
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      console.error(error);
+      negativeSavedTag.classList.remove("hidden");
+      return "";
+    })
+    .finally(() => {
+      successfullySavedTag.classList.remove("hidden");
+    });
 });
 
 /*
@@ -107,7 +105,6 @@ applySettingsButton.addEventListener("click", async (_e: MouseEvent) => {
   ! DISABLE ALL BUTTONS IF NO STORED API KEY OR INVALID !
   ----------------------------------------------
 */
-
 
 if (apiKey === "") {
   summaryGeneratorButton.setAttribute("disabled", "true");
@@ -196,7 +193,7 @@ let text: string = getText(full);
 
 let possibleIntentions: string[] = [];
 
-let error: string
+let error: string;
 
 possibleIntentions = await helper
   .generatePossibleReplyIntentions(text, apiKey)
@@ -459,7 +456,13 @@ summaryGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
   ! TEMPLATE FUNCTIONALITY STARTS HERE !
   -------------------------------------
 */
-let templates = new Array();
+type Template = {
+  q: string; // question
+  a: string; // answer
+};
+// localStorage.setItem("templates", JSON.stringify([]));
+let templates: Template[] = [];
+
 //localStorage.templates = JSON.stringify(templates);
 
 const loadTemplates: () => Promise<string> = async () => {
@@ -477,34 +480,42 @@ await loadTemplates()
   .then((result) => {
     if (typeof result === "string") {
       templates = JSON.parse(result);
-      templates.forEach((template, i) => {
-        addNew(template.q, template.a, i)
-      });
+      displayTemplates();
     }
   })
   .catch((error) => {
     console.error(error);
   });
 
-loadTemplates();  
+loadTemplates();
+
+displayTemplates();
+
+function displayTemplates() {
+  let parent = document.getElementById("templateContainer");
+  while (parent.children.length > 1) {
+    parent.removeChild(parent.firstChild);
+  }
+
+  templates.forEach((template, index) => {
+    addNew(template.q, template.a, false, index);
+  });
+}
 
 let templateAddButton: HTMLElement =
   document.getElementById("addTemplateButton");
-  templateAddButton.addEventListener("click", async (_e: MouseEvent) => {
-  //templates.push({q:"", a:""});
-  addNew("", "", templates.length-1);
+templateAddButton.addEventListener("click", async (_e: MouseEvent) => {
+  templates.push({ q: "", a: "" });
+  addNew("", "", true, templates.length - 1);
 });
 
-
-// save button
-
-function addNew (q: string, a: string, index: number) {
-  let templateObject = document.createElement("div"); 
+function addNew(q: string, a: string, isNew: boolean, index: number) {
+  let templateObject = document.createElement("div");
   templateObject.className = "template-object";
-  templateObject.id = index.toString();
+  templateObject.id = "container-" + index.toString();
   let inputField = document.createElement("div");
   inputField.className = "template-input-group";
-  //question field
+  // question field
   let questionEl = document.createElement("div");
   questionEl.className = "flex-grow flex flex-col";
   questionEl.id = "question" + index;
@@ -514,7 +525,7 @@ function addNew (q: string, a: string, index: number) {
   questionInput.type = "text";
   questionInput.value = q;
   questionEl.appendChild(questionInput);
-  //answer field
+  // answer field
   let answerEl = document.createElement("div");
   answerEl.className = "flex-grow flex flex-col";
   answerEl.id = "answer" + index;
@@ -527,37 +538,63 @@ function addNew (q: string, a: string, index: number) {
   inputField.appendChild(questionEl);
   inputField.appendChild(answerEl);
   templateObject.appendChild(inputField);
-  //buttons
+  // buttons
   let templateButtons = document.createElement("div");
   templateButtons.className = "template-button-group";
-  //save button
+  // save / edit button
   let templateEditSaveButton = document.createElement("i");
-  templateEditSaveButton.className = "fa-solid fa-floppy-disk template-button";
-  templateEditSaveButton.addEventListener('click', () => {
-    if (templateEditSaveButton.className === "fa-solid fa-floppy-disk template-button"){
-      let question = document.getElementById("question" + index);
-      let answer = document.getElementById("asnwer" + index);
-      templates[index].q = question.querySelector("input").value;
-      templates[index].a = answer.querySelector("input").value;
-    };
-    localStorage.setItem("templates", JSON.stringify(templates));
+  templateEditSaveButton.id = "editSaveButton-" + index;
+  if (isNew) {
+    templateEditSaveButton.className =
+      "fa-solid fa-floppy-disk template-button";
+  } else {
+    templateEditSaveButton.className =
+      "fa-solid fa-pen-to-square template-button";
+    // add readonly attribute
+    questionInput.setAttribute("readonly", "true");
+    answerInput.setAttribute("readonly", "true");
+    questionInput.classList.add("template-input-readonly");
+    answerInput.classList.add("template-input-readonly");
+  }
+
+  templateEditSaveButton.addEventListener("click", function () {
+    if (templateEditSaveButton.className.includes("fa-floppy-disk")) {
+      templates[parseInt(this.id.split("-")[1])].q = questionInput.value;
+      templates[parseInt(this.id.split("-")[1])].a = answerInput.value;
+      localStorage.setItem("templates", JSON.stringify(templates));
+      templateEditSaveButton.className =
+        "fa-solid fa-pen-to-square template-button";
+      // add readonly attribute
+      questionInput.setAttribute("readonly", "true");
+      answerInput.setAttribute("readonly", "true");
+      questionInput.classList.add("template-input-readonly");
+      answerInput.classList.add("template-input-readonly");
+    } else if (templateEditSaveButton.className.includes("fa-pen-to-square")) {
+      templateEditSaveButton.className =
+        "fa-solid fa-floppy-disk template-button";
+      // remove readonly attribute
+      questionInput.removeAttribute("readonly");
+      answerInput.removeAttribute("readonly");
+      questionInput.classList.remove("template-input-readonly");
+      answerInput.classList.remove("template-input-readonly");
+    }
   });
   let templateDeleteButton = document.createElement("i");
   templateDeleteButton.className = "fa-solid fa-trash template-button";
-  templateDeleteButton.addEventListener('click', () => {
-    if (index > -1) { // only splice array when item is found
-      templates.splice(index, 1); // 2nd parameter means remove one item only
-    }
+  templateDeleteButton.addEventListener("click", function () {
+    templates.splice(parseInt(this.id.split("-")[1]), 1);
     localStorage.setItem("templates", JSON.stringify(templates));
+    displayTemplates();
   });
-  
+
   templateButtons.appendChild(templateEditSaveButton);
   templateButtons.appendChild(templateDeleteButton);
   templateObject.appendChild(templateButtons);
-  let parent = document.getElementById("templateContainer")
-  parent.appendChild(templateObject);
-};
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  let parent = document.getElementById("templateContainer");
+  // insert at position before the last element (add button)
+  let addButtonChild = parent.lastElementChild;
+  parent.insertBefore(templateObject, addButtonChild);
+}
 
 /*
   --------------------------------------------

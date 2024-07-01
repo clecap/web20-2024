@@ -130,7 +130,7 @@ table {
   border-spacing: 0;
 }
 input:focus {
-	outline: none;
+  outline: none;
 }
 /* Base css */ /* Base css */ /* Base css */ /* Base css */ /* Base css */ /* Base css */ /* Base css */
 
@@ -196,36 +196,31 @@ body {
 
 /* Generator css */ /* Generator css */ /* Generator css */ /* Generator css */ /* Generator css */ /* Generator css */
 
-.generator-page 
-{
+.generator-page {
   margin: 1rem 1rem 0rem 1rem;
 }
 
-.generator-page-box
-{
+.generator-page-box {
   display: flex;
 }
 
 .generator-page-box .page:first-child {
-  border-radius : 6px 0px 0px 0px 
+  border-radius: 6px 0px 0px 0px;
 }
-
 
 .generator-page-box .page:last-child {
-  border-radius : 0px 6px 0px 0px
+  border-radius: 0px 6px 0px 0px;
 }
 
-.page
-{
-  background-color:#979797;
+.page {
+  background-color: #979797;
   padding: 0.7rem;
   cursor: pointer;
   color: white;
   transition: 0.3s ease;
 }
 
-.page-selected 
-{
+.page-selected {
   color: var(--color-primary);
   background-color: white;
 }
@@ -234,7 +229,7 @@ body {
   padding: 1rem;
   background-color: white;
   border: 1px solid white;
-  border-radius : 0px 6px 6px 6px;
+  border-radius: 0px 6px 6px 6px;
   display: flex;
   flex-grow: 1;
   max-height: 280px;
@@ -485,15 +480,14 @@ body {
   color: red;
 }
 
-.setting-tag
-{
+.setting-tag {
   top: 4rem;
   left: 5rem;
   padding: 0.5rem 1rem !important;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 1rem ;
+  padding: 1rem;
   position: absolute;
   color: white;
   padding: 0.2rem 0.5rem;
@@ -501,27 +495,23 @@ body {
   font-size: large;
 }
 
-.error-tag
-{
-  background-color: #E23636
+.error-tag {
+  background-color: #e23636;
 }
 
-.positive-tag
-{
-  background-color: #82DD55
+.positive-tag {
+  background-color: #82dd55;
 }
 
-.negative-tag
-{
-  background-color: #ca3a30
+.negative-tag {
+  background-color: #ca3a30;
 }
 
-.error-text
-{
+.error-text {
   width: 19rem;
   text-align: start;
   font-size: medium;
-  color: #E23636;
+  color: #e23636;
 }
 
 /*Tooltip css */ /*Tooltip css */ /*Tooltip css */ /*Tooltip css */ /*Tooltip css */ /*Tooltip css */
@@ -531,7 +521,7 @@ body {
   padding: 1rem;
   background-color: white;
   border: 1px solid white;
-  border-radius : 0px 6px 6px 6px;
+  border-radius: 0px 6px 6px 6px;
   display: flex;
   flex-grow: 1;
   justify-content: center;
@@ -539,7 +529,7 @@ body {
   overflow-y: scroll;
 }
 
-.tooltip-box{
+.tooltip-box {
   text-align: start;
   display: flex;
   flex-direction: column;
@@ -554,29 +544,25 @@ body {
   justify-content: start;
 }
 
-.tooltip-object header
-{
+.tooltip-object header {
   font-weight: bold;
   font-size: large;
 }
 
-.header-circle
-{
-  font-size:medium;
+.header-circle {
+  font-size: medium;
   color: var(--color-primary);
   padding-right: 0.5rem;
 }
 
-
 /*Template AI css */ /*Template AI css */ /*Template AI css */ /*Template AI css */ /*Template AI css */ /*Template AI css */
 
-.template
-{
+.template {
   margin: 0rem 1rem 1rem 1rem;
   padding: 1rem;
   background-color: white;
   border: 1px solid white;
-  border-radius : 0px 6px 6px 6px;
+  border-radius: 0px 6px 6px 6px;
   display: flex;
   flex-grow: 1;
   max-height: 280px;
@@ -584,49 +570,51 @@ body {
   overflow-y: scroll;
 }
 
-.template-box
-{
+.template-box {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   flex-grow: 1;
 }
 
-.template-object
-{
+.template-object {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
   align-items: flex-start;
   border-radius: 6px;
   border: 1px;
-  
 }
 
-.template-input
-{
+.template-input {
   font-size: medium;
   border: none;
   padding: 0.5rem 0rem;
   border-bottom: 2px solid #979797;
 }
 
-.template-input:focus
-{
+.template-input-readonly {
+  border-bottom: none;
+}
+
+.template-input-readonly:hover {
+  /* override the default input hover color with normal text color */
+  border-color: #979797;
+}
+
+.template-input:focus {
   border-color: var(--color-primary);
 }
 
-.template-button
-{
+.template-button {
   padding: 1rem;
-  color:white;
+  color: white;
   cursor: pointer;
   font-size: large;
   transition: ease-in-out 0.3s;
 }
 
-.template-button-group
-{
+.template-button-group {
   max-width: 50px;
   display: flex;
   flex-direction: column;
@@ -638,8 +626,7 @@ body {
   border-radius: 0px 6px 6px 0px;
 }
 
-.template-input-group
-{
+.template-input-group {
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -651,8 +638,7 @@ body {
   border-radius: 6px 0px 0px 6px;
 }
 
-.template-add
-{
+.template-add {
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -666,8 +652,7 @@ body {
   transition: ease-in-out 0.3s;
 }
 
-.template-add:hover
-{
+.template-add:hover {
   background-color: #005580;
 }
 
@@ -715,8 +700,8 @@ body {
   display: none !important;
 }
 .hide-scrollbar {
-  -ms-overflow-style: none !important; 
-  scrollbar-width: none !important; 
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }
 
 .secondary-button {
@@ -762,8 +747,7 @@ body {
 .text-color-w {
   color: white;
 }
-.flex
-{
+.flex {
   display: flex;
 }
 .flex-row {
@@ -802,39 +786,33 @@ body {
   justify-content: end;
 }
 
-.min-size-200
-{
+.min-size-200 {
   min-width: 200px;
 }
 
-.text-wrap
-{
+.text-wrap {
   width: 130px;
-  overflow:hidden; 
-  white-space:nowrap; 
+  overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.text-wrap-21
-{
+.text-wrap-21 {
   width: 21rem;
-  overflow:hidden; 
-  white-space:nowrap; 
+  overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.text-red 
-{
+.text-red {
   color: red;
 }
 
-.text-start
-{
+.text-start {
   text-align: start;
 }
 
-.text-primary
-{
+.text-primary {
   color: var(--color-primary);
 }
 
@@ -851,4 +829,3 @@ body {
     transform: rotate(359deg);
   }
 }
-

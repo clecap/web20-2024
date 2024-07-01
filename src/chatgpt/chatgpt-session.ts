@@ -45,7 +45,7 @@ export class ChatGptSession {
 
         this.messageHistory.push(response);
 
-        console.log("Response from OpenAI:", response);
+        // console.log("Response from OpenAI:", response);
 
         return response.content;
       }
