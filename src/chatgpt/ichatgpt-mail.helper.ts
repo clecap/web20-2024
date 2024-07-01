@@ -18,4 +18,9 @@ export interface IChatGptMailHelper {
     typeOfDetail: string,
     apiKey: string
   ): Promise<string>;
+
+  testApiKey(
+    apiKey: string,
+    test: string,
+  ): Promise<string>
 }

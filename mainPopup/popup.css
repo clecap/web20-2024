@@ -511,6 +511,11 @@ body {
   background-color: #82DD55
 }
 
+.negative-tag
+{
+  background-color: #ca3a30
+}
+
 .error-text
 {
   width: 19rem;

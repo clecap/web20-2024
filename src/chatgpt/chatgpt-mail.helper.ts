@@ -25,9 +25,16 @@ export class ChatGptMailHelper implements IChatGptMailHelper {
   ): Promise<string> {
     const session = new ChatGptSession([], apiKey);
 
-    return await session.sendMessage(
-      `Summarize the following Email content in a ${typeOfDetail.valueOf()} manner.`
-    );
+    let summarizationPrompt = "";
+    if (typeOfDetail.toLowerCase() === "short") {
+      summarizationPrompt = `Summarize the following Email content in a short manner. Tell me if this E-Mail is a spam by writing "SPAM" at the beginning.
+       Provide the key points. Ensure to use the language of the email.`;
+    } else if (typeOfDetail.toLowerCase() === "long") {
+      summarizationPrompt = `Summarize the following Email content in a long manner. Tell me if this E-Mail is a spam by writing "SPAM" at the beginning.
+       If the E-Mail includes event details, highlight important dates and time. Provide all the important details. Ensure to use the language of the email.`;
+    }
+
+    return await session.sendMessage(`${summarizationPrompt}\n\n${email}`);
   }
 
   async generatePossibleReplyIntentions(
@@ -42,5 +49,11 @@ export class ChatGptMailHelper implements IChatGptMailHelper {
     );
 
     return reply.split(";");
+  }
+
+  async testApiKey(apiKey: string, test: string): Promise<string> {
+    const session = new ChatGptSession([], apiKey);
+
+    return await session.sendMessage(test);
   }
 }

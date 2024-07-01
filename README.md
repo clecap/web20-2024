@@ -1,7 +1,9 @@
 
 # Thunderbird AI Extension
 
-Thunderbird E-Mail Client Extension for Writing and Summarizing E-Mails using AI.
+## Introduction
+
+The ChatGPT Thunderbird Extension uses OpenAI's GPT-3.5 API to assist with email writing. It allows you to generate automatic responses in various tones and styles.
 
 ## Authors
 
@@ -16,30 +18,77 @@ Thunderbird E-Mail Client Extension for Writing and Summarizing E-Mails using AI
 
 ## Installation
 
-### Prerequisites 
+## Prerequisites
 
-1. Install [Node Version Manager](https://github.com/nvm-sh/nvm)
-2. Install Node.js by running `nvm install node`
-3. Run `npm install` in this directory
-4. Insert your Chat-GPT API Key in `src/chatgpt/api-key.const.ts`
+Note for Windows User: Before you start, it's recommended to install the Windows Subsystem for Linux (WSL) on your Windows computer and clone the repository directly in the WSL environment. This will make it easier to follow all the steps. Follow these instructions:
 
-### Build Extension
+1. **Install WSL**
+   - [WSL Installation Guide](https://docs.microsoft.com/en-us/windows/wsl/install)
+   - Open PowerShell as Administrator and run:
+     ```sh
+     wsl --install
+     ```
+   - Restart your computer.
 
-1. Run `./build` in this directory
-2. Install the generated xpi into thunderbird
+2. **Set Up WSL**
+   - Open WSL (e.g., Ubuntu) and complete the setup.
+
+3. **Clone the Repository**
+   - Clone the repository into your WSL environment:
+     ```sh
+     git clone https://github.com/clecap/web20-2024.git
+     cd <repo-name>
+     ```
+
+From here the Installation Process is the same for all Operationg Systems:
+
+1. **Install Node Version Manager (nvm)**
+   - [Installation Guide](https://github.com/nvm-sh/nvm#installing-and-updating)
+
+2. **Install Node.js**
+   - Install the latest version with:
+     ```sh
+     nvm install node
+     ```
+
+3. **Install Project Dependencies**
+   - Navigate to the project directory and run:
+     ```sh
+     npm install
+     ```
+
+4. **Insert ChatGPT API Key**
+   - Insert your ChatGPT API Key into `src/chatgpt/api-key.const.ts`.
+
+## Build the Extension
+
+To build the extension, follow these steps:
+
+1. Run the build script in the project directory:
+   ```sh
+   ./build
+   ```
+
+2. Install the generated `.xpi` file into Thunderbird:
+   - Open Thunderbird.
+   - Go to `Tools` > `Add-ons`.
+   - Click on the gear icon and select `Install Add-on From File...`.
+   - Choose the generated `.xpi` file and follow the prompts.
 
 ## Usage
 
-1. Display an email
-2. Click 'ChatGPT Thunderbird' button where 'Reply', 'Forward',... buttons are located
-3. Choose wanted reply intention provided by ChatGPT and reply tone
-4. Generate reply via 'Generate' Button
-5. Once satisfied with given reply, click 'Choose' Button
-6. Now you can edit the message and then send it.
+To use the ChatGPT Thunderbird Extension:
+
+1. Open an email in Thunderbird.
+2. Click the 'ChatGPT Thunderbird' button located alongside the 'Reply', 'Forward', etc. buttons.
+3. Select the desired reply intention and tone provided by ChatGPT.
+4. Click the 'Generate' button to create a reply.
+5. Review the generated reply. Once satisfied, click the 'Choose' button.
+6. Edit the message as needed and then send it.
 
 ## Current Features
+- Email writing, Summary support using OpenAI's GPT-3.5 API.
 
-- E-Mail writing support using OpenAI's gpt-3.5 API
 ## Roadmap
 
 ### Planned
@@ -81,4 +130,3 @@ Thunderbird E-Mail Client Extension for Writing and Summarizing E-Mails using AI
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-

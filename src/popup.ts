@@ -52,6 +52,11 @@ apiKeyInput.value = apiKey;
 let successfullySavedTag: HTMLElement = document.getElementById(
   "SuccessfullySavedTag"
 );
+
+let negativeSavedTag: HTMLElement = document.getElementById(
+  "NegativeSavedTag"
+);
+
 let applySettingsButton: HTMLButtonElement = document.getElementById(
   "ApplySettingsButton"
 ) as HTMLButtonElement;
@@ -81,14 +86,28 @@ applySettingsButton.addEventListener("click", async (_e: MouseEvent) => {
     emailGeneratorButton.classList.add("button-disabled");
     noTokenErrorText.classList.remove("hidden");
   }
-  successfullySavedTag.classList.remove("hidden");
+  
+  error = await helper
+  .testApiKey('test', apiKey)
+  .then((res) => {
+    return res;
+  })
+  .catch((error) => {
+    console.error(error);
+    negativeSavedTag.classList.remove("hidden");
+    return'';
+  })
+  .finally(() => {
+    successfullySavedTag.classList.remove("hidden");
+  });
 });
 
 /*
   ----------------------------------------------
-  ! DISABLE ALL BUTTONS IF NO STORED API KEY !
+  ! DISABLE ALL BUTTONS IF NO STORED API KEY OR INVALID !
   ----------------------------------------------
 */
+
 
 if (apiKey === "") {
   summaryGeneratorButton.setAttribute("disabled", "true");
@@ -176,6 +195,8 @@ let author: string = message.author;
 let text: string = getText(full);
 
 let possibleIntentions: string[] = [];
+
+let error: string
 
 possibleIntentions = await helper
   .generatePossibleReplyIntentions(text, apiKey)
