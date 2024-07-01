@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <div class="generator" id="generator">
+      <div class="generator hidden" id="generator">
         <div class="generator-box" id="ReplyGeneratorContainer">
           <div class="generator-row">
             <div class="generator-object flex-grow-1 min-size-200">
@@ -156,7 +156,7 @@
           </div>
         </div>
       </div>
-      <div class="tooltip hidden" id="tooltip">
+      <div class="tooltip hide-scrollbar hidden" id="tooltip">
         <div class="tooltip-box">
           <div class="tooltip-object">
             <header class="lato-regular">
@@ -226,8 +226,74 @@
           </div>
         </div>
       </div>
-      <div class="template" id="template">
-        <div class="template-box"></div>
+      <div class="template hide-scrollbar" id="template">
+        <div class="template-box">
+          <div class="template-object">
+            <div class="template-input-group">
+              <div class="flex-grow flex flex-col">
+                <input
+                  placeholder="Template Question"
+                  class="template-input"
+                  type="text"
+                />
+              </div>
+              <div class="flex-grow flex flex-col">
+                <input
+                  placeholder="Answere to the Question"
+                  class="template-input"
+                  type="text"
+                />
+              </div>
+            </div>
+            <div class="template-button-group">
+              <i class="fa-solid fa-floppy-disk template-button"></i>
+              <!--Save button besure to change class name fa-floppy-disk to fa-pen-to-square after user is done editing -->
+              <i class="fa-solid fa-trash template-button"></i>
+            </div>
+          </div>
+          <!--Edit mode on Object-->
+          <div class="template-object">
+            <div class="template-input-group">
+              <div class="flex-grow flex flex-col hidden">
+                <input
+                  placeholder="Template Question"
+                  class="template-input hidden"
+                  type="text"
+                />
+              </div>
+              <div class="flex-grow flex flex-col text-start lato-regular">
+                <span class="status-text">Question :</span>
+                <p class="pad-top-05 text-wrap-21">Where do I work ?</p>
+              </div>
+              <div class="flex-grow flex flex-col hidden">
+                <input
+                  placeholder="Answere to the Question"
+                  class="template-input hidden"
+                  type="text"
+                />
+              </div>
+              <div class="flex-grow flex flex-col text-start lato-regular">
+                <span class="status-text">Answere :</span>
+                <p class="pad-top-05 text-wrap-21">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Tempore animi dolore corporis libero cum totam maxime minima,
+                  voluptatem consequatur eveniet itaque nam dolorum, commodi
+                  adipisci nemo eius eos ducimus. Officia?
+                </p>
+              </div>
+            </div>
+            <div class="template-button-group">
+              <i class="fa-solid fa-pen-to-square template-button"></i>
+              <!--edit button besure to change class name fa-pen-to-square to fa-floppy-disk when user whants to edit -->
+              <i class="fa-solid fa-trash template-button"></i>
+            </div>
+          </div>
+          <!--Edit mode off Object-->
+          <div class="template-add lato-regular">
+            <span>New Template</span><i class="fa-solid fa-plus"></i>
+          </div>
+          <!--add template button-->
+        </div>
       </div>
       <div class="content" id="ReplyGeneratorOutput">
         <div class="content-box">
@@ -362,13 +428,6 @@
             >
               <span class="lato-regular">Saved</span>
               <i class="fa-solid fa-check"></i>
-            </div>
-            <div
-              class="setting-tag negative-tag hidden"
-              id="NegativeSavedTag"
-            >
-              <span class="lato-regular">Rejected</span>
-              <i class="fa-solid fa-xmark"></i>
             </div>
             <div class="setting-tag error-tag hidden">
               <span class="lato-regular">Error</span>
