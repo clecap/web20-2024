@@ -228,9 +228,13 @@
       </div>
       <div class="template hidden hide-scrollbar" id="template">
         <div class="template-box" id="templateContainer">
-          <!--Edit mode off Object-->
-          <div class="template-add lato-regular" id="addTemplateButton">
-            <span>New Template</span><i class="fa-solid fa-plus"></i>
+          <div class=" lato-regular flex flex-row flex-gap-1">
+            <div class="template-add flex-grow-1" id="addTemplateButton">
+              <span>New Template</span><i class="fa-solid fa-plus"></i>
+            </div>
+            <div class="template-count"> <!--template count change as template gets added-->
+              0 / 10
+            </div>
           </div>
           <!--add template button-->
         </div>
@@ -359,20 +363,18 @@
           <span class="lato-regular">Version 2.0 Beta</span>
         </div>
       </div>
-      <div class="setting hidden" id="UserSettingsContainer">
+      <div class="setting" id="UserSettingsContainer">
         <div class="setting-box-wrapper">
+          <div class="setting-tag positive-tag v-hidden" id="SuccessfullySavedTag">
+            <span class="lato-regular">Saved</span>
+            <i class="fa-solid fa-check"></i>
+          </div>
+          <div class="setting-tag error-tag v-hidden">
+            <span class="lato-regular">Error</span>
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
           <div class="setting-box">
-            <div
-              class="setting-tag positive-tag hidden"
-              id="SuccessfullySavedTag"
-            >
-              <span class="lato-regular">Saved</span>
-              <i class="fa-solid fa-check"></i>
-            </div>
-            <div class="setting-tag error-tag hidden">
-              <span class="lato-regular">Error</span>
-              <i class="fa-solid fa-triangle-exclamation"></i>
-            </div>
+            
             <div class="setting-object setting-header-box">
               <span class="lato-regular setting-header-text"
                 >General Settings</span
@@ -385,10 +387,10 @@
             <div class="setting-object hidden" id="NoTokenErrorText">
               <span class="lato-regular error-text">
                 ChatGPT API key must be inserted for the Generator</span
-              >
+              > <!-- this is a place holder, change the text acording to the error while handling the operation-->
             </div>
             <div class="setting-object flex-col">
-              <span class="lato-regular setting-title">ChatGPT API Key</span>
+              <a class=" setting-title text-link lato-regular" href="https://platform.openai.com/account/billing/overview" target="_blank">ChatGPT API Key <i class="fa-solid fa-link"></i></a>
               <input type="text" class="setting-input" id="APIKeyInput" />
             </div>
             <div class="setting-object flex-col">
