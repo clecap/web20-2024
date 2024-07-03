@@ -5,7 +5,7 @@
   "description": "Reply to emails with ChatGPT",
   "version": "1.0.0",
   "developer": {
-    "name": "Niklas Tamm, Lennart Dobermann, Daniel Passauer, Noah Leu, Stephan Glauner, Hauke Pruss, Peter-Alexander Kolev, Pauline Meuer Lukasz Reszczynski, Huseyn Ahmadov",
+    "name": "Niklas Tamm, Lennart Dobermann, Daniel Passauer, Noah Leu, Hauke Pruss, Peter-Alexander Kolev, Pauline Meuer Lukasz Reszczynski, Huseyn Ahmadov",
     "url": "https://github.com/clecap/web20-2024"
   },
   "browser_specific_settings": {

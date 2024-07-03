@@ -83,10 +83,12 @@ applySettingsButton.addEventListener("click", async (_e: MouseEvent) => {
     summaryGeneratorButton.classList.add("button-disabled");
     emailGeneratorButton.classList.add("button-disabled");
     noTokenErrorText.classList.remove("hidden");
+
+    getPossibleIntentions();
   }
 
   error = await helper
-    .testApiKey("test", apiKey)
+    .testApiKey(apiKey, "test")
     .then((res) => {
       return res;
     })
@@ -195,22 +197,26 @@ let possibleIntentions: string[] = [];
 
 let error: string;
 
-possibleIntentions = await helper
-  .generatePossibleReplyIntentions(text, apiKey)
-  .then((res) => {
-    return res;
-  })
-  .catch((error) => {
-    console.error(error);
+async function getPossibleIntentions(): Promise<void> {
+  possibleIntentions = await helper
+    .generatePossibleReplyIntentions(text, apiKey)
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      console.error(error);
 
-    return [];
-  })
-  .finally(() => {
-    let iconSpinner = document.getElementById("ResponseIntentionSpinner");
-    iconSpinner.classList.toggle("hidden");
-    let iconDefault = document.getElementById("ResponseIntentionIcon");
-    iconDefault.classList.toggle("hidden");
-  });
+      return [];
+    })
+    .finally(() => {
+      let iconSpinner = document.getElementById("ResponseIntentionSpinner");
+      iconSpinner.classList.toggle("hidden");
+      let iconDefault = document.getElementById("ResponseIntentionIcon");
+      iconDefault.classList.toggle("hidden");
+    });
+}
+
+getPossibleIntentions();
 
 let responseIntentionContainer: HTMLElement = document.getElementById(
   "ResponseIntentionContainer"
@@ -489,6 +495,17 @@ await loadTemplates()
 
 loadTemplates();
 
+let templateAddButton: HTMLElement =
+  document.getElementById("addTemplateButton");
+templateAddButton.addEventListener("click", async (_e: MouseEvent) => {
+  if (templates.length >= 10) {
+    return;
+  }
+
+  templates.push({ q: "", a: "" });
+  addNew("", "", true, templates.length - 1);
+});
+
 displayTemplates();
 
 function displayTemplates() {
@@ -497,17 +514,22 @@ function displayTemplates() {
     parent.removeChild(parent.firstChild);
   }
 
+  let templateCounter = document.getElementById("templateCounter");
+  templateCounter.textContent = templates.length + " / 10";
+
+  // if templates are 10 disable else enable
+  if (templates.length >= 10) {
+    templateAddButton.setAttribute("disabled", "true");
+    templateAddButton.classList.add("button-disabled");
+  } else {
+    templateAddButton.removeAttribute("disabled");
+    templateAddButton.classList.remove("button-disabled");
+  }
+
   templates.forEach((template, index) => {
     addNew(template.q, template.a, false, index);
   });
 }
-
-let templateAddButton: HTMLElement =
-  document.getElementById("addTemplateButton");
-templateAddButton.addEventListener("click", async (_e: MouseEvent) => {
-  templates.push({ q: "", a: "" });
-  addNew("", "", true, templates.length - 1);
-});
 
 function addNew(q: string, a: string, isNew: boolean, index: number) {
   let templateObject = document.createElement("div");
@@ -594,6 +616,8 @@ function addNew(q: string, a: string, isNew: boolean, index: number) {
   // insert at position before the last element (add button)
   let addButtonChild = parent.lastElementChild;
   parent.insertBefore(templateObject, addButtonChild);
+  let templateCounter = document.getElementById("templateCounter");
+  templateCounter.textContent = templates.length + " / 10";
 }
 
 /*
@@ -607,23 +631,20 @@ let userSettingsButton: HTMLElement =
 let userSettingsButton2: HTMLElement = document.getElementById(
   "UserSettingsButton2"
 );
+let userSettingsContainer: HTMLElement = document.getElementById(
+  "UserSettingsContainer"
+);
+if (apiKey === "") {
+  userSettingsContainer.classList.remove("hidden");
+}
 userSettingsButton.addEventListener("click", async (_e: MouseEvent) => {
-  let userSettingsContainer: HTMLElement = document.getElementById(
-    "UserSettingsContainer"
-  );
   userSettingsContainer.classList.toggle("hidden");
 });
 userSettingsButton2.addEventListener("click", async (_e: MouseEvent) => {
-  let userSettingsContainer: HTMLElement = document.getElementById(
-    "UserSettingsContainer"
-  );
   userSettingsContainer.classList.toggle("hidden");
 });
 
 let closeSettingsEvent = (e: Event) => {
-  let userSettingsContainer: HTMLElement = document.getElementById(
-    "UserSettingsContainer"
-  );
   userSettingsContainer.classList.toggle("hidden");
   successfullySavedTag.classList.add("hidden");
 };

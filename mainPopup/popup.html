@@ -228,11 +228,12 @@
       </div>
       <div class="template hidden hide-scrollbar" id="template">
         <div class="template-box" id="templateContainer">
-          <div class=" lato-regular flex flex-row flex-gap-1">
+          <div class="lato-regular flex flex-row flex-gap-1">
             <div class="template-add flex-grow-1" id="addTemplateButton">
               <span>New Template</span><i class="fa-solid fa-plus"></i>
             </div>
-            <div class="template-count"> <!--template count change as template gets added-->
+            <div class="template-count" id="templateCounter">
+              <!--template count change as template gets added-->
               0 / 10
             </div>
           </div>
@@ -363,9 +364,12 @@
           <span class="lato-regular">Version 2.0 Beta</span>
         </div>
       </div>
-      <div class="setting" id="UserSettingsContainer">
+      <div class="setting hidden" id="UserSettingsContainer">
         <div class="setting-box-wrapper">
-          <div class="setting-tag positive-tag v-hidden" id="SuccessfullySavedTag">
+          <div
+            class="setting-tag positive-tag v-hidden"
+            id="SuccessfullySavedTag"
+          >
             <span class="lato-regular">Saved</span>
             <i class="fa-solid fa-check"></i>
           </div>
@@ -374,7 +378,6 @@
             <i class="fa-solid fa-triangle-exclamation"></i>
           </div>
           <div class="setting-box">
-            
             <div class="setting-object setting-header-box">
               <span class="lato-regular setting-header-text"
                 >General Settings</span
@@ -387,10 +390,16 @@
             <div class="setting-object hidden" id="NoTokenErrorText">
               <span class="lato-regular error-text">
                 ChatGPT API key must be inserted for the Generator</span
-              > <!-- this is a place holder, change the text acording to the error while handling the operation-->
+              >
+              <!-- this is a place holder, change the text acording to the error while handling the operation-->
             </div>
             <div class="setting-object flex-col">
-              <a class=" setting-title text-link lato-regular" href="https://platform.openai.com/account/billing/overview" target="_blank">ChatGPT API Key <i class="fa-solid fa-link"></i></a>
+              <a
+                class="setting-title text-link lato-regular"
+                href="https://platform.openai.com/account/billing/overview"
+                target="_blank"
+                >ChatGPT API Key <i class="fa-solid fa-link"></i
+              ></a>
               <input type="text" class="setting-input" id="APIKeyInput" />
             </div>
             <div class="setting-object flex-col">
