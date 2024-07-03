@@ -1,6 +1,6 @@
 import { ChatGptMailHelper } from "./chatgpt/chatgpt-mail.helper";
 import { IChatGptMailHelper } from "./chatgpt/ichatgpt-mail.helper";
-import { WritingTone, AddresseeTone } from "./chatgpt/models/reply-tone";
+import { WritingTone, UrgencyTone } from "./chatgpt/models/reply-tone";
 import { TypeOfDetail } from "./chatgpt/models/type-of-detail";
 
 declare const messenger: any;
@@ -125,7 +125,7 @@ if (apiKey === "") {
 */
 
 let selectedWritingTone: string = "";
-let selectedAddresseTone: string = "";
+let selectedUrgencyTone: string = "";
 let selectedIntention: string = "";
 
 // populate writing tone dropdown
@@ -155,32 +155,31 @@ writingToneList.addEventListener("click", (e: Event) => {
   }
 });
 
-// populate addressee tone dropdown
-let addresseeToneContainer: HTMLElement = document.getElementById(
-  "AddresseeToneContainer"
+// populate urgency tone dropdown
+let urgencyToneContainer: HTMLElement = document.getElementById(
+  "UrgencyToneContainer"
 );
 
-addresseeToneContainer.addEventListener("click", (_e: Event) => {
+urgencyToneContainer.addEventListener("click", (_e: Event) => {
   let dropdownMenuBox: HTMLElement = document.getElementById(
-    "AddresseeToneDropDown"
+    "UrgencyToneDropDown"
   );
   dropdownMenuBox.classList.toggle("hidden");
 });
-let addreseeToneList: HTMLElement =
-  document.getElementById("AddresseeToneList");
-Object.entries(AddresseeTone).map(([k, __], _) => {
+let urgencyToneList: HTMLElement = document.getElementById("UrgencyToneList");
+Object.entries(UrgencyTone).map(([k, __], _) => {
   let li: HTMLLIElement = document.createElement("li");
   li.className = "menu-option";
   li.textContent = k;
-  addreseeToneList.append(li);
+  urgencyToneList.append(li);
 });
-addreseeToneList.addEventListener("click", (e: Event) => {
+urgencyToneList.addEventListener("click", (e: Event) => {
   if (e.target instanceof HTMLLIElement) {
-    selectedAddresseTone = e.target.textContent;
-    let addresseeToneStatusText: HTMLElement = document.getElementById(
-      "AddresseeToneStatusText"
+    selectedUrgencyTone = e.target.textContent;
+    let urgencyToneStatusText: HTMLElement = document.getElementById(
+      "UrgencyToneStatusText"
     );
-    addresseeToneStatusText.textContent = selectedAddresseTone;
+    urgencyToneStatusText.textContent = selectedUrgencyTone;
   }
 });
 
@@ -298,7 +297,7 @@ emailGeneratorButton.addEventListener("click", async (_e: MouseEvent) => {
       selectedIntention,
       username,
       selectedWritingTone,
-      selectedAddresseTone,
+      selectedUrgencyTone,
       apiKey
     );
 
