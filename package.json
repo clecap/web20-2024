@@ -19,6 +19,6 @@
     "webpack-cli": "^5.1.1"
   },
   "dependencies": {
-    "openai": "^3.2.1"
+    "openai": "^4.52.3"
   }
 }

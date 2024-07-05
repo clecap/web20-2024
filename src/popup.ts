@@ -9,6 +9,8 @@ declare const localStorage: Storage;
 
 const helper: IChatGptMailHelper = new ChatGptMailHelper();
 
+let username: string = "";
+
 /*
   -------------------------------
   ! API KEY FUNCTIONALITY STARTS !
@@ -88,9 +90,9 @@ applySettingsButton.addEventListener("click", async (_e: MouseEvent) => {
   }
 
   error = await helper
-    .testApiKey(apiKey, "test")
+    .testApiKey(apiKey, "0")
     .then((res) => {
-      return res;
+      return res.toString() || "";
     })
     .catch((error) => {
       console.error(error);
@@ -99,6 +101,7 @@ applySettingsButton.addEventListener("click", async (_e: MouseEvent) => {
     })
     .finally(() => {
       successfullySavedTag.classList.remove("hidden");
+      return "";
     });
 });
 
@@ -252,7 +255,6 @@ let nameInput: HTMLInputElement = document.getElementById(
 ) as HTMLInputElement;
 let accountId = message.folder.accountId;
 nameInput.value = "";
-let username: string = "";
 
 const getUserFromStorage: () => Promise<string> = async () => {
   return new Promise((resolve, reject) => {
@@ -481,6 +483,9 @@ const loadTemplates: () => Promise<string> = async () => {
   });
 };
 
+let templateAddButton: HTMLElement =
+  document.getElementById("addTemplateButton");
+
 await loadTemplates()
   .then((result) => {
     if (typeof result === "string") {
@@ -494,8 +499,6 @@ await loadTemplates()
 
 loadTemplates();
 
-let templateAddButton: HTMLElement =
-  document.getElementById("addTemplateButton");
 templateAddButton.addEventListener("click", async (_e: MouseEvent) => {
   if (templates.length >= 10) {
     return;
