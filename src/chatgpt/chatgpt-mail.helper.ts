@@ -42,7 +42,6 @@ export class ChatGptMailHelper implements IChatGptMailHelper {
     apiKey: string
   ): Promise<string[]> {
     const session = new ChatGptSession([], apiKey);
-    console.log(session);
 
     const reply = await session.sendMessage(
       `Based on the following Email correspondance, please generate a list of a maximum of five possible intentions for replying to the email.

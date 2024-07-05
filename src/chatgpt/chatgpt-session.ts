@@ -5,7 +5,6 @@ import {
 } from "openai/resources";
 
 export class ChatGptSession {
-  private apiKey: string = "";
   private openai: OpenAI;
 
   public messageHistory: ChatCompletionMessageParam[] = [];
@@ -15,9 +14,6 @@ export class ChatGptSession {
     apiKey: string,
     private model: string = "gpt-3.5-turbo"
   ) {
-    // this.configuration.apiKey = apiKey;
-    // console.log(this.configuration.apiKey);
-
     this.openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
 
     this.messageHistory = initialMessages;
@@ -43,13 +39,9 @@ export class ChatGptSession {
 
         this.messageHistory.push(response);
 
-        console.log("Response from OpenAI:", response);
-
         return response.content;
       }
     } catch (error: any) {
-      console.log(error.message);
-
       console.error("An error occured while calling the OpenAI API.", error);
       throw error;
     }
