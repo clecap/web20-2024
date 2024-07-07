@@ -11,11 +11,26 @@ export class ChatGptMailHelper implements IChatGptMailHelper {
     apiKey: string
   ): Promise<string> {
     const session = new ChatGptSession([], apiKey);
-
-    return await session.sendMessage(
-      `Based on the following Email correspondance, please generate a response email with the intention "${intention.valueOf()}" using a ${writingTone} tone and addressing a ${addresseeTone} recipient.
-      Respond just with the content of the email. The senders name is ${name}. Reply in the language used in the given emails.\n\n${email}`
-    );
+    let templatesString = localStorage.getItem("templates");
+    let emailGenerationPrompt = "";
+    type Template = {
+      q: string; // question
+      a: string; // answer
+    };
+    if (templatesString === "") {
+      emailGenerationPrompt = `Based on the following Email correspondance, please generate a response email with the intention "${intention.valueOf()}" using a ${writingTone} tone and addressing a ${addresseeTone} recipient.
+      Respond just with the content of the email. The senders name is ${name}. Reply in the language used in the given emails.`
+    } else {
+      let templates: Template[] = [];
+      templates = JSON.parse(templatesString);
+      let QAString = "";
+      templates.forEach((template, index) => {
+        QAString = QAString + `Question: ${template.q}? Answer: ${template.a}.`;
+      });
+      emailGenerationPrompt = `Based on the following Email correspondance, please generate a response email with the intention "${intention.valueOf()}" using a ${writingTone} tone and addressing a ${addresseeTone} recipient.
+      Respond just with the content of the email. The senders name is ${name}. Reply in the language used in the given emails. Use the following questions and answers as overall information on the sender and their context ${QAString}.`
+    }
+    return await session.sendMessage(`${emailGenerationPrompt}\n\n${email}`);
   }
 
   async generateEmailSummary(
