@@ -17,6 +17,9 @@ export class ChatGptMailHelper implements IChatGptMailHelper {
       q: string; // question
       a: string; // answer
     };
+    urgencyTone = urgencyTone === "" ? "neutral" : urgencyTone;
+    writingTone = writingTone === "" ? "neutral" : writingTone;
+
     if (templatesString === "") {
       emailGenerationPrompt = `Based on the following Email correspondance, generate a response email with the intention "${intention.valueOf()}" using a ${writingTone} tone and ${urgencyTone} urgency.
       Respond just with the content of the email. The senders name is ${name}. Reply in the language used in the given emails. Add "This E-Mail was written with the help of ChatGPT." at the end of the email. E-Mail:`;
@@ -48,6 +51,9 @@ export class ChatGptMailHelper implements IChatGptMailHelper {
     } else if (typeOfDetail.toLowerCase() === "long") {
       summarizationPrompt = `Summarize the following Email content in a long manner. Tell me if this E-Mail is a spam by writing "SPAM" at the beginning.
        If the E-Mail includes event details, highlight important dates and time. Provide all the important details. Ensure to use the language of the email.`;
+    } else {
+      summarizationPrompt = `Summarize the following Email content in a short manner. Tell me if this E-Mail is a spam by writing "SPAM" at the beginning.
+       Provide the key points. Ensure to use the language of the email.`;
     }
 
     return await session.sendMessage(`${summarizationPrompt}\n\n${email}`);

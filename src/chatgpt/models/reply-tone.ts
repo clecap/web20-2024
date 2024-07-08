@@ -1,5 +1,6 @@
 export enum WritingTone {
   Formal = "formal",
+  Neutral = "neutral",
   Informal = "informal",
 }
 
