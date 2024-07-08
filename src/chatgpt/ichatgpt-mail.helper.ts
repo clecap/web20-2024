@@ -4,7 +4,7 @@ export interface IChatGptMailHelper {
     intention: string,
     name: string,
     writingTone: string,
-    addresseeTone: string,
+    urgencyTone: string,
     apiKey: string
   ): Promise<string>;
 
@@ -19,8 +19,5 @@ export interface IChatGptMailHelper {
     apiKey: string
   ): Promise<string>;
 
-  testApiKey(
-    apiKey: string,
-    test: string,
-  ): Promise<string>
+  testApiKey(apiKey: string, test: string): Promise<string>;
 }

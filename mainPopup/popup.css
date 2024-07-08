@@ -422,6 +422,13 @@ body {
   background: rgba(0, 0, 0, 0.9);
 }
 
+.setting-box-wrapper
+{
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: flex-start;  
+}
 .setting-box {
   min-width: 350px;
   padding: 1rem;
@@ -481,14 +488,11 @@ body {
 }
 
 .setting-tag {
-  top: 4rem;
-  left: 5rem;
   padding: 0.5rem 1rem !important;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 1rem;
-  position: absolute;
   color: white;
   padding: 0.2rem 0.5rem;
   border-radius: 6px;
@@ -652,6 +656,12 @@ body {
   transition: ease-in-out 0.3s;
 }
 
+.template-count {
+  font-size: large;
+  color: #979797;
+  padding: 1rem;
+}
+
 .template-add:hover {
   background-color: #005580;
 }
@@ -722,14 +732,18 @@ body {
 }
 
 .button-disabled {
-  background-color: #979797 !important;
-  border: 1px solid #979797 !important;
-  color: white !important;
+  background-color: #f7f7f7 !important;
+  border: 1px solid #ddd !important;
+  color: #a0a5aa !important;
   cursor: not-allowed !important;
 }
 
 .hidden {
   display: none !important;
+}
+
+.v-hidden {
+  visibility: hidden !important;
 }
 
 .gap-12 {
@@ -806,6 +820,17 @@ body {
 
 .text-red {
   color: red;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.text-link
+{
+  color: var(--color-primary) !important;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .text-start {

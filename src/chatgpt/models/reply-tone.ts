@@ -3,7 +3,8 @@ export enum WritingTone {
   Informal = "informal",
 }
 
-export enum AddresseeTone {
-  Personal = "personal",
-  Professional = "professional",
+export enum UrgencyTone {
+  Low = "low",
+  Medium = "medium",
+  High = "high",
 }

@@ -7,7 +7,7 @@ export class ChatGptMailHelper implements IChatGptMailHelper {
     intention: string,
     name: string,
     writingTone: string,
-    addresseeTone: string,
+    urgencyTone: string,
     apiKey: string
   ): Promise<string> {
     const session = new ChatGptSession([], apiKey);
@@ -18,17 +18,18 @@ export class ChatGptMailHelper implements IChatGptMailHelper {
       a: string; // answer
     };
     if (templatesString === "") {
-      emailGenerationPrompt = `Based on the following Email correspondance, please generate a response email with the intention "${intention.valueOf()}" using a ${writingTone} tone and addressing a ${addresseeTone} recipient.
-      Respond just with the content of the email. The senders name is ${name}. Reply in the language used in the given emails.`
+      emailGenerationPrompt = `Based on the following Email correspondance, generate a response email with the intention "${intention.valueOf()}" using a ${writingTone} tone and ${urgencyTone} urgency.
+      Respond just with the content of the email. The senders name is ${name}. Reply in the language used in the given emails. Add "This E-Mail was written with the help of ChatGPT." at the end of the email. E-Mail:`;
     } else {
       let templates: Template[] = [];
       templates = JSON.parse(templatesString);
       let QAString = "";
       templates.forEach((template, index) => {
-        QAString = QAString + `Question: ${template.q}? Answer: ${template.a}.`;
+        QAString = QAString + `Question: ${template.q}? Answer: ${template.a};`;
       });
-      emailGenerationPrompt = `Based on the following Email correspondance, please generate a response email with the intention "${intention.valueOf()}" using a ${writingTone} tone and addressing a ${addresseeTone} recipient.
-      Respond just with the content of the email. The senders name is ${name}. Reply in the language used in the given emails. Use the following questions and answers as overall information on the sender and their context ${QAString}.`
+      emailGenerationPrompt = `Based on the following Email correspondance, generate a response email with the intention "${intention.valueOf()}" using a ${writingTone} tone and ${urgencyTone} urgency.
+      Respond just with the content of the email. The senders name is ${name}. Reply in the language used in the given emails. Add "This E-Mail was written with the help of ChatGPT." at the end of the email.
+      Use the following questions and answers as overall information on the sender and their context: ${QAString}. E-Mail:`;
     }
     return await session.sendMessage(`${emailGenerationPrompt}\n\n${email}`);
   }

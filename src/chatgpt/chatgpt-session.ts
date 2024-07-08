@@ -1,26 +1,20 @@
+import OpenAI from "openai";
 import {
-  ChatCompletionRequestMessage,
-  Configuration,
-  CreateChatCompletionRequest,
-  OpenAIApi,
-} from "openai";
-// import { API_KEY } from './api-key.const';
+  ChatCompletionCreateParamsNonStreaming,
+  ChatCompletionMessageParam,
+} from "openai/resources";
 
 export class ChatGptSession {
-  private configuration = new Configuration({
-    apiKey: "",
-  });
-  private openai: OpenAIApi;
+  private openai: OpenAI;
 
-  public messageHistory: ChatCompletionRequestMessage[] = [];
+  public messageHistory: ChatCompletionMessageParam[] = [];
 
   constructor(
-    initialMessages: ChatCompletionRequestMessage[],
+    initialMessages: ChatCompletionMessageParam[],
     apiKey: string,
     private model: string = "gpt-3.5-turbo"
   ) {
-    this.configuration.apiKey = apiKey;
-    this.openai = new OpenAIApi(this.configuration);
+    this.openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
 
     this.messageHistory = initialMessages;
   }
@@ -31,25 +25,23 @@ export class ChatGptSession {
   ): Promise<string> {
     this.messageHistory.push(this.createUserRequestMessage(message));
 
-    const request: CreateChatCompletionRequest = {
+    const request: ChatCompletionCreateParamsNonStreaming = {
       model: this.model,
       messages: this.messageHistory,
       temperature,
     };
 
     try {
-      const completion = await this.openai.createChatCompletion(request);
+      const completion = await this.openai.chat.completions.create(request);
 
-      if (completion.data.choices.length > 0) {
-        const response = completion.data.choices[0].message;
+      if (completion.choices.length > 0) {
+        const response = completion.choices[0].message;
 
         this.messageHistory.push(response);
 
-        // console.log("Response from OpenAI:", response);
-
         return response.content;
       }
-    } catch (error: unknown) {
+    } catch (error: any) {
       console.error("An error occured while calling the OpenAI API.", error);
       throw error;
     }
@@ -57,7 +49,7 @@ export class ChatGptSession {
 
   private createUserRequestMessage(
     message: string
-  ): ChatCompletionRequestMessage {
+  ): ChatCompletionMessageParam {
     return {
       role: "user",
       content: message,
