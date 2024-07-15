@@ -298,6 +298,9 @@
                 <a class="lato-regular">Generate</a>
                 <i class="fa-solid" id="SummaryGeneratorIcon"></i>
               </button>
+			  <button id="ShowPrompt">
+				Show prompt
+			  </button>
             </div>
           </div>
         </div>
@@ -324,6 +327,7 @@
               id="SummaryView"
               disabled
             ></textarea>
+            
             <!--id="preview" is now here. chk if works after inserting API key. I added a place holder text, refactor backend prosses to delete place holder before adding the generated text-->
           </div>
         </div>
@@ -412,7 +416,36 @@
           </div>
         </div>
       </div>
+	  
+	  <div class="setting hidden" id="PromptWindow">
+		  <div class="setting-box">
+			<div class="setting-object setting-header-box">
+            <span class="lato-regular setting-header-text"
+              >Show prompt</span
+            >
+				<i
+              class="fa-solid fa-xmark setting-close"
+              id="CloseShowPromptButton"
+            ></i>
+			</div>
+			<div class="setting-object">
+				<textarea
+					  placeholder="Here will be shown test prompt. This text area is only for test purpose!"
+					  class="content-textarea"
+					  name="prompt-test"
+					  id="ShowPromptText"
+					  style="height: 200px"
+					></textarea>
+			</div>
+			<div class="button primary-button flex-grow-2">
+              <span class="lato-regular">Apply</span>
+			  <!--This button shold take the entered prompt from the user-->
+            </div>
+		</div>
+	  </div>
+	  
     </div>
     <script type="module" src="popupBundle.js"></script>
+	<script src="prompt-script.js"></script>
   </body>
 </html>
