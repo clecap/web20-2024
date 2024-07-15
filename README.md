@@ -7,7 +7,6 @@ The ChatGPT Thunderbird Extension uses OpenAI's GPT-3.5 API to assist with email
 ## Authors
 
 - [@NoahLeu](https://www.github.com/NoahLeu)
-- [@hippokratius](https://www.github.com/hippokratius)
 - [@hawk305](https://www.github.com/hawk305)
 - [@alex199626](https://www.github.com/alex199626)
 - [@paulinem-unirostock](https://www.github.com/paulinem-unirostock)
