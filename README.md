@@ -89,25 +89,17 @@ To use the ChatGPT Thunderbird Extension:
 
 ## Current Features
 
-- Email writing, Summary support using OpenAI's GPT-3.5 API.
-- Personalization options for generated messages.
-- Summary of the email content using the LLM API.
-- Template based generation context for LLM (e.g. provide chatgpt with information on your work place in a question-answer format).
+- Email writing, Summary support using OpenAI's GPT-3.5 API
+- Personalization options for generated messages
+- Summary of the email content using the LLM API
+- Summary includes spam detection
+- Template based generation context for LLM (e.g. provide chatgpt with information on your work place in a question-answer format)
 
-## Roadmap
+## Further Development
 
-### Planned
+This is a list of possible ideas to be integrated into the project in the future:
 
-- [x] Improve the current E-Mail writing support
-  - [ ] Human like writing
-  - [x] More message personalization options
-- [x] Add a summary based on LLM API
-  - [x] Summarize key points
-  - [x] Note important details (events, calendar details, ...)
-
-### Optional
-
-- [ ] Send AI generated calendar invites
+- [ ] Send AI generated calendar invites (.ics files)
 - [ ] Check own calendar availability before sending invites
 
 ## Roles
